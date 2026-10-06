@@ -1,0 +1,1043 @@
+/* Meta Business Suite–style post insights (LEAD BIRD tokens) */
+
+.smm-insights-page {
+    --smm-ins-text: #050505;
+    --smm-ins-muted: #65676b;
+    --smm-ins-border: #dddfe2;
+    --smm-ins-card: var(--brand-white);
+    --smm-ins-bg: #f0f2f5;
+    --smm-ins-tab: color-mix(in srgb, var(--brand-blue) 12%, white);
+    --smm-ins-chart: var(--brand-blue);
+    --smm-ins-typical: #bcc0c4;
+    margin: 0;
+    min-height: 100%;
+    background:
+        radial-gradient(1200px 600px at 12% -10%, color-mix(in srgb, var(--brand-blue) 10%, white), transparent 60%),
+        radial-gradient(900px 500px at 88% 0%, color-mix(in srgb, var(--brand-blue) 6%, white), transparent 55%),
+        var(--smm-ins-bg);
+    color: var(--smm-ins-text);
+}
+
+.dashboard-page--flush .dashboard-content:has(.smm-insights-page),
+.dashboard-page--flush .dashboard-sections:has(.smm-insights-page) {
+    overflow: auto;
+    height: 100%;
+}
+
+.smm-insights-loading-state,
+.smm-insights-error-state {
+    margin: 2.5rem auto;
+    max-width: 32rem;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    color: var(--smm-ins-muted);
+    font-size: 0.9375rem;
+}
+
+.smm-insights-error-state {
+    color: var(--brand-red);
+}
+
+.smm-insights-shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 1rem 1.25rem 2.5rem;
+}
+
+.smm-insights-shell.is-hidden,
+.smm-insights-loading-state.is-hidden,
+.smm-insights-error-state.is-hidden,
+.smm-insights-menu.is-hidden,
+.smm-insights-tab-panel.is-hidden {
+    display: none !important;
+}
+
+/* Mobile-first topbar: back + title + menu, then post card, then boost */
+.smm-insights-topbar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+        "back heading menu"
+        "main main main"
+        "boost boost boost";
+    align-items: center;
+    column-gap: 0.25rem;
+    row-gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0.15rem 0 0.85rem;
+}
+
+.smm-insights-topbar-nav,
+.smm-insights-topbar-actions {
+    display: contents;
+}
+
+.smm-insights-back {
+    grid-area: back;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    color: var(--smm-ins-text);
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+}
+
+.smm-insights-topbar-heading {
+    grid-area: heading;
+    margin: 0;
+    min-width: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--smm-ins-text);
+    letter-spacing: -0.01em;
+}
+
+.smm-insights-menu-wrap {
+    grid-area: menu;
+    position: relative;
+    justify-self: end;
+}
+
+.smm-insights-topbar-main {
+    grid-area: main;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    min-width: 0;
+    padding: 0.85rem;
+    border: 1px solid var(--smm-ins-border);
+    border-radius: 0.9rem;
+    background: var(--brand-white);
+    box-shadow: 0 8px 20px rgb(0 56 255 / 0.04);
+}
+
+.smm-insights-boost {
+    grid-area: boost;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid rgb(0 56 255 / 0.12);
+    border-radius: 0.7rem;
+    background: var(--brand-surface);
+    color: var(--smm-ins-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: not-allowed;
+}
+
+.smm-insights-back:hover {
+    background: rgb(0 56 255 / 0.08);
+}
+
+.smm-insights-back:focus-visible,
+.smm-insights-icon-btn:focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+}
+
+.smm-insights-thumb-wrap {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 0.55rem;
+    overflow: hidden;
+    background: var(--brand-surface);
+    flex-shrink: 0;
+}
+
+.smm-insights-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.smm-insights-topbar-copy {
+    min-width: 0;
+    flex: 1;
+}
+
+.smm-insights-caption {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--smm-ins-text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.smm-insights-meta {
+    margin: 0.4rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8125rem;
+    color: var(--smm-ins-muted);
+}
+
+.smm-insights-platform-icon {
+    display: inline-flex;
+    width: 0.95rem;
+    height: 0.95rem;
+}
+
+.smm-insights-platform-icon svg,
+.smm-insights-platform-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+.smm-insights-meta-dot {
+    opacity: 0.7;
+}
+
+.smm-insights-published-wrap {
+    min-width: 0;
+}
+
+.smm-insights-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--smm-ins-text);
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-insights-icon-btn:hover {
+    background: rgb(0 56 255 / 0.08);
+}
+
+.smm-insights-menu {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    right: 0;
+    z-index: 30;
+    min-width: 11.5rem;
+    padding: 0.35rem 0;
+    border: 1px solid var(--smm-ins-border);
+    border-radius: 0.55rem;
+    background: var(--brand-white);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+.smm-insights-menu-item {
+    display: block;
+    width: 100%;
+    padding: 0.7rem 0.95rem;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-size: 0.875rem;
+    color: var(--smm-ins-text);
+    cursor: pointer;
+}
+
+.smm-insights-menu-item:hover {
+    background: rgb(0 56 255 / 0.06);
+}
+
+.smm-insights-menu-item--danger {
+    color: var(--brand-red);
+}
+
+.smm-insights-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.9fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.smm-insights-main,
+.smm-insights-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.smm-insights-card {
+    background: var(--smm-ins-card);
+    border: 1px solid var(--smm-ins-border);
+    border-radius: 0.65rem;
+    padding: 1.15rem 1.25rem 1.25rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+}
+
+.smm-insights-card-title {
+    margin: 0 0 1rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-overview {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.smm-insights-kpi {
+    min-width: 0;
+}
+
+.smm-insights-kpi-label {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8125rem;
+    color: var(--smm-ins-muted);
+}
+
+.smm-insights-kpi-value {
+    margin: 0.35rem 0 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--smm-ins-text);
+    letter-spacing: -0.02em;
+}
+
+.smm-insights-audience-split {
+    margin-top: 0.35rem;
+    padding: 0.35rem 0 0.15rem;
+}
+
+.smm-insights-audience-split-labels,
+.smm-insights-audience-split-values {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.smm-insights-audience-split-labels {
+    margin: 0 0 0.55rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-audience-bar {
+    display: flex;
+    align-items: stretch;
+    gap: 0.28rem;
+    width: 100%;
+    height: 0.72rem;
+    border-radius: 999px;
+    overflow: hidden;
+    background: transparent;
+}
+
+.smm-insights-audience-bar-follower,
+.smm-insights-audience-bar-nonfollower {
+    display: block;
+    min-width: 0;
+    height: 100%;
+    border-radius: 999px;
+}
+
+.smm-insights-audience-bar-follower {
+    background: color-mix(in srgb, var(--brand-blue) 38%, white);
+}
+
+.smm-insights-audience-bar-nonfollower {
+    background: color-mix(in srgb, var(--brand-blue) 72%, var(--brand-blue-dark));
+}
+
+.smm-insights-audience-split-values {
+    margin: 0.55rem 0 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--smm-ins-text);
+    letter-spacing: -0.01em;
+}
+
+.smm-insights-audience-empty.is-hidden,
+.smm-insights-audience-split.is-hidden {
+    display: none !important;
+}
+
+.smm-insights-empty-copy {
+    margin: 0.35rem 0 0;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-empty-sub {
+    margin: 0.35rem 0 0;
+    text-align: center;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--smm-ins-muted);
+}
+
+.smm-insights-breakdown {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.1rem;
+    padding-top: 0.25rem;
+}
+
+.smm-insights-breakdown-item {
+    min-width: 0;
+}
+
+.smm-insights-breakdown-label {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--smm-ins-muted);
+}
+
+.smm-insights-breakdown-value {
+    margin: 0.4rem 0 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-compare[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 980px) {
+    .smm-insights-breakdown {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.smm-insights-compare {
+    margin: 0 0 0.85rem;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--smm-ins-muted);
+}
+
+.smm-insights-compare strong {
+    color: var(--smm-ins-text);
+    font-weight: 700;
+}
+
+.smm-insights-metric-label {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-metric-value {
+    margin: 0.35rem 0 0;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.smm-insights-tabs {
+    display: inline-flex;
+    gap: 0.15rem;
+    margin: 0.85rem 0 1rem;
+    padding: 0.15rem;
+    border-radius: 999px;
+    background: transparent;
+}
+
+.smm-insights-tab {
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--smm-ins-muted);
+    padding: 0.35rem 0.8rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.smm-insights-tab.is-active {
+    background: var(--smm-ins-tab);
+    color: var(--brand-blue);
+}
+
+.smm-insights-tab:hover:not(.is-active) {
+    background: rgb(0 0 0 / 0.04);
+}
+
+.smm-insights-chart-wrap {
+    position: relative;
+    width: 100%;
+    height: 240px;
+}
+
+.smm-insights-chart-note {
+    margin: 0.35rem 0 0;
+    padding: 1rem 0.5rem 0.25rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--smm-ins-muted);
+}
+
+.smm-insights-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 0.85rem;
+    font-size: 0.75rem;
+    color: var(--smm-ins-muted);
+}
+
+.smm-insights-chart-wrap.is-hidden,
+.smm-insights-legend.is-hidden,
+.smm-insights-chart-note.is-hidden {
+    display: none;
+}
+
+.smm-insights-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.smm-insights-legend-line {
+    display: inline-block;
+    width: 1.1rem;
+    height: 0.15rem;
+    border-radius: 999px;
+}
+
+.smm-insights-legend-line--this {
+    background: var(--smm-ins-chart);
+}
+
+.smm-insights-legend-line--typical {
+    background: color-mix(in srgb, var(--brand-blue) 28%, #bcc0c4);
+    height: 0.35rem;
+    opacity: 0.9;
+}
+
+.smm-insights-audience-label {
+    margin: 0.25rem 0 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+}
+
+.smm-insights-audience-art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 9rem;
+    padding: 1rem 0 0.5rem;
+}
+
+.smm-insights-audience-icon {
+    width: 7.5rem;
+    height: 7.5rem;
+    object-fit: contain;
+    display: block;
+}
+
+.smm-insights-feed {
+    border: 1px solid var(--smm-ins-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: var(--brand-white);
+}
+
+.smm-insights-feed-brand {
+    margin: 0;
+    padding: 0.65rem 0.85rem 0.35rem;
+    font-family: var(--brand-font-heading);
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+}
+
+.smm-insights-feed-user {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 0.85rem 0.65rem;
+}
+
+.smm-insights-feed-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    object-fit: cover;
+    background: var(--brand-surface);
+}
+
+.smm-insights-feed-handle {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 700;
+}
+
+.smm-insights-feed-media {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--brand-surface);
+    display: block;
+    object-fit: cover;
+}
+
+.smm-insights-feed-media--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--smm-ins-muted);
+    font-size: 0.875rem;
+}
+
+.smm-insights-feed-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.7rem 0.85rem 0.35rem;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-feed-actions .smm-insights-feed-save {
+    margin-left: auto;
+}
+
+.smm-insights-feed-caption {
+    margin: 0;
+    padding: 0.25rem 0.85rem 0.95rem;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-feed-caption strong {
+    font-weight: 700;
+}
+
+.smm-insights-feed-more {
+    color: var(--smm-ins-muted);
+    font-weight: 400;
+}
+
+/* TikTok is a dark, full-bleed vertical feed — an Instagram card misreads the post. */
+.smm-insights-feed--tiktok {
+    border-color: rgb(255 255 255 / 0.12);
+    background: #000;
+}
+
+.smm-insights-feed--tiktok .smm-insights-feed-brand,
+.smm-insights-feed--tiktok .smm-insights-feed-handle,
+.smm-insights-feed--tiktok .smm-insights-feed-actions,
+.smm-insights-feed--tiktok .smm-insights-feed-caption {
+    color: var(--brand-white);
+}
+
+.smm-insights-feed--tiktok .smm-insights-feed-more {
+    color: rgb(255 255 255 / 0.6);
+}
+
+.smm-insights-feed--tiktok .smm-insights-feed-avatar {
+    background: rgb(255 255 255 / 0.12);
+}
+
+/* TikTok covers are 9:16, so a square crop would slice the frame. */
+.smm-insights-feed--tiktok .smm-insights-feed-media {
+    aspect-ratio: 9 / 16;
+    max-height: 28rem;
+    background: #000;
+}
+
+.smm-insights-feed--tiktok .smm-insights-feed-media--empty {
+    color: rgb(255 255 255 / 0.55);
+}
+
+/* TikTok stacks its actions vertically over the right edge of the video. */
+.smm-insights-feed--tiktok .smm-insights-feed-stage {
+    position: relative;
+}
+
+.smm-insights-feed--tiktok .smm-insights-feed-actions {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 1.1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.15rem;
+    padding: 0;
+    color: var(--brand-white);
+    /* Icons sit on video, so give them a soft shadow to stay legible on any frame. */
+    filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.55));
+}
+
+.smm-insights-feed--tiktok .smm-insights-feed-actions .smm-insights-feed-save {
+    margin-left: 0;
+}
+
+.smm-insights-view-post {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 0.85rem;
+    min-height: 2.4rem;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid var(--smm-ins-border);
+    border-radius: 0.4rem;
+    background: #f0f2f5;
+    color: var(--smm-ins-text);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background 0.15s ease;
+}
+
+.smm-insights-view-post:hover {
+    background: #e4e6eb;
+}
+
+.smm-insights-comment-card {
+    padding: 0.75rem 0.9rem;
+}
+
+.smm-insights-comment-row {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.smm-insights-comment-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    object-fit: cover;
+    background: var(--brand-surface);
+    flex-shrink: 0;
+}
+
+.smm-insights-comment-field {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.smm-insights-comment-field input {
+    width: 100%;
+    min-height: 2.25rem;
+    padding: 0.45rem 2.1rem 0.45rem 0.75rem;
+    border: 1px solid var(--smm-ins-border);
+    border-radius: 999px;
+    background: var(--brand-white);
+    font-family: var(--brand-font-body);
+    font-size: 0.8125rem;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-comment-field input:focus {
+    outline: 2px solid color-mix(in srgb, var(--brand-blue) 35%, white);
+    outline-offset: 1px;
+}
+
+.smm-insights-comment-emoji {
+    position: absolute;
+    right: 0.45rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--smm-ins-muted);
+    cursor: default;
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.smm-insights-comment-send {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--smm-ins-muted);
+    cursor: pointer;
+}
+
+.smm-insights-comment-send:hover {
+    color: var(--brand-blue);
+}
+
+.smm-insights-page .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 980px) {
+    .smm-insights-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .smm-insights-overview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .smm-insights-published-label {
+        display: none;
+    }
+}
+
+@media (min-width: 981px) {
+    .smm-insights-topbar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.85rem;
+        grid-template-areas: none;
+    }
+
+    .smm-insights-topbar-nav {
+        display: flex;
+        align-items: center;
+        flex: 0 0 auto;
+    }
+
+    .smm-insights-topbar-heading {
+        display: none;
+    }
+
+    .smm-insights-back {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .smm-insights-topbar-main {
+        flex: 1;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        align-items: center;
+    }
+
+    .smm-insights-thumb-wrap {
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 0.45rem;
+    }
+
+    .smm-insights-topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        flex-shrink: 0;
+    }
+
+    .smm-insights-menu-wrap {
+        justify-self: auto;
+    }
+
+    .smm-insights-boost {
+        width: auto;
+        min-width: 9.5rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .smm-insights-shell {
+        padding: 0.75rem 0.75rem 2rem;
+    }
+
+    .smm-insights-overview {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.85rem;
+    }
+
+    .smm-insights-kpi-value {
+        font-size: 1.45rem;
+    }
+
+    .smm-insights-metric-value {
+        font-size: 1.65rem;
+    }
+
+    .smm-insights-topbar-heading {
+        font-size: 1rem;
+    }
+
+    .smm-insights-caption {
+        font-size: 0.9rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .smm-insights-back,
+    .smm-insights-tab,
+    .smm-insights-view-post {
+        transition: none;
+    }
+}
+
+/* Audience demographics — Meta-style grouped bars + centered legend */
+.smm-insights-audience-label {
+    margin: 0.85rem 0 0.65rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--smm-ins-text);
+}
+
+.smm-insights-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.15rem;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.smm-insights-demo-chart {
+    height: 230px;
+    width: 100%;
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.smm-insights-demo-legend {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.25rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.smm-insights-demo-legend-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.smm-insights-demo-legend-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.smm-insights-demo-legend-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--smm-ins-text);
+    line-height: 1.2;
+}
+
+.smm-insights-demo-legend-pct {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--smm-ins-muted);
+    line-height: 1.2;
+}
+
+.smm-insights-demo-swatch {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 0.12rem;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.smm-insights-demo-swatch--women {
+    background: color-mix(in srgb, var(--brand-blue) 42%, white);
+}
+
+.smm-insights-demo-swatch--men {
+    background: var(--brand-blue);
+}
+
+.smm-insights-watch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.smm-insights-feed-media--video {
+    aspect-ratio: 9 / 16;
+    max-height: 28rem;
+    width: 100%;
+    object-fit: cover;
+    background: #000;
+    position: relative;
+    z-index: 1;
+}
+
+.smm-insights-feed-video-wrap {
+    position: relative;
+    z-index: 1;
+    background: #000;
+}
+
+.smm-insights-feed-embed-wrap {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    max-height: 28rem;
+    overflow: hidden;
+    background: #000;
+}
+
+.smm-insights-feed-embed {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    background: #000;
+}
+
+@media (max-width: 720px) {
+    .smm-insights-watch-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .smm-insights-demo-chart {
+        height: 210px;
+    }
+
+    .smm-insights-demo-legend {
+        gap: 1.75rem;
+    }
+}

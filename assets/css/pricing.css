@@ -1,0 +1,159 @@
+.pricing-page {
+    color: #111827;
+}
+
+.pricing-grid {
+    background-image:
+        linear-gradient(to right, var(--brand-grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--brand-grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+.pricing-tier.is-selected .pricing-tier-shadow {
+    border-color: var(--brand-lime);
+    box-shadow: 6px 6px 0 0 var(--brand-lime);
+}
+
+.pricing-tier.is-selected {
+    transform: translateY(-4px);
+}
+
+.pricing-alert {
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.875rem 1.125rem;
+    border-radius: 0.75rem;
+    border: 2px solid #18181b;
+    font-size: 0.9375rem;
+}
+
+.pricing-alert-error {
+    background: #fff;
+    color: #991b1b;
+}
+
+.pricing-alert-success {
+    background: var(--brand-lime);
+    color: #000;
+}
+
+.pricing-checkout-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(0 0 0 / 0.45);
+    backdrop-filter: blur(4px);
+    padding: 1.5rem;
+}
+
+.pricing-checkout-overlay.hidden {
+    display: none;
+}
+
+.pricing-checkout-panel {
+    width: min(100%, 24rem);
+    background: #fff;
+    border: 2px solid #18181b;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 8px 8px 0 0 #18181b;
+}
+
+.pricing-checkout-spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 auto 1rem;
+    border: 3px solid #e4e4e7;
+    border-top-color: var(--brand-blue);
+    border-radius: 50%;
+    animation: pricing-spin 0.8s linear infinite;
+}
+
+@keyframes pricing-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.pricing-cta {
+    border-radius: 9999px;
+}
+
+.pricing-cta.is-loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.pricing-cycle-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border: 2px solid rgb(24 24 27);
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.12);
+}
+
+.pricing-cycle-btn {
+    border: 0;
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    font-family: var(--brand-font-body, sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgb(255 255 255 / 0.85);
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pricing-cycle-btn.is-active {
+    background: var(--brand-lime);
+    color: var(--brand-black);
+}
+
+.pricing-cycle-save {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: inherit;
+    opacity: 0.85;
+}
+
+.bill-plan-picker .pricing-cycle-toggle {
+    margin-bottom: 1rem;
+    background: var(--brand-surface);
+}
+
+.bill-plan-picker .pricing-cycle-btn {
+    color: rgb(24 24 27 / 0.7);
+}
+
+.bill-plan-picker .pricing-cycle-btn.is-active {
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.plans-cycle-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.plans-cycle-wrap .pricing-cycle-toggle {
+    background: var(--brand-surface);
+}
+
+.plans-cycle-wrap .pricing-cycle-btn {
+    color: rgb(24 24 27 / 0.7);
+}
+
+.plans-cycle-wrap .pricing-cycle-btn.is-active {
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}

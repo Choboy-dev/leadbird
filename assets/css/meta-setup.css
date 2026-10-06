@@ -1,0 +1,137 @@
+/* Meta connect setup — pre-OAuth instructions */
+
+.meta-setup-page {
+    margin: 0;
+    min-height: 100vh;
+    color: #111827;
+    background: var(--brand-blue);
+}
+
+.meta-setup-shell {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+    overflow: hidden;
+}
+
+.meta-setup-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(to right, var(--brand-grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--brand-grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+}
+
+.meta-setup-main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 30rem;
+}
+
+.meta-setup-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.meta-setup-logo .brand-logo img {
+    max-height: 2.5rem;
+    width: auto;
+}
+
+.meta-setup-card {
+    background: var(--brand-white);
+    border: 2px solid #18181b;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 0 0 #18181b;
+    padding: 1.5rem 1.4rem 1.3rem;
+}
+
+.meta-setup-head {
+    text-align: center;
+    margin-bottom: 1.1rem;
+}
+
+.meta-setup-platform {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.75rem;
+    border: 2px solid #18181b;
+    border-radius: 0.75rem;
+    background: var(--brand-surface);
+    box-shadow: 2px 2px 0 0 #18181b;
+}
+
+.meta-setup-platform img {
+    width: 1.35rem;
+    height: 1.35rem;
+    object-fit: contain;
+}
+
+.meta-setup-platform--tiktok {
+    background: var(--brand-white);
+}
+
+.meta-setup-title {
+    margin: 0 0 0.55rem;
+    font-size: 1.35rem;
+    line-height: 1.2;
+}
+
+.meta-setup-lead {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: #4b5563;
+    text-align: left;
+}
+
+.meta-setup-checklist {
+    margin: 0 0 1rem;
+    padding: 0 0 0 1.15rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #374151;
+}
+
+.meta-setup-checklist li + li {
+    margin-top: 0.55rem;
+}
+
+.meta-setup-note {
+    margin: 0 0 1.1rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.55rem;
+    background: rgb(204 255 0 / 0.14);
+    border: 1px solid rgb(0 56 255 / 0.12);
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: #374151;
+}
+
+.meta-setup-actions {
+    display: flex;
+    gap: 0.65rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+    .meta-setup-actions {
+        flex-direction: column-reverse;
+    }
+
+    .meta-setup-actions .onboarding-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

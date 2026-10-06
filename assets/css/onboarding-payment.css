@@ -1,0 +1,136 @@
+/* Onboarding — payment method selection */
+
+.lb-payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.lb-payment-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.lb-payment-section-title {
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.lb-payment-method-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.lb-payment-method-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-height: 6.75rem;
+    padding: 0.95rem 1rem;
+    border: 2px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.85rem;
+    background: var(--brand-white);
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.lb-payment-method-card:hover {
+    border-color: rgb(0 56 255 / 0.35);
+    transform: translateY(-1px);
+}
+
+.lb-payment-method-card.is-selected {
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 1px var(--brand-blue);
+}
+
+.lb-payment-method-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.lb-payment-method-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.65rem;
+    background: rgb(0 56 255 / 0.08);
+    color: var(--brand-blue);
+}
+
+.lb-payment-method-icon--brand {
+    background: var(--brand-white);
+    border: 1px solid rgb(0 56 255 / 0.12);
+}
+
+.lb-payment-method-icon-img {
+    display: block;
+    width: 1.75rem;
+    height: 1.75rem;
+    object-fit: contain;
+}
+
+.lb-payment-method-label {
+    font-size: 0.95rem;
+    color: var(--brand-black);
+}
+
+.lb-payment-method-tagline {
+    font-size: 0.76rem;
+    line-height: 1.35;
+    color: rgb(0 0 0 / 0.58);
+}
+
+.lb-payment-panel--bank {
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.lb-payment-bank-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.lb-payment-bank-fields .onboarding-field label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.lb-payment-bank-fields .lb-dropdown {
+    display: block;
+}
+
+.lb-payment-bank-fields .lb-dropdown-trigger {
+    box-shadow: none;
+}
+
+.lb-payment-panel {
+    padding: 1rem;
+    border: 1px solid rgb(0 56 255 / 0.14);
+    border-radius: 0.85rem;
+    background: var(--brand-surface);
+}
+
+.lb-payment-panel-note {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgb(0 0 0 / 0.72);
+}
+
+@media (max-width: 640px) {
+    .lb-payment-method-grid {
+        grid-template-columns: 1fr;
+    }
+}

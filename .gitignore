@@ -1,0 +1,17 @@
+# Secrets
+.env
+.env.*
+!.env.example
+deploy.json
+
+# Runtime data (keep the .htaccess guards, never the contents)
+logs/*
+!logs/.htaccess
+storage/**
+!storage/**/
+!storage/**/.htaccess
+
+# Editor / OS / local tooling
+.DS_Store
+/vendor/
+node_modules/

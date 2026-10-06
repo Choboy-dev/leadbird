@@ -1,0 +1,132 @@
+/**
+ * Shared CTA shadow + hover/active motion (matches pricing plan buttons).
+ * Component classes keep their own colors, borders, and typography.
+ */
+:root {
+    --cta-shadow-color: #18181b;
+}
+
+.auth-btn.auth-btn--primary,
+.auth-btn.auth-btn--google,
+.onboarding-btn,
+.onboarding-signout-btn,
+.onboarding-offering-edit,
+.onboarding-offering-delete,
+.dashboard-card-action,
+.dashboard-inline-cta,
+.dashboard-home-link,
+.dash-btn:not(.dash-btn--ghost),
+.conn-btn--primary,
+.bill-btn--primary,
+.ov-btn--primary,
+.ov-btn--soft,
+.smm-planner-outline-btn,
+.smm-btn--primary,
+.smm-planner-primary-btn,
+.smm-planner-create-btn,
+.smm-compose-post-primary,
+.smm-compose-ig-tag-popover-btn--primary,
+.ai-wisdom-primary-btn,
+.ai-primary-btn,
+.ref-btn--primary,
+.ref-btn--claim:not(:disabled),
+.ref-btn--share,
+.hc-support-btn--primary,
+.inbox-btn--primary,
+.offers-btn--primary,
+.contact-nav-auth,
+.contact-submit,
+.landing-cta,
+a.landing-cta.shadow-brand-lime,
+.pricing-cta,
+div.flex.items-center.gap-2.shrink-0 > a.rounded-full {
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 0 var(--cta-shadow-color);
+}
+
+.auth-btn.auth-btn--primary:not(:disabled):hover,
+.auth-btn.auth-btn--google:hover,
+.onboarding-btn:not(:disabled):hover,
+.onboarding-signout-btn:hover,
+.onboarding-offering-edit:hover,
+.onboarding-offering-delete:hover,
+.dashboard-card-action:hover,
+.dashboard-inline-cta:hover,
+.dashboard-home-link:hover,
+.dash-btn:not(.dash-btn--ghost):not(:disabled):hover,
+.conn-btn--primary:hover,
+.bill-btn--primary:hover,
+.ov-btn--primary:hover,
+.ov-btn--soft:hover,
+.smm-planner-outline-btn:hover,
+.smm-btn--primary:hover:not(:disabled),
+.smm-planner-primary-btn:hover,
+.smm-planner-create-btn:hover,
+.smm-compose-post-primary:hover,
+.smm-compose-ig-tag-popover-btn--primary:hover,
+.ai-wisdom-primary-btn:hover,
+.ai-primary-btn:hover:not(:disabled),
+.ref-btn--primary:hover:not(:disabled),
+.ref-btn--claim:not(:disabled):hover,
+.ref-btn--share:hover,
+.hc-support-btn--primary:hover,
+.inbox-btn--primary:hover,
+.offers-btn--primary:hover,
+.contact-nav-auth:hover,
+.contact-submit:not(:disabled):hover,
+.landing-cta:hover,
+a.landing-cta.shadow-brand-lime:hover,
+.pricing-cta:not(:disabled):hover,
+div.flex.items-center.gap-2.shrink-0 > a.rounded-full:hover {
+    box-shadow: 6px 6px 0 0 var(--cta-shadow-color);
+    transform: translate(-2px, -2px);
+}
+
+.auth-btn.auth-btn--primary:not(:disabled):active,
+.auth-btn.auth-btn--google:active,
+.onboarding-btn:not(:disabled):active,
+.onboarding-signout-btn:active,
+.onboarding-offering-edit:active,
+.onboarding-offering-delete:active,
+.dashboard-card-action:active,
+.dashboard-inline-cta:active,
+.dashboard-home-link:active,
+.dash-btn:not(.dash-btn--ghost):active,
+.conn-btn--primary:active,
+.bill-btn--primary:active,
+.ov-btn--primary:active,
+.ov-btn--soft:active,
+.smm-planner-outline-btn:active,
+.smm-btn--primary:active:not(:disabled),
+.smm-planner-primary-btn:active,
+.smm-planner-create-btn:active,
+.smm-compose-post-primary:active,
+.smm-compose-ig-tag-popover-btn--primary:active,
+.ai-wisdom-primary-btn:active,
+.ai-primary-btn:active:not(:disabled),
+.ref-btn--primary:active:not(:disabled),
+.ref-btn--claim:not(:disabled):active,
+.ref-btn--share:active,
+.hc-support-btn--primary:active,
+.inbox-btn--primary:active,
+.offers-btn--primary:active,
+.contact-nav-auth:active,
+.contact-submit:not(:disabled):active,
+.landing-cta:active,
+a.landing-cta.shadow-brand-lime:active,
+.pricing-cta:not(:disabled):active,
+div.flex.items-center.gap-2.shrink-0 > a.rounded-full:active {
+    box-shadow: 2px 2px 0 0 var(--cta-shadow-color);
+    transform: translate(2px, 2px);
+}
+
+.onboarding-btn:disabled,
+.pricing-cta:disabled {
+    box-shadow: 4px 4px 0 0 var(--cta-shadow-color);
+}
+
+.onboarding-btn:disabled:hover,
+.pricing-cta:disabled:hover {
+    transform: none;
+    box-shadow: 4px 4px 0 0 var(--cta-shadow-color);
+}

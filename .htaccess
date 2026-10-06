@@ -1,0 +1,59 @@
+# Deny access to sensitive app internals (document root = app root).
+<IfModule mod_authz_core.c>
+    <FilesMatch "^(config\.php|\.env.*|composer\.(json|lock)|README\.md)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+# Fallback for older Apache
+<IfModule !mod_authz_core.c>
+    <FilesMatch "^(config\.php|\.env.*)$">
+        Deny from all
+    </FilesMatch>
+</IfModule>
+
+# Block sensitive directories by rewrite (works even when Directory blocks are limited on shared hosting)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    RewriteRule ^(scripts|jobs|lib|includes|database|logs|vendor|\.git|storage/rate-limits|storage/tmp)(/|$) - [F,L]
+
+    RewriteRule ^config(/|$) - [F,L]
+
+    # Legacy admin URL (blocked by hosts when path contains /config)
+    RewriteRule ^admin/config/?$ admin/feature-flags [R=301,L]
+
+    # Affiliate referral short links: /r/CODE
+    RewriteRule ^r/([A-Za-z0-9_-]+)/?$ r.php?code=$1 [L,QSA]
+
+    # Help center topic & article URLs
+    RewriteRule ^help/([^/]+)/([^/]+)/?$ help.php?topic=$1&article=$2 [L,QSA]
+    RewriteRule ^help/([^/]+)/?$ help.php?topic=$1 [L,QSA]
+
+    # Static assets and uploads — serve as-is
+    RewriteRule ^(assets|storage)/ - [L]
+
+    # Redirect visible .php URLs to extensionless (preserve query string; skip POST)
+    RewriteCond %{REQUEST_METHOD} !POST
+    RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+    RewriteRule ^ %1 [R=301,L,NE,QSA]
+
+    # Single-segment URL: prefer businesses.php over businesses/ folder (avoids 403)
+    RewriteCond %{REQUEST_URI} ^/([^/.]+)/?$
+    RewriteCond %{DOCUMENT_ROOT}/%1.php -f
+    RewriteRule ^[^/.]+/?$ %1.php [L,QSA]
+
+    # Nested extensionless → .php handler (e.g. businesses/switch, billing/callback)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.+?)/?$ $1.php [L,QSA]
+
+    # Existing files and directories
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Home
+    RewriteRule ^$ index.php [L]
+</IfModule>

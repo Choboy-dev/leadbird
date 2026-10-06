@@ -1,0 +1,135 @@
+.review-login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: linear-gradient(
+        160deg,
+        var(--brand-surface) 0%,
+        var(--brand-white) 45%,
+        rgb(0 56 255 / 0.06) 100%
+    );
+}
+
+.review-login-page *,
+.review-login-page *::before,
+.review-login-page *::after {
+    box-sizing: border-box;
+}
+
+.review-login-card {
+    width: 100%;
+    max-width: 26rem;
+    margin: 0 auto;
+    padding: 2rem 1.75rem;
+    background: var(--brand-white);
+    border: 1px solid rgb(0 56 255 / 0.12);
+    border-radius: 1rem;
+    box-shadow: 0 18px 48px rgb(0 56 255 / 0.08);
+    overflow: hidden;
+}
+
+.review-login-badge {
+    display: inline-block;
+    margin-bottom: 0.85rem;
+    padding: 0.28rem 0.6rem;
+    border-radius: 999px;
+    background: rgb(204 255 0 / 0.35);
+    color: var(--brand-blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.review-login-title {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.45rem, 4vw, 1.65rem);
+    line-height: 1.15;
+    color: var(--brand-black);
+}
+
+.review-login-lead {
+    margin: 0 0 1.35rem;
+    color: rgb(0 0 0 / 0.62);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.review-login-form {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.review-login-field {
+    display: grid;
+    gap: 0.4rem;
+    width: 100%;
+    min-width: 0;
+}
+
+.review-login-field label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--brand-black);
+}
+
+.review-login-field input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    border: 1px solid rgb(0 56 255 / 0.18);
+    border-radius: 0.55rem;
+    padding: 0.72rem 0.85rem;
+    font: inherit;
+    color: var(--brand-black);
+    background: var(--brand-surface);
+}
+
+.review-login-field input:focus {
+    outline: 2px solid rgb(0 56 255 / 0.25);
+    outline-offset: 1px;
+    border-color: var(--brand-blue);
+    background: var(--brand-white);
+}
+
+.review-login-submit {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.15rem 0 0;
+    border: 0;
+    border-radius: 0.55rem;
+    padding: 0.82rem 1rem;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.review-login-submit:hover {
+    background: var(--brand-blue-dark);
+}
+
+.review-login-submit:focus-visible {
+    outline: 2px solid var(--brand-lime);
+    outline-offset: 2px;
+}
+
+.review-login-error {
+    margin-bottom: 1rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.55rem;
+    background: rgb(255 59 48 / 0.08);
+    color: #b42318;
+    font-size: 0.875rem;
+    line-height: 1.45;
+}

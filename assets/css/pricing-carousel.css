@@ -1,0 +1,181 @@
+/* Mobile pricing carousel — one plan at a time; desktop stays 3-column grid */
+
+.pricing-carousel {
+    position: relative;
+    width: 100%;
+}
+
+.pricing-carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.pricing-carousel-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    border: 2px solid var(--brand-black, #000);
+    border-radius: 9999px;
+    background: var(--brand-blue);
+    color: var(--brand-white, #fff);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 0 var(--brand-black, #000);
+    transition:
+        background-color 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        opacity 0.18s ease;
+}
+
+.pricing-carousel-arrow:hover:not(:disabled) {
+    background: var(--brand-blue-dark);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 0 var(--brand-black, #000);
+}
+
+.pricing-carousel-arrow:focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 3px;
+}
+
+.pricing-carousel-arrow:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.pricing-carousel-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 4.5rem;
+}
+
+.pricing-carousel-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    padding: 0;
+    border: 2px solid var(--brand-black, #000);
+    border-radius: 9999px;
+    background: var(--brand-white, #fff);
+    cursor: pointer;
+    transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.pricing-carousel-dot.is-active {
+    background: var(--brand-lime);
+    transform: scale(1.15);
+}
+
+.pricing-carousel-dot:focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+}
+
+.pricing-carousel-viewport {
+    position: relative;
+    width: 100%;
+}
+
+/* Desktop: 3-column grid */
+.pricing-carousel-track {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+}
+
+/* Slides stretch to the tallest card so every plan card ends on the same line. */
+.pricing-carousel-slide {
+    min-width: 0;
+    display: flex;
+}
+
+.pricing-carousel-slide > .pricing-tier {
+    width: 100%;
+}
+
+/* Mobile: true horizontal carousel — one card visible, no vertical stack */
+@media (max-width: 767px) {
+    .pricing-carousel-viewport {
+        overflow: hidden;
+        touch-action: pan-y pinch-zoom;
+    }
+
+    .pricing-carousel-track {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 0;
+        grid-template-columns: unset;
+        transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform;
+    }
+
+    .pricing-carousel-slide {
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 0.15rem;
+        box-sizing: border-box;
+    }
+
+    .pricing-carousel-track .pricing-tier {
+        transform: none !important;
+    }
+
+    .pricing-carousel-track .pricing-tier.is-selected {
+        transform: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .pricing-carousel-controls {
+        display: none;
+    }
+
+    .pricing-carousel-track {
+        transform: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pricing-carousel-track {
+        transition: none;
+    }
+
+    .pricing-carousel-arrow,
+    .pricing-carousel-dot {
+        transition: none;
+    }
+}
+
+/* Checkout page (blue hero) — invert arrow chrome for contrast */
+
+.pricing-page .pricing-carousel-arrow {
+    background: var(--brand-white, #fff);
+    color: var(--brand-blue);
+    border-color: var(--brand-black, #000);
+}
+
+.pricing-page .pricing-carousel-arrow:hover:not(:disabled) {
+    background: var(--brand-lime);
+    color: var(--brand-black, #000);
+}
+
+.pricing-page .pricing-carousel-dot {
+    background: rgb(255 255 255 / 0.35);
+    border-color: var(--brand-white, #fff);
+}
+
+.pricing-page .pricing-carousel-dot.is-active {
+    background: var(--brand-lime);
+    border-color: var(--brand-black, #000);
+}

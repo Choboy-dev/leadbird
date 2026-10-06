@@ -1,0 +1,285 @@
+/**
+ * Dashboard primary CTAs — blue neo-brutalist pills (matches Overview actions).
+ * Scoped to .dashboard-page so onboarding/auth keep their own palette.
+ */
+.dashboard-page {
+    --dash-cta-min-height: 2.5rem;
+    --dash-cta-padding-y: 0.55rem;
+    --dash-cta-padding-x: 1.1rem;
+    --dash-cta-font-size: 0.875rem;
+    --dash-cta-font-weight: 600;
+    --dash-cta-gap: 0.45rem;
+    --dash-cta-soft-bg: rgb(0 56 255 / 0.08);
+    --dash-cta-soft-bg-hover: rgb(0 56 255 / 0.12);
+}
+
+/* Uniform pill size across dashboard CTAs (matches Overview “Add new business”) */
+.dashboard-page :is(
+    .onboarding-btn,
+    .ov-btn,
+    .dash-btn,
+    .dashboard-card-action,
+    .dashboard-inline-cta,
+    .conn-btn,
+    .bill-btn,
+    .smm-btn,
+    .smm-planner-primary-btn,
+    .smm-planner-outline-btn,
+    .smm-planner-create-btn,
+    .smm-compose-post-primary,
+    .smm-compose-ig-tag-popover-btn,
+    .ai-wisdom-primary-btn,
+    .ai-primary-btn,
+    .ref-btn,
+    .hc-support-btn,
+    .inbox-btn,
+    .offers-btn
+):not(.bill-btn--sm):not(.dash-btn--sm):not(.ov-btn--compact) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--dash-cta-gap);
+    min-height: var(--dash-cta-min-height);
+    padding: var(--dash-cta-padding-y) var(--dash-cta-padding-x);
+    font-family: var(--brand-font-body);
+    font-size: var(--dash-cta-font-size);
+    font-weight: var(--dash-cta-font-weight);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.dashboard-page :is(
+    .onboarding-btn--primary,
+    .dash-btn:not(.dash-btn--ghost),
+    .dashboard-card-action,
+    .dashboard-inline-cta:not(.dashboard-inline-cta--ghost),
+    .conn-btn--primary,
+    .bill-btn--primary,
+    .ov-btn--primary,
+    .smm-btn--primary,
+    .smm-planner-primary-btn,
+    .smm-planner-create-btn,
+    .smm-compose-post-primary,
+    .smm-compose-ig-tag-popover-btn--primary,
+    .ai-wisdom-primary-btn,
+    .ai-primary-btn,
+    .ref-btn--primary,
+    .ref-btn--claim:not(:disabled),
+    .ref-btn--share,
+    .hc-support-btn--primary,
+    .inbox-btn--primary,
+    .offers-btn--primary
+) {
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    border: 2px solid var(--brand-black);
+    border-radius: 9999px;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 0 var(--brand-black);
+}
+
+.dashboard-page :is(
+    .onboarding-btn--primary,
+    .dash-btn:not(.dash-btn--ghost),
+    .dashboard-card-action,
+    .dashboard-inline-cta:not(.dashboard-inline-cta--ghost),
+    .conn-btn--primary,
+    .bill-btn--primary,
+    .ov-btn--primary,
+    .smm-btn--primary,
+    .smm-planner-primary-btn,
+    .smm-planner-create-btn,
+    .smm-compose-post-primary,
+    .smm-compose-ig-tag-popover-btn--primary,
+    .ai-wisdom-primary-btn,
+    .ai-primary-btn,
+    .ref-btn--primary,
+    .ref-btn--claim:not(:disabled),
+    .ref-btn--share,
+    .hc-support-btn--primary,
+    .inbox-btn--primary,
+    .offers-btn--primary
+):hover:not(:disabled) {
+    background: var(--brand-blue-dark);
+    color: var(--brand-white);
+    box-shadow: 6px 6px 0 0 var(--brand-black);
+    transform: translate(-2px, -2px);
+}
+
+.dashboard-page :is(
+    .onboarding-btn--primary,
+    .dash-btn:not(.dash-btn--ghost),
+    .dashboard-card-action,
+    .dashboard-inline-cta:not(.dashboard-inline-cta--ghost),
+    .conn-btn--primary,
+    .bill-btn--primary,
+    .ov-btn--primary,
+    .smm-btn--primary,
+    .smm-planner-primary-btn,
+    .smm-planner-create-btn,
+    .smm-compose-post-primary,
+    .smm-compose-ig-tag-popover-btn--primary,
+    .ai-wisdom-primary-btn,
+    .ai-primary-btn,
+    .ref-btn--primary,
+    .ref-btn--claim:not(:disabled),
+    .ref-btn--share,
+    .hc-support-btn--primary,
+    .inbox-btn--primary,
+    .offers-btn--primary
+):active:not(:disabled) {
+    box-shadow: 2px 2px 0 0 var(--brand-black);
+    transform: translate(2px, 2px);
+}
+
+.dashboard-page :is(
+    .onboarding-btn--primary,
+    .dash-btn:not(.dash-btn--ghost),
+    .dashboard-card-action,
+    .dashboard-inline-cta:not(.dashboard-inline-cta--ghost),
+    .conn-btn--primary,
+    .bill-btn--primary,
+    .ov-btn--primary,
+    .smm-btn--primary,
+    .smm-planner-primary-btn,
+    .smm-planner-create-btn,
+    .smm-compose-post-primary,
+    .smm-compose-ig-tag-popover-btn--primary,
+    .ai-wisdom-primary-btn,
+    .ai-primary-btn,
+    .ref-btn--primary,
+    .ref-btn--claim:not(:disabled),
+    .ref-btn--share,
+    .hc-support-btn--primary,
+    .inbox-btn--primary,
+    .offers-btn--primary
+):disabled,
+.dashboard-page :is(
+    .onboarding-btn--primary,
+    .dash-btn:not(.dash-btn--ghost),
+    .dashboard-card-action,
+    .dashboard-inline-cta:not(.dashboard-inline-cta--ghost),
+    .conn-btn--primary,
+    .bill-btn--primary,
+    .ov-btn--primary,
+    .smm-btn--primary,
+    .smm-planner-primary-btn,
+    .smm-planner-create-btn,
+    .smm-compose-post-primary,
+    .smm-compose-ig-tag-popover-btn--primary,
+    .ai-wisdom-primary-btn,
+    .ai-primary-btn,
+    .ref-btn--primary,
+    .ref-btn--claim:not(:disabled),
+    .ref-btn--share,
+    .hc-support-btn--primary,
+    .inbox-btn--primary,
+    .offers-btn--primary
+).is-disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* Soft secondary CTAs — pill + neo-brutalist, keep lavender/blue palette */
+.dashboard-page :is(
+    .ov-btn--soft,
+    .smm-planner-outline-btn
+) {
+    background: var(--dash-cta-soft-bg);
+    color: var(--brand-blue);
+    border: 2px solid var(--brand-black);
+    border-radius: 9999px;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 0 var(--brand-black);
+}
+
+.dashboard-page :is(
+    .ov-btn--soft,
+    .smm-planner-outline-btn
+):hover {
+    background: var(--dash-cta-soft-bg-hover);
+    color: var(--brand-blue-dark);
+    box-shadow: 6px 6px 0 0 var(--brand-black);
+    transform: translate(-2px, -2px);
+}
+
+.dashboard-page :is(
+    .ov-btn--soft,
+    .smm-planner-outline-btn
+):active {
+    box-shadow: 2px 2px 0 0 var(--brand-black);
+    transform: translate(2px, 2px);
+}
+
+/* Ghost / secondary CTAs — white pill + neo-brutalist shadow */
+.dashboard-page :is(
+    .onboarding-btn--ghost,
+    .dash-btn--ghost,
+    .dashboard-inline-cta--ghost
+) {
+    background: var(--brand-white);
+    color: var(--brand-black);
+    border: 2px solid var(--brand-black);
+    border-radius: 9999px;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 0 var(--brand-black);
+    cursor: pointer;
+}
+
+.dashboard-page :is(
+    .onboarding-btn--ghost,
+    .dash-btn--ghost,
+    .dashboard-inline-cta--ghost
+):hover {
+    background: var(--brand-surface);
+    color: var(--brand-black);
+    box-shadow: 6px 6px 0 0 var(--brand-black);
+    transform: translate(-2px, -2px);
+}
+
+.dashboard-page :is(
+    .onboarding-btn--ghost,
+    .dash-btn--ghost,
+    .dashboard-inline-cta--ghost
+):active {
+    box-shadow: 2px 2px 0 0 var(--brand-black);
+    transform: translate(2px, 2px);
+}
+
+/* Filter chips — same pills as dashboard analytics filters */
+.dashboard-page .dash-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--brand-black);
+    font-family: var(--brand-font-body);
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 0 var(--brand-black);
+}
+
+.dashboard-page .dash-filter-btn:hover {
+    background: var(--brand-surface);
+    box-shadow: 6px 6px 0 0 var(--brand-black);
+    transform: translate(-2px, -2px);
+}
+
+.dashboard-page .dash-filter-btn:active {
+    box-shadow: 2px 2px 0 0 var(--brand-black);
+    transform: translate(2px, 2px);
+}
+
+.dashboard-page .dash-filter-btn.is-active {
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.dashboard-page .dash-filter-btn.is-active:hover {
+    background: var(--brand-blue-dark);
+}

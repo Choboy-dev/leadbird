@@ -1,0 +1,350 @@
+/**
+ * LEAD BIRD brand design tokens — single source of truth.
+ * Use CSS variables in custom CSS; use bg-brand-* / text-brand-* / font-* in Tailwind.
+ */
+:root {
+    /* Typography */
+    --brand-font-heading: "Arial Black", Impact, sans-serif;
+    --brand-font-body: "Google Sans Flex", "Google Sans", sans-serif;
+    /* Primary */
+    --brand-blue: #0038ff;
+    --brand-blue-dark: #001a99;
+    --brand-lime: #ccff00;
+    --brand-lime-hover: #d8ff33;
+    --brand-amber-dark: #b45309;
+
+    /* Accent & neutrals */
+    --brand-red: #ff3b30;
+    --brand-white: #ffffff;
+    --brand-black: #000000;
+    --brand-surface: #f8f9fa;
+    --brand-sidebar: var(--brand-surface);
+    --brand-badge-muted: rgb(204 255 0 / 0.14);
+    --brand-avatar: #d2b48c;
+
+    /* Instagram gradient stops */
+    --brand-instagram-purple: #833ab4;
+    --brand-instagram-red: #fd1d1d;
+    --brand-instagram-orange: #fcaf45;
+
+    /* Product icon tints (nav dropdown) */
+    --brand-whatsapp-bg: #ecfdf3;
+    --brand-whatsapp: #16a34a;
+    --brand-instagram-icon-bg: #fdf2f8;
+    --brand-instagram-icon: #db2777;
+    --brand-tiktok-icon-bg: #f8fafc;
+    --brand-tiktok-icon: #0f172a;
+
+    /* Effects */
+    --brand-grid-line: rgb(255 255 255 / 0.082);
+    --brand-lime-shadow: rgb(204 255 0 / 0.35);
+    --brand-lime-shadow-strong: rgb(204 255 0 / 0.45);
+}
+
+body {
+    font-family: var(--brand-font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.brand-font-heading {
+    font-family: var(--brand-font-heading);
+}
+
+.brand-font-body {
+    font-family: var(--brand-font-body);
+}
+
+.text-brand-amber-dark {
+    color: var(--brand-amber-dark);
+}
+
+.brand-grid-bg {
+    background-image:
+        linear-gradient(to right, var(--brand-grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--brand-grid-line) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+}
+
+.shadow-brand-lime {
+    box-shadow: 0 10px 40px var(--brand-lime-shadow);
+}
+
+.shadow-brand-lime-hover:hover {
+    box-shadow: 0 14px 48px var(--brand-lime-shadow-strong);
+}
+
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    line-height: 0;
+}
+
+.brand-logo img {
+    display: block;
+    width: auto;
+    max-width: none;
+    object-fit: contain;
+}
+
+.brand-logo--sm img {
+    height: 2.5rem;
+}
+
+.brand-logo--md img {
+    height: 4.25rem;
+}
+
+.brand-logo--lg img {
+    height: 4rem;
+}
+
+.brand-logo--footer img {
+    height: 4.25rem;
+}
+
+.brand-logo--sidebar img {
+    height: 2.75rem;
+}
+
+.brand-favicon-icon {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: cover;
+    border-radius: 999px;
+}
+
+.brand-favicon-icon--nav {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.brand-favicon-icon--avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+.brand-favicon-icon--card {
+    width: 1.375rem;
+    height: 1.375rem;
+}
+
+.dashboard-nav-icon .brand-favicon-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+/* AI Salesgirl — Lead Bird icon */
+.brand-ai-icon {
+    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: cover;
+    border-radius: 999px;
+}
+
+.brand-ai-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-ai-icon--nav {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.brand-ai-icon--avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+.brand-ai-icon--timeline {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.brand-ai-icon--pricing {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.brand-ai-icon--landing {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.dash-timeline-icon.brand-ai-icon-wrap,
+.dash-timeline-icon .brand-ai-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.dashboard-nav-icon .brand-ai-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.brand-nav-icon {
+    display: block;
+    object-fit: contain;
+}
+
+.brand-nav-icon--sidebar {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+.brand-section-icon {
+    display: block;
+    object-fit: contain;
+}
+
+/* Buttons and button-styled links: never underline */
+button,
+input[type="submit"],
+input[type="button"],
+.onboarding-btn,
+.onboarding-signout-btn,
+.billing-btn,
+.dash-btn,
+.conn-btn,
+.mg-cta,
+.mg-back-btn,
+.auth-btn,
+.pricing-cta,
+.landing-cta,
+.dashboard-card-action,
+.dashboard-inline-cta,
+.contact-submit,
+.offers-btn,
+a.onboarding-btn,
+a.billing-btn,
+a.dash-btn,
+a.conn-btn,
+a.mg-cta,
+a.auth-btn,
+a.pricing-cta,
+a.landing-cta,
+a.dashboard-card-action,
+a.dashboard-inline-cta,
+a.offers-btn {
+    text-decoration: none;
+}
+
+a.onboarding-btn:hover,
+a.billing-btn:hover,
+a.dash-btn:hover,
+a.conn-btn:hover,
+a.mg-cta:hover,
+a.auth-btn:hover,
+a.pricing-cta:hover,
+a.landing-cta:hover,
+a.dashboard-card-action:hover,
+a.dashboard-inline-cta:hover,
+a.offers-btn:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    text-decoration: none;
+}
+
+/* Clickable links inside AI / chat message bubbles */
+.chat-link {
+    color: var(--brand-blue);
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+    word-break: break-word;
+}
+
+.chat-link:hover {
+    color: var(--brand-blue-dark);
+}
+
+.ai-wisdom-msg--out .chat-link,
+.inbox-message-bubble--ai .chat-link,
+.lb-assistant-msg--user .chat-link {
+    color: var(--brand-blue);
+    font-weight: 600;
+}
+
+.ai-wisdom-msg--out .chat-link:hover,
+.inbox-message-bubble--ai .chat-link:hover,
+.lb-assistant-msg--user .chat-link:hover {
+    color: var(--brand-blue-dark);
+}
+
+.inbox-message-bubble--owner .chat-link {
+    color: var(--brand-white);
+    text-decoration-color: rgb(255 255 255 / 0.7);
+}
+
+.inbox-message-bubble--owner .chat-link:hover {
+    color: var(--brand-lime);
+}
+
+.lb-upload-icon {
+    display: block;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/**
+ * Pill button base — required before cta-effects shadows.
+ * Dashboard/onboarding pages may override colors in their own CSS.
+ */
+.onboarding-btn,
+.onboarding-signout-btn,
+button.onboarding-btn,
+a.onboarding-btn,
+button.onboarding-signout-btn,
+a.onboarding-signout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 2.5rem;
+    padding: 0.55rem 1.1rem;
+    border: 2px solid var(--brand-black);
+    border-radius: 9999px;
+    box-sizing: border-box;
+    font-family: var(--brand-font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    background: var(--brand-white);
+    color: var(--brand-black);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.onboarding-btn--primary,
+button.onboarding-btn--primary,
+a.onboarding-btn--primary {
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.onboarding-btn--primary:hover,
+button.onboarding-btn--primary:hover,
+a.onboarding-btn--primary:hover {
+    background: var(--brand-blue-dark);
+    color: var(--brand-white);
+}
+
+.onboarding-btn--ghost,
+button.onboarding-btn--ghost,
+a.onboarding-btn--ghost {
+    background: var(--brand-white);
+    color: var(--brand-black);
+}

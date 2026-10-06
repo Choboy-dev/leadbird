@@ -1,0 +1,204 @@
+/**
+ * Lead Bird confirmation & alert modals — never use window.confirm / window.alert.
+ */
+.lb-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgb(0 26 153 / 0.48);
+    backdrop-filter: blur(6px);
+}
+
+.lb-modal-overlay.is-hidden {
+    display: none;
+}
+
+.lb-modal-overlay:not(.is-hidden) {
+    animation: lb-modal-fade-in 0.18s ease;
+}
+
+.lb-modal {
+    position: relative;
+    width: min(100%, 28rem);
+    padding: 1.35rem 1.35rem 1.15rem;
+    border: 2px solid rgb(0 56 255 / 0.12);
+    border-radius: 1rem;
+    background: var(--brand-white);
+    box-shadow: 0 24px 48px rgb(0 26 153 / 0.18);
+}
+
+.lb-modal-overlay:not(.is-hidden) .lb-modal {
+    animation: lb-modal-rise 0.22s ease;
+}
+
+.lb-modal-title {
+    margin: 0 2rem 0.5rem 0;
+    font-family: var(--brand-font-heading);
+    font-size: 1.15rem;
+    line-height: 1.25;
+    color: var(--brand-black);
+}
+
+.lb-modal--danger .lb-modal-title,
+.lb-modal--error .lb-modal-title {
+    color: var(--brand-red);
+}
+
+.lb-modal-message {
+    margin: 0 0 1.15rem;
+    font-family: var(--brand-font-body);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: rgb(17 24 39 / 0.72);
+}
+
+.lb-modal-message[hidden] {
+    display: none;
+}
+
+.lb-modal-field {
+    margin: 0 0 1.15rem;
+}
+
+.lb-modal-field.is-hidden {
+    display: none;
+}
+
+.lb-modal-label {
+    display: block;
+    margin: 0 0 0.45rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--brand-blue);
+}
+
+.lb-modal-input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid rgb(0 56 255 / 0.18);
+    border-radius: 0.65rem;
+    background: var(--brand-white);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    color: var(--brand-black);
+}
+
+.lb-modal-input::placeholder {
+    color: rgb(0 0 0 / 0.35);
+}
+
+.lb-modal-input:focus {
+    outline: 2px solid rgb(0 56 255 / 0.2);
+    outline-offset: 1px;
+    border-color: rgb(0 56 255 / 0.28);
+}
+
+.lb-modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.625rem;
+}
+
+.lb-modal-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0.625rem 1.15rem;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    font-family: var(--brand-font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.lb-modal-btn:focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+}
+
+.lb-modal-btn--cancel {
+    border-color: rgb(0 56 255 / 0.16);
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.82);
+}
+
+.lb-modal-btn--cancel:hover {
+    background: var(--brand-surface);
+    border-color: rgb(0 56 255 / 0.28);
+}
+
+.lb-modal-btn--confirm {
+    border-color: var(--brand-blue);
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.lb-modal-btn--confirm:hover {
+    background: var(--brand-blue-dark);
+    border-color: var(--brand-blue-dark);
+}
+
+.lb-modal-btn--danger {
+    border-color: var(--brand-red);
+    background: var(--brand-red);
+    color: var(--brand-white);
+}
+
+.lb-modal-btn--danger:hover {
+    background: rgb(220 38 38);
+    border-color: rgb(220 38 38);
+}
+
+.lb-modal-btn--primary {
+    border-color: var(--brand-blue);
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.lb-modal-btn--primary:hover {
+    background: var(--brand-blue-dark);
+    border-color: var(--brand-blue-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lb-modal-overlay:not(.is-hidden),
+    .lb-modal-overlay:not(.is-hidden) .lb-modal {
+        animation: none;
+    }
+
+    .lb-modal-btn {
+        transition: none;
+    }
+}
+
+@keyframes lb-modal-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes lb-modal-rise {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

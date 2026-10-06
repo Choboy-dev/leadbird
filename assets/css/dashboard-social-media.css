@@ -1,0 +1,7890 @@
+/* Social Media Management — Hootsuite-style Planner (Lead Bird tokens) */
+
+.smm-planner {
+    --smm-border: 1px solid rgb(0 0 0 / 0.08);
+    --smm-muted: rgb(55 65 81 / 0.72);
+    display: flex;
+    margin: 0;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    background: var(--brand-white);
+}
+
+.dashboard-page--flush .dashboard-content:has(.smm-planner),
+.dashboard-page--flush .dashboard-sections:has(.smm-planner) {
+    overflow: hidden;
+    height: 100%;
+}
+
+.dashboard-page--flush .dashboard-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.smm-planner-sidebar {
+    width: 15.5rem;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem 1rem 1.5rem;
+    border-right: 1px solid rgb(0 0 0 / 0.08);
+    background: var(--brand-white);
+    overflow-y: auto;
+}
+
+.smm-planner-brand {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.1;
+}
+
+.smm-planner-tagline {
+    margin: 0.35rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--smm-muted);
+}
+
+.smm-planner-create-wrap {
+    margin: 0.75rem 0 0.5rem;
+}
+
+.smm-planner-create-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border: none;
+    border-radius: 0.55rem;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-family: var(--brand-font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-planner-create-btn:hover {
+    background: var(--brand-blue-dark);
+}
+
+.smm-planner-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.smm-planner-nav-label {
+    margin: 1rem 0 0.35rem;
+    padding: 0 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--smm-muted);
+}
+
+.smm-planner-nav-label:first-child {
+    margin-top: 0.25rem;
+}
+
+.smm-planner-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    padding: 0.55rem 0.65rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: rgb(17 24 39 / 0.88);
+    font-family: var(--brand-font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-planner-nav-item:hover:not(:disabled):not(.is-disabled) {
+    background: rgb(0 56 255 / 0.06);
+}
+
+.smm-planner-nav-item.is-active {
+    background: rgb(0 0 0 / 0.06);
+    font-weight: 600;
+}
+
+.smm-planner-nav-item.is-disabled,
+.smm-planner-nav-item:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.smm-planner-nav-item--with-badge {
+    gap: 0.4rem;
+}
+
+.smm-planner-nav-badge {
+    margin-left: auto;
+    flex-shrink: 0;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    background: rgb(0 56 255 / 0.1);
+    color: var(--brand-blue);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    opacity: 1;
+}
+
+.smm-planner-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--brand-white);
+}
+
+.smm-planner-view {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.smm-planner-view.is-active {
+    display: flex;
+}
+
+.smm-planner-view[hidden] {
+    display: none !important;
+}
+
+.smm-planner-page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem 0.75rem;
+    border-bottom: var(--smm-border);
+    flex-shrink: 0;
+}
+
+.smm-planner-page-title {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.15;
+}
+
+.smm-planner-page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.smm-planner-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: var(--smm-border);
+    border-radius: 0.45rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.72);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.smm-planner-icon-btn:hover:not(:disabled) {
+    background: var(--brand-surface);
+    border-color: rgb(0 56 255 / 0.18);
+}
+
+.smm-planner-icon-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.smm-planner-outline-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.85rem;
+    border: var(--smm-border);
+    border-radius: 0.45rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.88);
+    font-family: var(--brand-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.smm-planner-outline-btn:hover {
+    background: var(--brand-surface);
+    border-color: rgb(0 56 255 / 0.18);
+}
+
+.smm-planner-outline-btn--sm {
+    padding: 0.45rem 0.75rem;
+}
+
+.smm-planner-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.95rem;
+    border: none;
+    border-radius: 0.45rem;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-family: var(--brand-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-planner-primary-btn:hover {
+    background: var(--brand-blue-dark);
+}
+
+.smm-planner-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    padding: 0.65rem 1.25rem;
+    border-bottom: var(--smm-border);
+    flex-shrink: 0;
+}
+
+.smm-planner-toolbar-left,
+.smm-planner-toolbar-right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.smm-planner-today-btn,
+.smm-planner-range-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.75rem;
+    border: var(--smm-border);
+    border-radius: 0.45rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.88);
+    font-family: var(--brand-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-planner-today-btn:hover,
+.smm-planner-range-btn:hover {
+    background: var(--brand-surface);
+}
+
+.smm-planner-range-btn,
+.smm-planner-outline-btn[data-smm-cal-filters] {
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.smm-planner-range-btn span {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: left;
+}
+
+.smm-planner-range-btn svg,
+.smm-planner-outline-btn[data-smm-cal-filters] svg {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.smm-planner-view-toggle {
+    display: inline-flex;
+    border: var(--smm-border);
+    border-radius: 0.45rem;
+    overflow: hidden;
+}
+
+.smm-planner-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.15rem;
+    height: 2.15rem;
+    padding: 0;
+    border: none;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.55);
+    cursor: pointer;
+}
+
+.smm-planner-view-btn.is-active {
+    background: rgb(0 56 255 / 0.08);
+    color: var(--brand-blue);
+}
+
+.smm-planner-view-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Calendar chrome — mobile toolbar */
+@media (max-width: 1023px) {
+    .smm-planner-view--calendar .smm-planner-page-head {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+        padding: 0.75rem 1rem 0.65rem;
+        border-bottom: 1px solid rgb(0 0 0 / 0.06);
+        background: var(--brand-white);
+    }
+
+    .smm-planner-view--calendar .smm-planner-page-title {
+        display: none;
+    }
+
+    .smm-planner-view--calendar .smm-planner-page-actions {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .smm-planner-view--calendar .smm-planner-page-actions > * {
+        flex: 1 1 0;
+        min-width: 0;
+        width: auto;
+        justify-content: center;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.25;
+        min-height: 2.625rem;
+        padding-inline: 0.5rem;
+        font-size: 0.8125rem;
+    }
+
+    .smm-planner-view--calendar .smm-planner-page-actions .smm-planner-primary-btn {
+        order: -1;
+    }
+
+    .smm-planner-view--calendar .smm-planner-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.55rem;
+        padding: 0.65rem 1rem 0.85rem;
+        background: var(--brand-surface);
+        border-bottom: 1px solid rgb(0 0 0 / 0.06);
+    }
+
+    .smm-planner-view--calendar .smm-planner-toolbar-left {
+        display: grid;
+        grid-template-columns: auto auto auto minmax(0, 1fr);
+        align-items: stretch;
+        gap: 0.4rem;
+        width: 100%;
+        flex-wrap: nowrap;
+    }
+
+    .smm-planner-view--calendar .smm-planner-range-wrap {
+        position: relative;
+        min-width: 0;
+        overflow: visible;
+    }
+
+    .smm-planner-view--calendar .smm-month-picker {
+        left: auto;
+        right: 0;
+        width: min(16rem, calc(100vw - 2rem));
+        max-width: calc(100vw - 2rem);
+        box-sizing: border-box;
+    }
+
+    .smm-planner-view--calendar .smm-planner-filters-wrap {
+        position: relative;
+        min-width: 0;
+        overflow: visible;
+    }
+
+    .smm-planner-view--calendar .smm-planner-filters-panel {
+        width: min(15rem, calc(100vw - 2rem));
+        max-width: calc(100vw - 2rem);
+        box-sizing: border-box;
+    }
+
+    .smm-planner-view--calendar .smm-planner-calendar-wrap,
+    .smm-planner-view--calendar .smm-cal-month {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .smm-planner-view--calendar .smm-cal-month-weekday {
+        padding: 0.5rem 0.2rem;
+        font-size: 0.75rem;
+    }
+
+    .smm-planner-view--calendar .smm-planner-range-btn,
+    .smm-planner-view--calendar .smm-planner-today-btn {
+        width: 100%;
+        min-height: 2.375rem;
+        border-radius: 0.65rem;
+        border: 1px solid rgb(0 56 255 / 0.14);
+        background: var(--brand-white);
+        font-size: 0.8125rem;
+    }
+
+    .smm-planner-view--calendar .smm-planner-icon-btn {
+        width: 2.375rem;
+        height: 2.375rem;
+        flex-shrink: 0;
+        border-radius: 0.65rem;
+        border: 1px solid rgb(0 56 255 / 0.14);
+    }
+
+    .smm-planner-view--calendar .smm-planner-toolbar-right {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.5rem;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .smm-planner-view--calendar .smm-planner-view-toggle {
+        border-radius: 0.65rem;
+        border: 1px solid rgb(0 56 255 / 0.14);
+        background: var(--brand-white);
+        overflow: hidden;
+    }
+
+    .smm-planner-view--calendar .smm-planner-view-btn {
+        width: 2.375rem;
+        height: 2.375rem;
+    }
+
+    /* Label and count sit together on the left; the chevron holds the right edge. */
+    .smm-planner-view--calendar .smm-planner-outline-btn[data-smm-cal-filters] {
+        width: 100%;
+        min-height: 2.375rem;
+        justify-content: flex-start;
+        gap: 0.4rem;
+        padding: 0.45rem 0.75rem;
+        border: 1px solid rgb(0 56 255 / 0.14);
+        border-radius: 0.65rem;
+        background: var(--brand-white);
+        box-shadow: none;
+        transform: none;
+        font-size: 0.8125rem;
+    }
+
+    .smm-planner-view--calendar .smm-planner-outline-btn[data-smm-cal-filters] > svg {
+        margin-left: auto;
+    }
+
+    .smm-planner-view--calendar .smm-planner-outline-btn[data-smm-cal-filters]:hover,
+    .smm-planner-view--calendar .smm-planner-outline-btn[data-smm-cal-filters]:active {
+        transform: none;
+        box-shadow: none;
+        background: rgb(0 56 255 / 0.06);
+    }
+}
+
+.smm-planner-calendar-wrap {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.smm-planner-calendar {
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hootsuite-style full-screen month grid */
+.smm-planner--month-view .smm-planner-view--calendar {
+    min-height: 0;
+}
+
+.smm-planner--month-view .smm-planner-page-head {
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-planner--month-view .smm-planner-toolbar {
+    padding: 0.5rem 1.25rem;
+    border-bottom: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-planner--month-view .smm-planner-calendar-layout {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.smm-planner--month-view .smm-planner-calendar-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.smm-planner--month-view .smm-planner-calendar-wrap {
+    flex: 1;
+    min-height: 0;
+}
+
+.smm-planner--month-view .smm-cal-month {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.smm-planner--month-view .smm-cal-month-head {
+    flex-shrink: 0;
+    border-bottom: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-planner--month-view .smm-cal-month-grid {
+    flex: 1;
+    min-height: 0;
+    grid-auto-rows: 1fr;
+}
+
+.smm-planner--week-view .smm-planner-calendar-layout {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.smm-planner--week-view .smm-planner-calendar-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.smm-planner--week-view .smm-planner-calendar-wrap {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 1.25rem 1.25rem;
+}
+
+.smm-planner--week-view .smm-planner-calendar {
+    min-width: 52rem;
+    height: 100%;
+    min-height: 0;
+}
+
+.smm-planner--list-view .smm-planner-calendar-wrap {
+    overflow: auto;
+    padding: 0 1.25rem 1.25rem;
+}
+
+.smm-cal-week {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    border: var(--smm-border);
+    border-radius: 0.65rem;
+    overflow: hidden;
+    background: var(--brand-white);
+}
+
+.smm-cal-week-head {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    flex-shrink: 0;
+    border-bottom: var(--smm-border);
+    background: var(--brand-surface);
+}
+
+.smm-cal-week-head .smm-cal-day-head {
+    border-bottom: none;
+}
+
+.smm-cal-week-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+}
+
+.smm-cal-week-tz {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0.45rem 0.65rem 0.25rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--smm-muted);
+}
+
+.smm-cal-week-columns {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+}
+
+.smm-cal-week-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-height: 100%;
+    padding: 0.35rem;
+    border-right: var(--smm-border);
+    background: var(--brand-white);
+}
+
+.smm-cal-week-col:last-child {
+    border-right: none;
+}
+
+.smm-cal-week-col .smm-cal-post-card {
+    width: 100%;
+}
+
+.smm-cal-head {
+    display: contents;
+}
+
+.smm-cal-body {
+    display: contents;
+}
+
+.smm-cal-week-head .smm-cal-timezone {
+    grid-column: auto;
+    grid-row: auto;
+    border-bottom: none;
+}
+
+.smm-cal-day-head {
+    padding: 0.55rem 0.5rem 0.45rem;
+    border-bottom: var(--smm-border);
+    border-right: var(--smm-border);
+    text-align: center;
+    background: var(--brand-surface);
+}
+
+.smm-cal-day-head:last-child {
+    border-right: none;
+}
+
+.smm-cal-day-name {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--smm-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.smm-cal-day-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.65rem;
+    height: 1.65rem;
+    margin-top: 0.2rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: var(--brand-font-heading);
+}
+
+.smm-cal-day-head.is-today .smm-cal-day-num {
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.smm-cal-holidays {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-top: 0.35rem;
+    min-height: 1.5rem;
+}
+
+.smm-cal-holiday {
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.25rem;
+    background: rgb(20 184 166 / 0.15);
+    color: rgb(15 118 110);
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.smm-cal-body {
+    display: contents;
+}
+
+.smm-cal-post {
+    margin-bottom: 0.25rem;
+}
+
+.smm-cal-post-card {
+    display: flex;
+    gap: 0.55rem;
+    margin-bottom: 0.35rem;
+    padding: 0.45rem;
+    border-radius: 0.45rem;
+    border: 1px solid rgb(0 0 0 / 0.1);
+    background: var(--brand-white);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.05);
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.smm-cal-post-card:hover {
+    border-color: rgb(0 56 255 / 0.22);
+    box-shadow: 0 4px 12px rgb(0 56 255 / 0.08);
+}
+
+.smm-cal-post-card--compact {
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.smm-cal-post-card--list {
+    width: 100%;
+}
+
+.smm-cal-post-thumb-wrap {
+    flex-shrink: 0;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 0.35rem;
+    overflow: hidden;
+    background: var(--brand-surface);
+}
+
+.smm-cal-post-card--compact .smm-cal-post-thumb-wrap {
+    width: 100%;
+    height: 4.5rem;
+}
+
+.smm-cal-post-thumb-wrap--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(17 24 39 / 0.45);
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.smm-cal-post-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.smm-cal-post-card-body {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.smm-cal-post-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+.smm-cal-post-card-platform {
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.smm-cal-post-card-platform svg,
+.smm-cal-post-card-platform img {
+    display: block;
+}
+
+.smm-cal-post-card-account {
+    min-width: 0;
+    flex: 1;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: rgb(17 24 39 / 0.82);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.smm-cal-post-card-time {
+    flex-shrink: 0;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--brand-blue);
+}
+
+.smm-cal-post-card-caption {
+    margin: 0;
+    font-size: 0.6875rem;
+    line-height: 1.35;
+    color: rgb(17 24 39 / 0.72);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.smm-cal-post-card--list .smm-cal-post-card-caption {
+    -webkit-line-clamp: 3;
+    font-size: 0.8125rem;
+}
+
+.smm-cal-post-card-foot {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.smm-cal-post-card-status {
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-cal-post-card.is-published .smm-cal-post-card-status {
+    color: rgb(22 101 52);
+}
+
+.smm-cal-month-badge {
+    display: block;
+    margin-top: 0.2rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 0.25rem;
+    background: rgb(17 24 39 / 0.84);
+    color: var(--brand-white);
+    font-size: 0.5625rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+}
+
+.smm-cal-post strong {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--brand-blue);
+}
+
+.smm-cal-suggest {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.45rem;
+    border-radius: 0.35rem;
+    border: 1px dashed rgb(124 58 237 / 0.35);
+    background: rgb(124 58 237 / 0.08);
+    font-size: 0.6875rem;
+    color: rgb(91 33 182);
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-cal-suggest:hover {
+    background: rgb(124 58 237 / 0.12);
+}
+
+.smm-cal-suggest-icon {
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 999px;
+    background: var(--brand-lime);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.smm-cal-promo {
+    margin: 0.25rem;
+    padding: 0.65rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(0 56 255 / 0.12);
+    background: linear-gradient(145deg, rgb(0 56 255 / 0.04), rgb(204 255 0 / 0.08));
+}
+
+.smm-cal-promo-title {
+    margin: 0 0 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: var(--brand-font-heading);
+    line-height: 1.3;
+}
+
+.smm-cal-promo-text {
+    margin: 0 0 0.5rem;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+    color: var(--smm-muted);
+}
+
+.smm-cal-promo-btn {
+    display: inline-flex;
+    padding: 0.35rem 0.6rem;
+    border: none;
+    border-radius: 0.35rem;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Calendar layout + views */
+.smm-planner-calendar-layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.smm-planner-calendar-layout.has-day-panel .smm-planner-calendar-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.smm-planner-calendar-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.smm-planner-volume {
+    padding: 0.65rem 1.25rem 0;
+    border-bottom: var(--smm-border);
+    flex-shrink: 0;
+}
+
+.smm-planner-volume.is-collapsed .smm-planner-volume-track {
+    display: none;
+}
+
+.smm-planner-volume-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.smm-planner-volume-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.smm-planner-volume-month {
+    margin-left: auto;
+    font-size: 0.8125rem;
+    color: var(--smm-muted);
+}
+
+.smm-planner-volume-toggle {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--smm-muted);
+}
+
+.smm-planner-volume-track {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(1.65rem, 1fr));
+    gap: 0.25rem;
+    padding-bottom: 0.65rem;
+    overflow-x: auto;
+}
+
+.smm-volume-day {
+    position: relative;
+    min-height: 2rem;
+    padding: 0.2rem;
+    border-radius: 0.35rem;
+    text-align: center;
+    font-size: 0.6875rem;
+    color: var(--smm-muted);
+}
+
+.smm-volume-day.is-range {
+    background: rgb(255 237 213 / 0.65);
+}
+
+.smm-volume-day.is-today .smm-volume-day-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-weight: 700;
+}
+
+.smm-volume-day-count {
+    display: block;
+    font-size: 0.5625rem;
+    color: var(--brand-blue);
+    font-weight: 700;
+}
+
+.smm-planner-range-wrap {
+    position: relative;
+}
+
+.smm-month-picker {
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    left: 0;
+    z-index: 30;
+    width: 16rem;
+    padding: 0.75rem;
+    border: var(--smm-border);
+    border-radius: 0.65rem;
+    background: var(--brand-white);
+    box-shadow: 0 12px 32px rgb(0 0 0 / 0.12);
+}
+
+.smm-month-picker-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.65rem;
+}
+
+.smm-month-picker-year {
+    font-size: 0.9375rem;
+}
+
+.smm-month-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+}
+
+.smm-month-picker-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.35rem;
+    border: none;
+    border-radius: 0.45rem;
+    background: transparent;
+    font-family: var(--brand-font-body);
+    font-size: 0.8125rem;
+    cursor: pointer;
+}
+
+.smm-month-picker-btn:hover {
+    background: var(--brand-surface);
+}
+
+.smm-month-picker-btn.is-selected {
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-weight: 600;
+}
+
+.smm-planner-filters-wrap {
+    position: relative;
+}
+
+.smm-planner-filters-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.05rem;
+    height: 1.05rem;
+    padding: 0 0.25rem;
+    border-radius: 999px;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.smm-planner-filters-count.is-hidden {
+    display: none;
+}
+
+.smm-planner-filters-panel {
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    right: 0;
+    z-index: 30;
+    width: 15rem;
+    padding: 0.75rem;
+    border: var(--smm-border);
+    border-radius: 0.65rem;
+    background: var(--brand-white);
+    box-shadow: 0 12px 32px rgb(0 0 0 / 0.12);
+}
+
+.smm-planner-filters-panel.is-hidden {
+    display: none;
+}
+
+.smm-planner-filters-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.smm-planner-filters-title {
+    font-size: 0.9375rem;
+}
+
+.smm-planner-filters-clear {
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--brand-blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.smm-planner-filters-clear:disabled {
+    color: rgb(17 24 39 / 0.35);
+    cursor: default;
+}
+
+.smm-planner-filters-body {
+    display: grid;
+    gap: 0.75rem;
+    max-height: 20rem;
+    overflow-y: auto;
+}
+
+.smm-planner-filter-group-label {
+    margin: 0 0 0.3rem;
+    color: rgb(17 24 39 / 0.55);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.smm-planner-filter-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2rem;
+    padding: 0.15rem 0.25rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+.smm-planner-filter-option:hover {
+    background: var(--brand-surface);
+}
+
+/* Native box is hidden but still focusable, so focus lands on the drawn box. */
+.smm-planner-filter-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.smm-planner-filter-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    border: 1.5px solid rgb(0 56 255 / 0.28);
+    border-radius: 0.28rem;
+    background: var(--brand-white);
+    color: transparent;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.smm-planner-filter-input:checked + .smm-planner-filter-box {
+    border-color: var(--brand-blue);
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.smm-planner-filter-input:focus-visible + .smm-planner-filter-box {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+}
+
+.smm-planner-filter-label {
+    font-size: 0.8125rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.smm-planner-outline-btn.is-active {
+    border-color: var(--brand-blue);
+    color: var(--brand-blue);
+}
+
+.smm-cal-month {
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    background: var(--brand-white);
+}
+
+.smm-cal-month-head,
+.smm-cal-month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.smm-cal-month-weekday {
+    padding: 0.65rem 0.75rem;
+    border-right: 1px solid rgb(0 0 0 / 0.08);
+    text-align: left;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: rgb(17 24 39 / 0.88);
+    background: var(--brand-white);
+}
+
+.smm-cal-month-weekday:last-child {
+    border-right: none;
+}
+
+.smm-cal-month-cell {
+    position: relative;
+    min-height: 5rem;
+    padding: 0.5rem 0.65rem;
+    border: none;
+    border-right: 1px solid rgb(0 0 0 / 0.08);
+    border-bottom: 1px solid rgb(0 0 0 / 0.08);
+    background: var(--brand-white);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.12s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-family: var(--brand-font-body);
+}
+
+.smm-cal-month-cell:hover {
+    background: rgb(0 56 255 / 0.03);
+}
+
+.smm-cal-month-cell.is-outside {
+    background: rgb(248 249 250 / 0.9);
+}
+
+.smm-cal-month-cell.is-outside .smm-cal-month-num {
+    color: rgb(17 24 39 / 0.38);
+    font-weight: 500;
+}
+
+.smm-cal-month-cell.is-today:not(.is-selected) .smm-cal-month-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.625rem;
+    height: 1.625rem;
+    border-radius: 999px;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-weight: 700;
+}
+
+.smm-cal-month-cell.is-selected {
+    background: rgb(255 237 213 / 0.5);
+    box-shadow: inset 0 0 0 2px var(--brand-blue);
+    z-index: 1;
+}
+
+.smm-cal-month-cell.is-selected.is-today .smm-cal-month-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.625rem;
+    height: 1.625rem;
+    border-radius: 999px;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-weight: 700;
+}
+
+.smm-cal-month-num {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.625rem;
+    color: rgb(17 24 39 / 0.72);
+}
+
+.smm-cal-month-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-top: auto;
+    width: 100%;
+    padding-top: 0.35rem;
+}
+
+.smm-cal-month-holiday {
+    display: block;
+    font-size: 0.6875rem;
+    line-height: 1.3;
+    color: rgb(17 24 39 / 0.55);
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.smm-cal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.smm-cal-list-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: var(--smm-border);
+}
+
+.smm-cal-list-head h3 {
+    margin: 0;
+    font-size: 0.9375rem;
+}
+
+.smm-cal-list-count {
+    font-weight: 500;
+    color: var(--smm-muted);
+}
+
+.smm-cal-list-add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: var(--smm-border);
+    border-radius: 999px;
+    background: var(--brand-white);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.smm-cal-list-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.65rem 0 1rem;
+}
+
+.smm-cal-list-suggest,
+.smm-cal-list-post {
+    width: 100%;
+}
+
+/* Day detail panel */
+.smm-planner-day-panel {
+    width: 16rem;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-left: var(--smm-border);
+    background: var(--brand-white);
+}
+
+.smm-day-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-bottom: var(--smm-border);
+}
+
+.smm-day-panel-date {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--brand-blue);
+}
+
+.smm-day-panel-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.4rem;
+    background: transparent;
+    cursor: pointer;
+}
+
+.smm-day-panel-body {
+    padding: 0.85rem 1rem 1rem;
+    overflow-y: auto;
+}
+
+.smm-day-panel-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.75rem;
+    border: var(--smm-border);
+    border-radius: 999px;
+    background: var(--brand-white);
+    cursor: pointer;
+}
+
+.smm-day-panel-menu {
+    margin-bottom: 0.75rem;
+    padding: 0.35rem;
+    border: var(--smm-border);
+    border-radius: 0.5rem;
+    background: var(--brand-white);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
+}
+
+.smm-day-panel-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.55rem 0.65rem;
+    border: none;
+    border-radius: 0.4rem;
+    background: transparent;
+    font-family: var(--brand-font-body);
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.smm-day-panel-menu-item:hover {
+    background: var(--brand-surface);
+}
+
+.smm-day-panel-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.smm-day-panel-empty {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--smm-muted);
+}
+
+/* Create post modal — Hootsuite-style composer */
+body.smm-compose-open {
+    overflow: hidden;
+}
+
+body.smm-compose-open .lb-assistant--dashboard {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.smm-compose-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.smm-compose-modal.is-hidden {
+    display: none;
+}
+
+.smm-compose-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgb(17 24 39 / 0.55);
+}
+
+.smm-compose-modal-dialog {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 96vw);
+    height: min(96vh, 60rem);
+    border-radius: 0.5rem;
+    background: var(--brand-white);
+    box-shadow: 0 24px 64px rgb(0 0 0 / 0.22);
+    overflow: hidden;
+}
+
+.smm-compose-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-shrink: 0;
+    min-height: 3.25rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid rgb(0 0 0 / 0.1);
+}
+
+.smm-compose-modal-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-modal-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.smm-compose-wisdom-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    height: 2rem;
+    padding: 0 0.75rem;
+    border: 1px solid var(--brand-blue);
+    border-radius: 0.375rem;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-family: var(--brand-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    animation: smm-ask-hannah-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes smm-ask-hannah-glow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgb(0 56 255 / 0.28);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 0 4px rgb(0 56 255 / 0.14), 0 0 14px rgb(0 56 255 / 0.28);
+        transform: scale(1.03);
+    }
+}
+
+.smm-compose-wisdom-btn:hover {
+    background: var(--brand-blue-dark);
+    border-color: var(--brand-blue-dark);
+}
+
+.smm-compose-wisdom-btn[aria-pressed="true"] {
+    background: var(--brand-blue-dark);
+    border-color: var(--brand-blue-dark);
+    animation: none;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .smm-compose-wisdom-btn {
+        animation: none;
+    }
+}
+
+.smm-compose-modal-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.375rem;
+    background: transparent;
+    color: rgb(17 24 39 / 0.72);
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-compose-modal-icon-btn:hover {
+    background: rgb(0 0 0 / 0.05);
+}
+
+.smm-compose-modal-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr) minmax(240px, 0.9fr);
+    gap: 0;
+    min-height: 0;
+    flex: 1;
+    overflow: hidden;
+}
+
+.smm-compose-modal-body.is-wisdom-hidden {
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 1.05fr);
+}
+
+.smm-compose-col {
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.smm-compose-col--editor {
+    padding: 1rem 1.15rem;
+    overflow-y: auto;
+    border-right: 1px solid rgb(0 0 0 / 0.1);
+}
+
+.smm-compose-col--editor:has(.smm-compose-account-picker.is-open) {
+    overflow: visible;
+    z-index: 5;
+}
+
+.smm-compose-col--preview {
+    position: relative;
+    padding: 0.75rem 0.65rem;
+    overflow-y: auto;
+    background: rgb(249 250 251);
+    border-right: 1px solid rgb(0 0 0 / 0.1);
+    --smm-compose-preview-phone-width: 278px;
+    --smm-compose-preview-panel-max: 18.75rem;
+}
+
+@media (max-height: 720px) {
+    .smm-compose-col--preview {
+        --smm-compose-preview-phone-width: 248px;
+        --smm-compose-preview-panel-max: 16.75rem;
+    }
+}
+
+.smm-compose-col--wisdom {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--brand-white);
+}
+
+.smm-compose-col--wisdom.is-hidden {
+    display: none;
+}
+
+.smm-compose-field {
+    margin-bottom: 1.15rem;
+}
+
+.smm-compose-field-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-field-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+}
+
+.smm-compose-field-head .smm-compose-field-label {
+    margin-bottom: 0;
+}
+
+.smm-compose-clear-accounts {
+    border: none;
+    background: transparent;
+    color: var(--brand-blue);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.smm-compose-clear-accounts:hover {
+    text-decoration: underline;
+}
+
+.smm-compose-account-trigger-content {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.smm-compose-account-placeholder {
+    color: rgb(17 24 39 / 0.55);
+    font-style: italic;
+}
+
+.smm-compose-account-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.smm-compose-account-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    max-width: 100%;
+    padding: 0.2rem 0.45rem 0.2rem 0.35rem;
+    border-radius: 0.3rem;
+    background: rgb(255 236 214);
+    color: var(--brand-black);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.smm-compose-account-pill-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.smm-compose-account-pill-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.smm-compose-account-pill-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border: none;
+    border-radius: 0.2rem;
+    background: transparent;
+    color: rgb(17 24 39 / 0.55);
+    font-size: 0.95rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.smm-compose-account-pill-remove:hover {
+    color: var(--brand-black);
+    background: rgb(0 0 0 / 0.06);
+}
+
+.smm-compose-post-field {
+    margin-bottom: 0;
+}
+
+.smm-compose-post-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.65rem;
+}
+
+.smm-compose-post-head-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.smm-compose-post-head .smm-compose-field-label {
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.smm-compose-post-type-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.smm-compose-post-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.15rem;
+    border: none;
+    background: transparent;
+    color: rgb(17 24 39 / 0.82);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.smm-compose-post-type:hover {
+    color: var(--brand-blue);
+}
+
+.smm-compose-post-type-menu {
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    right: 0;
+    z-index: 40;
+    min-width: 8.5rem;
+    padding: 0.35rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.5rem;
+    background: var(--brand-white);
+    box-shadow: 0 10px 24px rgb(0 0 0 / 0.12);
+}
+
+.smm-compose-post-type-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    border: none;
+    border-radius: 0.375rem;
+    background: transparent;
+    color: var(--brand-black);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+}
+
+.smm-compose-post-type-option:hover {
+    background: rgb(0 0 0 / 0.04);
+}
+
+.smm-compose-post-type-option.is-selected::after {
+    content: "✓";
+    font-size: 0.75rem;
+    color: var(--brand-blue);
+    font-weight: 700;
+}
+
+.smm-compose-editor-shell {
+    position: relative;
+}
+
+.smm-compose-caption-shell {
+    position: relative;
+}
+
+.smm-compose-emoji-anchor {
+    position: relative;
+}
+
+.smm-compose-emoji-picker {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0.45rem);
+    z-index: 30;
+    width: min(18.5rem, calc(100vw - 2rem));
+    max-height: 16.5rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(0 56 255 / 0.14);
+    border-radius: 0.75rem;
+    background: var(--brand-white);
+    box-shadow: 0 16px 40px rgb(0 0 0 / 0.12);
+    overflow: hidden;
+}
+
+.smm-compose-emoji-picker.is-floating {
+    position: fixed;
+    right: auto;
+    bottom: auto;
+    z-index: 12000;
+}
+
+.smm-compose-col--editor:has(.smm-compose-emoji-picker.is-floating),
+.smm-compose-editor:has(.smm-compose-emoji-picker.is-floating) {
+    overflow: visible;
+}
+
+/* An open dropdown must escape the editor card, which is clipped for its rounded corners. */
+.smm-compose-editor:has(.lb-dropdown.is-open) {
+    overflow: visible;
+}
+
+.smm-compose-col--editor:has(.lb-dropdown.is-open) {
+    overflow: visible;
+    z-index: 5;
+}
+
+.smm-compose-emoji-picker-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.55rem 0.65rem;
+    border-bottom: 1px solid rgb(0 56 255 / 0.08);
+    background: var(--brand-surface);
+}
+
+.smm-compose-emoji-picker-title {
+    margin: 0;
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: rgb(0 0 0 / 0.72);
+}
+
+.smm-compose-emoji-picker-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: none;
+    border-radius: 0.45rem;
+    background: transparent;
+    color: rgb(0 0 0 / 0.55);
+    cursor: pointer;
+}
+
+.smm-compose-emoji-picker-close:hover {
+    background: rgb(0 56 255 / 0.08);
+    color: var(--brand-blue);
+}
+
+.smm-compose-emoji-picker-body {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 0.15rem;
+    padding: 0.55rem;
+    overflow: auto;
+}
+
+.smm-compose-emoji-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: none;
+    border-radius: 0.45rem;
+    background: transparent;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.smm-compose-emoji-option:hover,
+.smm-compose-emoji-option:focus-visible {
+    background: rgb(0 56 255 / 0.08);
+    outline: none;
+}
+
+.smm-compose-preview-story-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    padding: 1.1rem 1rem 1.35rem;
+    background: linear-gradient(180deg, rgb(0 0 0 / 0) 0%, rgb(0 0 0 / 0.72) 100%);
+    color: var(--brand-white);
+    font-size: 0.72rem;
+    line-height: 1.35;
+    font-weight: 600;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+    pointer-events: none;
+}
+
+.smm-compose-preview-media--story {
+    position: relative;
+}
+
+.smm-compose-story-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    margin-bottom: 0.65rem;
+    padding: 0.7rem 0.8rem;
+    border-radius: 0.375rem;
+    background: rgb(0 56 255 / 0.08);
+    color: rgb(17 24 39 / 0.78);
+}
+
+.smm-compose-story-notice svg {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    color: var(--brand-blue);
+}
+
+.smm-compose-story-notice p {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+}
+
+.smm-compose-error-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    margin-bottom: 0;
+    padding: 0.85rem 0.9rem;
+    border-radius: 0.375rem;
+    background: rgb(255 59 48 / 0.08);
+    border: 1px solid rgb(255 59 48 / 0.14);
+    color: rgb(17 24 39 / 0.82);
+}
+
+.smm-compose-error-alerts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-bottom: 0.65rem;
+}
+
+.smm-compose-error-alert-action {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.55rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.3rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.78);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.smm-compose-error-alert-action:hover {
+    background: var(--brand-surface);
+    border-color: rgb(0 56 255 / 0.18);
+}
+
+.smm-compose-error-alert-action:focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+}
+
+.smm-compose-error-alert-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--brand-red);
+}
+
+.smm-compose-error-alert-copy {
+    min-width: 0;
+}
+
+.smm-compose-error-alert-title {
+    margin: 0 0 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-error-alert-message {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: rgb(17 24 39 / 0.78);
+}
+
+.smm-compose-platform-error-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 0.3rem;
+    background: rgb(255 59 48 / 0.12);
+    flex-shrink: 0;
+    color: var(--brand-red);
+    pointer-events: none;
+}
+
+.smm-compose-platform-error-badge svg {
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.smm-compose-platform-tabs {
+    display: flex;
+    align-items: flex-end;
+    gap: 2.25rem;
+    flex-wrap: wrap;
+}
+
+.smm-compose-platform-tab-group {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+.smm-compose-platform-tab {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.smm-compose-platform-tab-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.smm-compose-platform-tab-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.375rem;
+    height: 1.375rem;
+    flex-shrink: 0;
+}
+
+.smm-compose-platform-tab-icon svg,
+.smm-compose-platform-tab-icon img {
+    display: block;
+    width: 1.375rem;
+    height: 1.375rem;
+}
+
+.smm-compose-platform-tab-indicator {
+    display: block;
+    width: 100%;
+    height: 0.1875rem;
+    border-radius: 0;
+    background: transparent;
+}
+
+.smm-compose-platform-tab-group.is-active .smm-compose-platform-tab-indicator {
+    background: var(--brand-black);
+}
+
+.smm-compose-platform-tab-group:not(.is-active) {
+    opacity: 0.72;
+}
+
+.smm-compose-platform-tab-group:hover {
+    opacity: 1;
+}
+
+.smm-compose-account-picker {
+    position: relative;
+}
+
+.smm-compose-account-picker.is-open {
+    z-index: 30;
+}
+
+.smm-compose-account-trigger {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    min-height: 2.5rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid rgb(0 0 0 / 0.16);
+    border-radius: 0.375rem;
+    background: var(--brand-white);
+    font-size: 0.875rem;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.smm-compose-account-trigger:hover,
+.smm-compose-account-picker.is-open .smm-compose-account-trigger {
+    border-color: rgb(0 56 255 / 0.35);
+}
+
+.smm-compose-account-trigger.has-selection {
+    align-items: center;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+.smm-compose-account-chevron {
+    flex-shrink: 0;
+    color: rgb(17 24 39 / 0.45);
+}
+
+.smm-compose-account-menu {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: 0;
+    right: 0;
+    z-index: 40;
+    max-height: min(20rem, 50vh);
+    overflow-y: auto;
+    padding: 0.5rem 0;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.375rem;
+    background: var(--brand-white);
+    box-shadow: 0 12px 32px rgb(0 0 0 / 0.14);
+}
+
+.smm-compose-account-group + .smm-compose-account-group {
+    margin-top: 0.35rem;
+    padding-top: 0.35rem;
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-compose-account-group-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0.35rem 0.75rem 0.45rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgb(17 24 39 / 0.72);
+}
+
+.smm-compose-account-group-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.smm-compose-account-option {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.75rem;
+    cursor: pointer;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.smm-compose-account-option:hover {
+    background: rgb(255 248 225 / 0.65);
+    box-shadow: inset 0 0 0 1px rgb(0 56 255 / 0.18);
+}
+
+.smm-compose-account-input {
+    flex-shrink: 0;
+    width: 0.95rem;
+    height: 0.95rem;
+    margin: 0;
+    accent-color: var(--brand-blue);
+}
+
+.smm-compose-account-avatar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: 999px;
+    overflow: visible;
+    background: var(--brand-surface);
+}
+
+.smm-compose-account-avatar--facebook {
+    background: rgb(24 119 242 / 0.12);
+}
+
+.smm-compose-account-avatar--instagram {
+    background: linear-gradient(135deg, rgb(131 58 180 / 0.14), rgb(253 29 29 / 0.12), rgb(252 176 69 / 0.14));
+}
+
+.smm-compose-account-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 999px;
+    display: block;
+}
+
+.smm-compose-account-initial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    font-family: var(--brand-font-heading);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-account-initial.is-hidden {
+    display: none;
+}
+
+.smm-compose-account-badge {
+    position: absolute;
+    right: -0.1rem;
+    bottom: -0.1rem;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.95rem;
+    height: 0.95rem;
+    border-radius: 999px;
+    background: var(--brand-white);
+    border: 2px solid var(--brand-white);
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.08);
+    overflow: hidden;
+}
+
+.smm-compose-account-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+}
+
+.smm-compose-account-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--brand-black);
+    word-break: break-word;
+}
+
+.smm-compose-account-type {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    color: rgb(17 24 39 / 0.5);
+}
+
+.smm-compose-editor {
+    border: 1px solid rgb(0 56 255 / 0.12);
+    border-radius: 0.5rem;
+    background: var(--brand-white);
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.03);
+}
+
+.smm-compose-caption-shell {
+    display: flex;
+    flex-direction: column;
+}
+
+.smm-compose-caption {
+    display: block;
+    width: 100%;
+    min-height: 10.5rem;
+    padding: 0.9rem 1rem 0.35rem;
+    border: none;
+    background: transparent;
+    resize: none;
+    font-family: var(--brand-font-body);
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--brand-black);
+}
+
+.smm-compose-caption::placeholder {
+    color: rgb(17 24 39 / 0.42);
+}
+
+.smm-compose-caption:focus {
+    outline: none;
+}
+
+.smm-compose-caption-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.45rem 0.75rem 0.65rem;
+}
+
+.smm-compose-char-count {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: rgb(17 24 39 / 0.45);
+}
+
+.smm-compose-char-count.is-over-limit {
+    color: var(--brand-red);
+    font-weight: 600;
+}
+
+.smm-compose-caption-tools {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.smm-compose-enhance-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.15rem;
+    border: none;
+    background: transparent;
+    color: rgb(17 24 39 / 0.55);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.smm-compose-enhance-link svg {
+    flex-shrink: 0;
+    color: var(--brand-blue);
+}
+
+.smm-compose-enhance-link:hover {
+    color: var(--brand-blue);
+}
+
+.smm-compose-caption-tool-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1rem;
+    margin-left: 0.15rem;
+    padding-left: 0.35rem;
+    border-left: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-compose-caption-tool-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 0.4rem;
+    background: transparent;
+    color: rgb(17 24 39 / 0.5);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.smm-compose-caption-tool-btn:hover {
+    background: var(--brand-surface);
+    color: var(--brand-black);
+}
+
+.smm-compose-attach-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+    background: rgb(249 250 251);
+}
+
+.smm-compose-attach-media {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex: 1;
+    min-width: 0;
+    flex-wrap: wrap;
+}
+
+.smm-compose-media-strip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    min-width: 0;
+}
+
+.smm-compose-media-strip.is-empty {
+    display: none;
+}
+
+.smm-compose-attach-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 2.35rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid rgb(0 56 255 / 0.14);
+    border-radius: 0.55rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.72);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.smm-compose-attach-btn--add {
+    width: 2.75rem;
+    height: 2.75rem;
+    min-height: 0;
+    padding: 0;
+    border-radius: 999px;
+    border-color: rgb(0 0 0 / 0.12);
+    background: rgb(243 244 246);
+    color: rgb(17 24 39 / 0.55);
+    flex-shrink: 0;
+}
+
+.smm-compose-attach-btn-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    object-fit: contain;
+    opacity: 0.7;
+}
+
+.smm-compose-attach-btn-icon-svg {
+    flex-shrink: 0;
+    display: block;
+}
+
+.smm-compose-attach-btn svg {
+    flex-shrink: 0;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-compose-attach-btn:hover {
+    border-color: rgb(0 56 255 / 0.28);
+    color: var(--brand-blue);
+    box-shadow: 0 2px 8px rgb(0 56 255 / 0.08);
+}
+
+.smm-compose-attach-btn--add:hover {
+    background: var(--brand-white);
+    border-color: rgb(0 56 255 / 0.22);
+    color: var(--brand-blue);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
+}
+
+.smm-compose-attach-btn:hover svg,
+.smm-compose-attach-btn--add:hover .smm-compose-attach-btn-icon-svg {
+    color: var(--brand-blue);
+}
+
+.smm-compose-attach-btn:hover .smm-compose-attach-btn-icon {
+    opacity: 1;
+}
+
+@media (max-width: 720px) {
+    .smm-compose-caption-meta {
+        flex-wrap: wrap;
+        align-items: flex-end;
+    }
+
+    .smm-compose-enhance-link span {
+        display: none;
+    }
+}
+
+.smm-compose-platform-extras {
+    margin-top: 1rem;
+}
+
+.smm-compose-first-comment {
+    margin-bottom: 1rem;
+    padding: 0.85rem 0.9rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.375rem;
+    background: var(--brand-white);
+}
+
+.smm-compose-first-comment-title {
+    margin: 0 0 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-first-comment-note {
+    margin: 0 0 0.65rem;
+    font-size: 0.75rem;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-compose-first-comment-input {
+    width: 100%;
+    min-height: 4.5rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.375rem;
+    background: var(--brand-surface);
+    font-size: 0.8125rem;
+    resize: vertical;
+}
+
+.smm-compose-boost {
+    padding-top: 0.25rem;
+}
+
+.smm-compose-boost-title {
+    margin: 0 0 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-boost-copy {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: rgb(17 24 39 / 0.62);
+}
+
+.smm-compose-boost-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.375rem;
+    background: var(--brand-surface);
+    color: rgb(17 24 39 / 0.45);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: not-allowed;
+}
+
+.smm-compose-boost-btn-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    object-fit: contain;
+    opacity: 0.7;
+}
+
+.smm-compose-boost-badge {
+    padding: 0.12rem 0.4rem;
+    border-radius: 999px;
+    background: rgb(0 56 255 / 0.1);
+    color: var(--brand-blue);
+    font-size: 0.6875rem;
+    font-weight: 700;
+}
+
+.smm-compose-preview-empty {
+    padding: 2rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    text-align: center;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-compose-preview-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: var(--smm-compose-preview-panel-max, 18.75rem);
+    margin: 0 auto;
+}
+
+.smm-compose-preview-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: var(--smm-compose-preview-panel-max, 18.75rem);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.smm-compose-preview-platform-head {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.smm-compose-preview-platform-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-preview-fb-card,
+.smm-compose-preview-ig-card {
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.5rem;
+    background: var(--brand-white);
+    overflow: hidden;
+}
+
+.smm-compose-preview-fb-top,
+.smm-compose-preview-ig-top {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.75rem 0.85rem;
+}
+
+.smm-compose-preview-fb-meta {
+    flex: 1;
+    min-width: 0;
+}
+
+.smm-compose-preview-fb-name,
+.smm-compose-preview-ig-name {
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--brand-black);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.smm-compose-preview-fb-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0.1rem 0 0;
+    font-size: 0.6875rem;
+    color: rgb(17 24 39 / 0.5);
+}
+
+.smm-compose-preview-fb-avatar,
+.smm-compose-preview-ig-avatar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgb(24 119 242 / 0.12);
+}
+
+.smm-compose-preview-ig-avatar {
+    background: linear-gradient(135deg, rgb(131 58 180 / 0.14), rgb(253 29 29 / 0.12), rgb(252 176 69 / 0.14));
+}
+
+.smm-compose-preview-fb-avatar img,
+.smm-compose-preview-ig-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.smm-compose-preview-fb-initial,
+.smm-compose-preview-ig-initial {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-preview-menu {
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    color: rgb(17 24 39 / 0.55);
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.smm-compose-preview-fb-caption {
+    margin: 0;
+    padding: 0 0.85rem 0.65rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--brand-black);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.smm-compose-preview-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(243 244 246);
+    color: rgb(17 24 39 / 0.4);
+    font-size: 0.75rem;
+    overflow: hidden;
+}
+
+.smm-compose-preview-media--facebook {
+    min-height: 10rem;
+}
+
+.smm-compose-preview-media img,
+.smm-compose-preview-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.smm-compose-preview-native-video::-webkit-media-controls-fullscreen-button,
+.smm-compose-preview-native-video::-webkit-media-controls-overflow-button,
+.smm-compose-preview-media video[controls]::-webkit-media-controls-fullscreen-button,
+.smm-compose-preview-media video[controls]::-webkit-media-controls-overflow-button {
+    display: none !important;
+}
+
+.smm-compose-preview-native-video::-moz-media-controls-fullscreen-button,
+.smm-compose-preview-media video[controls]::-moz-media-controls-fullscreen-button {
+    display: none !important;
+}
+
+/* Wrong-aspect media: show uploaded dimensions (letterboxed), not stretched to fill frame */
+.smm-compose-preview-media.is-native-aspect {
+    background: var(--brand-black);
+}
+
+.smm-compose-preview-media--facebook.is-native-aspect {
+    min-height: auto;
+    background: rgb(243 244 246);
+}
+
+.smm-compose-preview-media.is-native-aspect img,
+.smm-compose-preview-media.is-native-aspect video,
+.smm-compose-preview-media.is-native-aspect .smm-compose-preview-post-media,
+.smm-compose-preview-media.is-native-aspect .smm-compose-preview-story-media,
+.smm-compose-preview-media.is-native-aspect .smm-compose-preview-reel-media {
+    position: static;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.smm-compose-preview-media--facebook.is-native-aspect .smm-compose-preview-post-media {
+    width: 100%;
+    max-height: none;
+}
+
+.smm-compose-preview-phone--ig-story .smm-compose-preview-media--story.is-native-aspect,
+.smm-compose-preview-phone--fb-story .smm-compose-preview-media--story.is-native-aspect,
+.smm-compose-preview-phone--ig-reel .smm-compose-preview-media--reel.is-native-aspect,
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-media--reel.is-native-aspect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brand-black);
+}
+
+.smm-compose-preview-media.is-empty span {
+    padding: 1rem;
+    text-align: center;
+}
+
+.smm-compose-preview-post-media {
+    display: block;
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.smm-compose-preview-media--facebook.is-native-aspect .smm-compose-preview-post-media {
+    object-fit: contain;
+}
+
+.smm-compose-preview-fb-post-playback {
+    background: var(--brand-black);
+    padding: 0.35rem 0.65rem 0.5rem;
+}
+
+.smm-compose-preview-fb-post-playback .smm-compose-preview-story-playback-time,
+.smm-compose-preview-fb-post-playback .smm-compose-preview-story-playback-btn,
+.smm-compose-preview-fb-post-playback .smm-compose-preview-story-playback-volume {
+    color: var(--brand-white);
+}
+
+.smm-compose-preview-fb-actions-img-wrap {
+    border-top: 1px solid #dadde1;
+    line-height: 0;
+    background: var(--brand-white);
+}
+
+.smm-compose-preview-fb-actions-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.smm-compose-preview-ig-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 0.85rem;
+    color: rgb(17 24 39 / 0.72);
+}
+
+.smm-compose-preview-ig-actions-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.smm-compose-preview-ig-username {
+    margin: 0;
+    padding: 0 0.85rem 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--brand-black);
+    word-break: break-word;
+}
+
+.smm-compose-preview-ig-caption-body {
+    margin: 0;
+    padding: 0 0.85rem 0.85rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    font-weight: 400;
+    color: var(--brand-black);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.smm-compose-preview-media--instagram {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    min-height: 10rem;
+}
+
+.smm-compose-preview-media--instagram:not(.is-empty) {
+    background: var(--brand-black);
+}
+
+.smm-compose-preview-ig-empty {
+    display: block;
+    padding: 1rem;
+    text-align: center;
+}
+
+.smm-compose-preview-media--instagram:not(.is-empty) .smm-compose-preview-ig-empty {
+    display: none;
+}
+
+.smm-compose-preview-ig-carousel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.smm-compose-preview-ig-carousel-viewport {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.smm-compose-preview-ig-carousel-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.92);
+    color: var(--brand-black);
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.22);
+    cursor: pointer;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition:
+        opacity 0.18s ease,
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+.smm-compose-preview-ig-carousel.has-multiple:hover .smm-compose-preview-ig-carousel-nav,
+.smm-compose-preview-ig-carousel.has-multiple:focus-within .smm-compose-preview-ig-carousel-nav {
+    opacity: 1;
+}
+
+.smm-compose-preview-ig-carousel-nav:hover:not(:disabled) {
+    background: var(--brand-white);
+    transform: translateY(-50%) scale(1.04);
+}
+
+.smm-compose-preview-ig-carousel-nav:disabled {
+    opacity: 0 !important;
+    cursor: default;
+}
+
+.smm-compose-preview-ig-carousel-nav:focus-visible {
+    opacity: 1;
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+}
+
+.smm-compose-preview-ig-carousel-nav--prev {
+    left: 0.55rem;
+}
+
+.smm-compose-preview-ig-carousel-nav--next {
+    right: 0.55rem;
+}
+
+.smm-compose-preview-ig-carousel-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 0.65rem;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    max-width: calc(100% - 1.5rem);
+    padding: 0.2rem 0.35rem;
+    border-radius: 999px;
+    transform: translateX(-50%);
+    pointer-events: auto;
+}
+
+.smm-compose-preview-ig-carousel-dot {
+    flex-shrink: 0;
+    width: 0.375rem;
+    height: 0.375rem;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.45);
+    cursor: pointer;
+    transition:
+        width 0.18s ease,
+        background 0.18s ease,
+        opacity 0.18s ease;
+}
+
+.smm-compose-preview-ig-carousel-dot.is-active {
+    width: 0.4375rem;
+    height: 0.4375rem;
+    background: var(--brand-white);
+}
+
+.smm-compose-preview-ig-carousel-dot:hover {
+    background: rgb(255 255 255 / 0.82);
+}
+
+.smm-compose-preview-ig-carousel-dot:focus-visible {
+    outline: 2px solid var(--brand-white);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .smm-compose-preview-ig-carousel-nav,
+    .smm-compose-preview-ig-carousel-dot {
+        transition: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .smm-compose-preview-ig-carousel.has-multiple .smm-compose-preview-ig-carousel-nav {
+        opacity: 0.92;
+    }
+}
+
+.smm-compose-preview-ig-media-inner {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.smm-compose-preview-ig-media-inner.is-tag-ready {
+    cursor: crosshair;
+}
+
+.smm-compose-preview-ig-media-inner img,
+.smm-compose-preview-ig-media-inner video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.smm-compose-preview-ig-tags {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.smm-compose-preview-ig-tag {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    pointer-events: auto;
+    z-index: 2;
+}
+
+.smm-compose-preview-ig-tag-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.45rem;
+    border-radius: 0.25rem;
+    background: rgb(0 0 0 / 0.72);
+    color: var(--brand-white);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.18);
+}
+
+.smm-compose-preview-ig-tag-remove {
+    margin-left: 0.15rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: rgb(255 255 255 / 0.85);
+    font-size: 0.875rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.smm-compose-preview-ig-tag-remove:hover {
+    color: var(--brand-white);
+}
+
+.smm-compose-ig-tag-popover {
+    position: fixed;
+    z-index: 1200;
+    width: 14rem;
+    max-width: calc(100vw - 1.5rem);
+    padding: 0.65rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.45rem;
+    background: var(--brand-white);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+    pointer-events: auto;
+}
+
+.smm-compose-preview-panel[data-smm-preview-panel="instagram"][data-smm-preview-format="post"] {
+    overflow: visible;
+}
+
+.smm-compose-ig-tag-popover-label {
+    display: block;
+    margin: 0 0 0.35rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: rgb(17 24 39 / 0.65);
+}
+
+.smm-compose-ig-tag-popover-input {
+    width: 100%;
+    padding: 0.45rem 0.55rem;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.35rem;
+    font-size: 0.8125rem;
+    color: var(--brand-black);
+    background: var(--brand-white);
+}
+
+.smm-compose-ig-tag-popover-input:focus {
+    outline: 2px solid rgb(0 56 255 / 0.25);
+    border-color: var(--brand-blue);
+}
+
+.smm-compose-ig-tag-popover-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    margin-top: 0.55rem;
+}
+
+.smm-compose-ig-tag-popover-btn {
+    padding: 0.35rem 0.55rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.35rem;
+    background: var(--brand-white);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--brand-black);
+    cursor: pointer;
+}
+
+.smm-compose-ig-tag-popover-btn--primary {
+    border-color: var(--brand-blue);
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.smm-compose-ig-extras {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-top: 0.45rem;
+}
+
+.smm-compose-ig-collab,
+.smm-compose-ig-tag-hint {
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.5rem;
+    background: var(--brand-white);
+}
+
+.smm-compose-ig-collab-head {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    padding: 0.75rem 0.85rem;
+    border: none;
+    background: transparent;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--brand-black);
+    text-align: left;
+    cursor: pointer;
+}
+
+.smm-compose-ig-collab-title {
+    flex: 1;
+}
+
+.smm-compose-ig-collab-chevron {
+    flex-shrink: 0;
+    color: rgb(17 24 39 / 0.45);
+    transition: transform 0.15s ease;
+}
+
+.smm-compose-ig-collab.is-collapsed .smm-compose-ig-collab-chevron {
+    transform: rotate(180deg);
+}
+
+.smm-compose-ig-collab.is-collapsed .smm-compose-ig-collab-body {
+    display: none;
+}
+
+.smm-compose-ig-collab-body {
+    padding: 0 0.85rem 0.85rem;
+}
+
+.smm-compose-ig-collab-input {
+    width: 100%;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--brand-black);
+    background: var(--brand-white);
+}
+
+.smm-compose-ig-collab-input::placeholder {
+    color: rgb(17 24 39 / 0.42);
+}
+
+.smm-compose-ig-collab-input:focus {
+    outline: 2px solid rgb(0 56 255 / 0.25);
+    border-color: var(--brand-blue);
+}
+
+.smm-compose-ig-tag-hint {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.75rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-ig-tag-hint.is-disabled {
+    color: rgb(17 24 39 / 0.45);
+    font-weight: 600;
+}
+
+.smm-compose-ig-info-icon {
+    flex-shrink: 0;
+    color: rgb(17 24 39 / 0.45);
+}
+
+.smm-compose-preview-phone--ig-story {
+    display: flex;
+    flex-direction: column;
+}
+
+.smm-compose-preview-phone-screen {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    background: rgb(229 231 235);
+}
+
+.smm-compose-preview-phone--ig-story .smm-compose-preview-story-chrome--ig {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    padding: 0.35rem 0.55rem 0;
+    pointer-events: none;
+}
+
+.smm-compose-preview-phone--ig-story .smm-compose-preview-story-chrome--ig::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 -1.5rem;
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(0 0 0 / 0.42) 0%, rgb(0 0 0 / 0.08) 70%, transparent 100%);
+    pointer-events: none;
+}
+
+.smm-compose-preview-phone--ig-story .smm-compose-preview-media--story {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.smm-compose-preview-phone--ig-story .smm-compose-preview-media--story img,
+.smm-compose-preview-phone--ig-story .smm-compose-preview-media--story video,
+.smm-compose-preview-phone--ig-story .smm-compose-preview-media--story canvas,
+.smm-compose-preview-story-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.smm-compose-preview-phone--ig-story .smm-compose-preview-story-foot--ig {
+    z-index: 5;
+}
+
+.smm-compose-preview-phone--ig-story .smm-compose-preview-story-progress span {
+    width: 100%;
+}
+
+.smm-compose-preview-story-playback {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.4rem 0.6rem 0.5rem;
+    background: var(--brand-black);
+    color: rgb(255 255 255 / 0.88);
+    flex-shrink: 0;
+}
+
+.smm-compose-preview-story-playback-scrubber {
+    position: relative;
+    height: 0.12rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.28);
+}
+
+.smm-compose-preview-story-playback-scrubber-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--brand-white);
+    transition: width 0.1s linear;
+}
+
+.smm-compose-preview-story-playback-scrubber-handle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: var(--brand-white);
+    transform: translate(-50%, -50%);
+    transition: left 0.1s linear;
+}
+
+.smm-compose-preview-story-playback-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.smm-compose-preview-story-playback-btn,
+.smm-compose-preview-story-playback-volume {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.smm-compose-preview-story-playback-volume {
+    margin-left: auto;
+}
+
+.smm-compose-preview-story-playback-volume.is-disabled {
+    opacity: 0.38;
+    cursor: default;
+    pointer-events: none;
+}
+
+.smm-compose-preview-story-playback-icon {
+    display: block;
+    flex-shrink: 0;
+}
+
+.smm-compose-preview-phone--ig-story .smm-compose-preview-media--story.is-playback-ready {
+    cursor: pointer;
+}
+
+.smm-compose-preview-story-playback-time {
+    flex-shrink: 0;
+    min-width: 4.5rem;
+    font-size: 0.625rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: rgb(255 255 255 / 0.82);
+}
+
+.smm-compose-preview-story-playback-track {
+    display: none;
+}
+
+.smm-compose-preview-disclaimer {
+    margin: 0.4rem 0 0;
+    font-size: 0.625rem;
+    line-height: 1.4;
+    color: rgb(17 24 39 / 0.55);
+    text-align: left;
+}
+
+.smm-compose-preview-disclaimer a {
+    color: var(--brand-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.smm-compose-preview-disclaimer a:hover {
+    text-decoration: underline;
+}
+
+/* Story / Reel phone previews — scaled to fit compose preview column */
+.smm-compose-preview-panel[data-smm-preview-format="story"],
+.smm-compose-preview-panel[data-smm-preview-format="reel"] {
+    max-width: var(--smm-compose-preview-phone-width, 278px);
+}
+
+.smm-compose-preview-phone {
+    position: relative;
+    width: var(--smm-compose-preview-phone-width, 278px);
+    max-width: 100%;
+    height: auto;
+    min-height: 0;
+    margin: 0 auto;
+    aspect-ratio: 330 / 646;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.75rem;
+    background: rgb(229 231 235);
+    overflow: hidden;
+    color: var(--brand-white);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
+}
+
+.smm-compose-preview-phone.smm-compose-preview-phone--ig-story {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
+    background: var(--brand-black);
+    border-color: rgb(0 0 0 / 0.35);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+.smm-compose-preview-phone.smm-compose-preview-phone--fb-story {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
+    background: var(--brand-black);
+    border-color: rgb(0 0 0 / 0.35);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+.smm-compose-preview-phone--fb-story::before {
+    display: none;
+}
+
+.smm-compose-preview-phone--fb-story .smm-compose-preview-phone-screen {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    background: rgb(229 231 235);
+}
+
+.smm-compose-preview-phone--fb-story .smm-compose-preview-story-chrome {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    padding: 0.35rem 0.55rem 0;
+    pointer-events: none;
+}
+
+.smm-compose-preview-phone--fb-story .smm-compose-preview-media--story {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.smm-compose-preview-phone--fb-story .smm-compose-preview-media--story img,
+.smm-compose-preview-phone--fb-story .smm-compose-preview-media--story video,
+.smm-compose-preview-phone--fb-story .smm-compose-preview-media--story canvas,
+.smm-compose-preview-phone--fb-story .smm-compose-preview-story-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.smm-compose-preview-phone--fb-story .smm-compose-preview-media--story.is-playback-ready {
+    cursor: pointer;
+}
+
+.smm-compose-preview-phone--story::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    height: 5.5rem;
+    background: linear-gradient(180deg, rgb(0 0 0 / 0.42) 0%, rgb(0 0 0 / 0.08) 70%, transparent 100%);
+    pointer-events: none;
+}
+
+.smm-compose-preview-story-chrome {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    padding: 0.35rem 0.55rem 0;
+    pointer-events: none;
+}
+
+.smm-compose-preview-phone-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    color: var(--brand-white);
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.smm-compose-preview-phone-status-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.smm-compose-preview-wifi-icon {
+    width: 0.875rem;
+    height: auto;
+    max-height: 0.65rem;
+    object-fit: contain;
+    display: block;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+}
+
+.smm-compose-preview-story-progress {
+    height: 0.14rem;
+    margin-top: 0.45rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.35);
+    overflow: hidden;
+}
+
+.smm-compose-preview-story-progress span {
+    display: block;
+    width: 35%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--brand-white);
+}
+
+.smm-compose-preview-story-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.45rem;
+}
+
+.smm-compose-preview-story-user {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-width: 0;
+}
+
+.smm-compose-preview-story-name {
+    margin: 0;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--brand-white);
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+    word-break: break-word;
+}
+
+.smm-compose-preview-story-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--brand-white);
+}
+
+.smm-compose-preview-story-menu,
+.smm-compose-preview-story-close {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+}
+
+.smm-compose-preview-story-close {
+    font-size: 1.15rem;
+}
+
+.smm-compose-preview-fb-avatar--sm,
+.smm-compose-preview-ig-avatar--sm {
+    width: 1.65rem;
+    height: 1.65rem;
+}
+
+.smm-compose-preview-fb-avatar--sm .smm-compose-preview-fb-initial,
+.smm-compose-preview-ig-avatar--sm .smm-compose-preview-ig-initial {
+    font-size: 0.7rem;
+}
+
+.smm-compose-preview-media--story,
+.smm-compose-preview-media--reel {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    min-height: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: rgb(229 231 235);
+}
+
+.smm-compose-preview-media--story.is-empty span {
+    color: rgb(17 24 39 / 0.42);
+    font-size: 0.75rem;
+}
+
+.smm-compose-preview-story-foot {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.65rem 0.55rem 0.75rem;
+    background: linear-gradient(transparent, rgb(0 0 0 / 0.55));
+}
+
+.smm-compose-preview-story-foot--fb {
+    position: static;
+    flex-shrink: 0;
+    background: var(--brand-black);
+    padding: 0.62rem 0.6rem 0.5rem;
+    gap: 0.7rem;
+}
+
+.smm-compose-preview-story-foot--fb .smm-compose-preview-story-share {
+    flex: 1;
+    max-width: none;
+    justify-content: center;
+    padding: 0.58rem 1rem;
+    border-radius: 999px;
+    background: rgb(78 79 80);
+    color: var(--brand-white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.smm-compose-preview-story-foot--fb .smm-compose-preview-story-share .smm-compose-preview-fb-action-icon path {
+    stroke: var(--brand-white);
+    fill: transparent;
+}
+
+.smm-compose-preview-story-foot--fb .smm-compose-preview-story-reactions {
+    gap: 0.4rem;
+}
+
+.smm-compose-preview-story-foot--fb .smm-compose-preview-story-reaction {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.85rem;
+}
+
+.smm-compose-preview-phone--fb-story .smm-compose-preview-story-playback {
+    border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.smm-compose-preview-story-message {
+    flex: 1;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid rgb(255 255 255 / 0.35);
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    color: rgb(255 255 255 / 0.75);
+}
+
+.smm-compose-preview-story-message-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.95rem;
+}
+
+.smm-compose-preview-story-share {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    flex: 1;
+    max-width: 8.5rem;
+    padding: 0.5rem 0.85rem;
+    border: none;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.16);
+    color: var(--brand-white);
+    font-size: 0.6875rem;
+    font-weight: 600;
+}
+
+.smm-compose-preview-story-share .smm-compose-preview-fb-action-icon {
+    flex-shrink: 0;
+}
+
+.smm-compose-preview-story-share .smm-compose-preview-fb-action-icon path {
+    stroke: var(--brand-white);
+    fill: rgb(255 255 255 / 0.15);
+}
+
+.smm-compose-preview-story-reactions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.smm-compose-preview-story-reaction {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.65rem;
+    height: 1.65rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    line-height: 1;
+}
+
+.smm-compose-preview-story-reaction--love {
+    background: #f33e58;
+}
+
+.smm-compose-preview-story-reaction--like {
+    background: #1877f2;
+}
+
+.smm-compose-preview-story-reaction--haha {
+    background: #f7b125;
+}
+
+.smm-compose-preview-phone:not(.smm-compose-preview-phone--story) .smm-compose-preview-phone-status {
+    position: absolute;
+    top: 0.35rem;
+    left: 0.55rem;
+    right: 0.55rem;
+    z-index: 4;
+}
+
+.smm-compose-preview-phone:not(.smm-compose-preview-phone--story) .smm-compose-preview-story-progress {
+    position: absolute;
+    top: 1.15rem;
+    left: 0.55rem;
+    right: 0.55rem;
+    z-index: 4;
+}
+
+.smm-compose-preview-phone:not(.smm-compose-preview-phone--story) .smm-compose-preview-story-head {
+    position: absolute;
+    top: 1.55rem;
+    left: 0.55rem;
+    right: 0.55rem;
+    z-index: 4;
+}
+
+.smm-compose-preview-story-foot--ig {
+    background: var(--brand-black);
+    padding: 0.55rem 0.55rem 0.6rem;
+    gap: 0.65rem;
+}
+
+.smm-compose-preview-story-foot--ig .smm-compose-preview-story-message {
+    flex: 1;
+    min-width: 0;
+    padding: 0.58rem 0.9rem;
+    border: 1px solid var(--brand-white);
+    border-radius: 999px;
+    background: transparent;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--brand-white);
+}
+
+.smm-compose-preview-story-foot--ig .smm-compose-preview-story-message-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-shrink: 0;
+    color: var(--brand-white);
+}
+
+.smm-compose-preview-story-foot--ig .smm-compose-preview-story-message-icon {
+    display: block;
+    flex-shrink: 0;
+}
+
+.smm-compose-preview-reel-top {
+    position: absolute;
+    top: 1.35rem;
+    left: 0.55rem;
+    right: 0.55rem;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--brand-white);
+}
+
+.smm-compose-preview-reel-back {
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 1.35rem;
+    line-height: 1;
+}
+
+.smm-compose-preview-reel-top-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.smm-compose-preview-reel-profile-dot {
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.35);
+}
+
+.smm-compose-preview-reel-ig-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--brand-white);
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.smm-compose-preview-reel-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.75rem 0.55rem;
+    background: linear-gradient(transparent, rgb(0 0 0 / 0.55));
+}
+
+.smm-compose-preview-reel-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.smm-compose-preview-reel-follow {
+    padding: 0.2rem 0.45rem;
+    border: 1px solid rgb(255 255 255 / 0.45);
+    border-radius: 0.25rem;
+    background: transparent;
+    color: var(--brand-white);
+    font-size: 0.5625rem;
+    font-weight: 700;
+}
+
+.smm-compose-preview-reel-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.85rem;
+}
+
+.smm-compose-preview-reel-action-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.smm-compose-preview-reel-action-more {
+    margin-bottom: 30px;
+}
+
+.smm-compose-preview-reel-action-icon {
+    display: block;
+    width: 1.375rem;
+    height: 1.375rem;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.smm-compose-preview-reel-action-icon--like {
+    mix-blend-mode: screen;
+}
+
+.smm-compose-preview-reel-action-icon--comment,
+.smm-compose-preview-reel-action-icon--share {
+    mix-blend-mode: screen;
+}
+
+.smm-compose-preview-reel-music {
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 0.25rem;
+    background: rgb(255 255 255 / 0.35);
+}
+
+.smm-compose-preview-phone--ig-reel,
+.smm-compose-preview-phone--fb-reel {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
+    background: var(--brand-black);
+    border-color: rgb(0 0 0 / 0.35);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+.smm-compose-preview-phone--ig-reel::before,
+.smm-compose-preview-phone--fb-reel::before {
+    display: none;
+}
+
+.smm-compose-preview-phone--ig-reel .smm-compose-preview-phone-screen,
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-phone-screen {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    background: rgb(229 231 235);
+}
+
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-phone-status,
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-reel-top {
+    position: absolute;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-phone-status {
+    top: 0.35rem;
+    left: 0.55rem;
+    right: 0.55rem;
+}
+
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-reel-top {
+    top: 1.35rem;
+    left: 0.55rem;
+    right: 0.55rem;
+}
+
+.smm-compose-preview-phone--ig-reel .smm-compose-preview-story-chrome--ig-reel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    padding: 0.35rem 0.55rem 0;
+    pointer-events: none;
+}
+
+.smm-compose-preview-reel-camera {
+    position: absolute;
+    top: 0.35rem;
+    right: 0.55rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--brand-white);
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
+}
+
+.smm-compose-preview-phone--ig-reel .smm-compose-preview-media--reel,
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-media--reel {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.smm-compose-preview-phone--ig-reel .smm-compose-preview-media--reel.is-playback-ready,
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-media--reel.is-playback-ready {
+    cursor: pointer;
+}
+
+.smm-compose-preview-reel-media,
+.smm-compose-preview-phone--ig-reel .smm-compose-preview-media--reel video,
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-media--reel video,
+.smm-compose-preview-phone--ig-reel .smm-compose-preview-media--reel img,
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-media--reel img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.smm-compose-preview-reel-overlay--ig {
+    align-items: stretch;
+    padding: 0.65rem 0.55rem 0.75rem;
+}
+
+.smm-compose-preview-reel-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.smm-compose-preview-reel-overlay--ig .smm-compose-preview-reel-meta {
+    flex-wrap: wrap;
+}
+
+.smm-compose-preview-reel-overlay--ig .smm-compose-preview-story-name {
+    max-width: 6.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.smm-compose-preview-reel-audio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--brand-white);
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.smm-compose-preview-reel-actions--ig {
+    position: absolute;
+    right: 0.55rem;
+    bottom: 4.5rem;
+    gap: 0.85rem;
+    font-size: 0;
+}
+
+.smm-compose-preview-reel-actions--ig span {
+    display: inline-flex;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
+}
+
+.smm-compose-preview-phone--ig-reel .smm-compose-preview-story-playback,
+.smm-compose-preview-phone--fb-reel .smm-compose-preview-story-playback {
+    border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.smm-compose-ig-extras--reel {
+    margin-top: 0.65rem;
+}
+
+.smm-compose-preview-panel[data-smm-preview-panel="instagram"][data-smm-preview-format="reel"] .smm-compose-ig-extras--reel {
+    max-width: var(--smm-compose-preview-phone-width, 278px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.smm-compose-wisdom-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.75rem 0.9rem;
+    border-bottom: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-compose-wisdom-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-compose-wisdom-head-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+}
+
+.smm-compose-wisdom-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: none;
+    border-radius: 0.375rem;
+    background: transparent;
+    color: rgb(17 24 39 / 0.55);
+    cursor: pointer;
+}
+
+.smm-compose-wisdom-icon:hover {
+    background: rgb(0 0 0 / 0.05);
+}
+
+.smm-compose-wisdom-section {
+    flex: 1;
+    min-height: 0;
+    padding: 0.85rem 0.9rem;
+    overflow-y: auto;
+}
+
+.smm-compose-wisdom-section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0 0 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-compose-wisdom-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.smm-compose-wisdom-item {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.375rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.82);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.smm-compose-wisdom-item:hover {
+    background: var(--brand-surface);
+    border-color: rgb(0 56 255 / 0.2);
+}
+
+.smm-compose-wisdom-ask {
+    flex-shrink: 0;
+    padding: 0.75rem 0.9rem 0.9rem;
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-compose-wisdom-ask-wrap {
+    position: relative;
+}
+
+.smm-compose-wisdom-ask-input {
+    width: 100%;
+    min-height: 4.5rem;
+    padding: 0.65rem 2.5rem 0.65rem 0.75rem;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.375rem;
+    resize: vertical;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+}
+
+.smm-compose-wisdom-ask-input:focus {
+    outline: none;
+    border-color: rgb(0 56 255 / 0.35);
+    box-shadow: 0 0 0 3px rgb(0 56 255 / 0.08);
+}
+
+.smm-compose-wisdom-send {
+    position: absolute;
+    right: 0.45rem;
+    bottom: 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    cursor: pointer;
+}
+
+.smm-compose-wisdom-send:hover {
+    background: var(--brand-blue-dark);
+}
+
+.smm-compose-modal-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgb(0 0 0 / 0.1);
+    background: var(--brand-white);
+    position: relative;
+    z-index: 3;
+    overflow: visible;
+}
+
+.smm-compose-draft-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.25rem;
+    padding: 0 0.15rem;
+    border: none;
+    background: transparent;
+    color: rgb(17 24 39 / 0.72);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.smm-compose-draft-btn:hover {
+    color: var(--brand-black);
+}
+
+.smm-compose-foot-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.smm-compose-schedule-later-btn [data-smm-schedule-later-label] {
+    max-width: 13rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.smm-compose-schedule-later-btn.has-schedule {
+    border-color: rgb(0 56 255 / 0.22);
+    background: var(--brand-surface);
+}
+.smm-compose-schedule-anchor {
+    position: relative;
+    display: inline-flex;
+}
+
+.smm-schedule-modal {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0.45rem);
+    z-index: 40;
+    width: 21.5rem;
+    max-width: min(21.5rem, calc(100vw - 2rem));
+}
+
+.smm-schedule-modal.is-hidden {
+    display: none;
+}
+
+.smm-schedule-modal-dialog {
+    width: 100%;
+    max-width: 21.5rem;
+    padding: 1rem 1rem 1.1rem;
+    border: 2px solid var(--brand-blue);
+    border-radius: 0.2rem;
+    background: var(--brand-white);
+    box-shadow: 0 18px 42px rgb(0 0 0 / 0.14);
+}
+
+.smm-schedule-modal-title {
+    margin: 0 0 0.85rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-schedule-date-wrap {
+    margin-bottom: 1rem;
+}
+
+.smm-schedule-date-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.smm-schedule-date-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    min-height: 2.65rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.2rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.88);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.smm-schedule-date-trigger:hover {
+    border-color: rgb(0 56 255 / 0.28);
+}
+
+.smm-schedule-date-trigger svg {
+    flex-shrink: 0;
+    color: var(--brand-blue);
+}
+
+.smm-schedule-time-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.smm-schedule-time-heading {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-schedule-timezone {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-schedule-time-fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 0.15rem;
+}
+
+.smm-schedule-time-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+.smm-schedule-time-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-schedule-select {
+    width: 100%;
+    min-height: 2.35rem;
+    padding: 0.4rem 0.55rem;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.2rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.88);
+    font-size: 0.875rem;
+}
+
+.smm-schedule-select:focus {
+    outline: none;
+    border-color: rgb(0 56 255 / 0.35);
+    box-shadow: 0 0 0 3px rgb(0 56 255 / 0.1);
+}
+
+.smm-schedule-recommended-toggle {
+    align-self: flex-start;
+    margin-top: 0.35rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--brand-blue);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.smm-schedule-recommended-toggle:hover {
+    text-decoration: underline;
+}
+
+.smm-schedule-recommended-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+}
+
+.smm-schedule-recommended-panel.is-hidden {
+    display: none;
+}
+
+.smm-schedule-recommended-option {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid rgb(0 0 0 / 0.1);
+    border-radius: 0.2rem;
+    background: var(--brand-surface);
+    color: rgb(17 24 39 / 0.82);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.smm-schedule-recommended-option:hover {
+    border-color: rgb(0 56 255 / 0.22);
+    background: var(--brand-white);
+}
+
+.smm-schedule-done {
+    width: 100%;
+    margin-top: 1rem;
+    min-height: 2.45rem;
+    padding: 0.55rem 1rem;
+    border: none;
+    border-radius: 0.2rem;
+    background: rgb(229 231 235);
+    color: rgb(17 24 39 / 0.85);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-schedule-done:hover {
+    background: rgb(209 213 219);
+}
+
+/* Hootsuite-style schedule popover (anchored above Schedule for later) */
+.smm-compose-schedule-later-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    height: 2.25rem;
+    padding: 0 0.75rem 0 0.85rem;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.375rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.82);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.smm-compose-schedule-later-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    color: var(--brand-blue);
+}
+
+.smm-compose-schedule-later-btn.has-schedule .smm-compose-schedule-later-icon,
+.smm-compose-schedule-later-btn.is-open .smm-compose-schedule-later-icon {
+    cursor: pointer;
+}
+
+.smm-compose-schedule-later-close {
+    display: none;
+}
+
+.smm-compose-schedule-later-btn.is-open {
+    border-color: rgb(0 56 255 / 0.35);
+    background: var(--brand-surface);
+}
+
+.smm-compose-schedule-later-btn.is-open .smm-compose-schedule-later-chevron,
+.smm-compose-schedule-later-btn.has-schedule .smm-compose-schedule-later-chevron {
+    display: none;
+}
+
+.smm-compose-schedule-later-btn.is-open .smm-compose-schedule-later-close,
+.smm-compose-schedule-later-btn.has-schedule .smm-compose-schedule-later-close {
+    display: block;
+}
+
+.smm-compose-schedule-later-btn:hover {
+    background: var(--brand-surface);
+    border-color: rgb(0 56 255 / 0.2);
+}
+
+.smm-compose-post-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 6.5rem;
+    height: 2.25rem;
+    padding: 0 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.smm-compose-post-primary:hover {
+    background: var(--brand-blue-dark);
+}
+
+.smm-compose-submit-split {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    flex-shrink: 0;
+}
+
+/* Desktop keeps a standalone "Save as draft" button, so no menu affordance here. */
+.smm-compose-post-primary-chevron {
+    display: none;
+    flex-shrink: 0;
+}
+
+.smm-compose-submit-menu {
+    display: none;
+}
+
+.smm-compose-submit-menu-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 0.45rem;
+    background: transparent;
+    color: var(--brand-black);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.smm-compose-submit-menu-item:hover {
+    background: var(--brand-surface);
+}
+
+.smm-compose-modal-foot .smm-form-note {
+    width: 100%;
+    margin: 0;
+}
+
+@media (max-width: 1100px) {
+    .smm-compose-modal-body,
+    .smm-compose-modal-body.is-wisdom-hidden {
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 0.9fr);
+    }
+
+    .smm-compose-col--wisdom {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .smm-compose-modal {
+        padding: 0;
+    }
+
+    .smm-compose-modal-dialog {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        border-radius: 0;
+    }
+
+    /*
+     * One scroll container for the whole sheet: the editor and the preview flow
+     * in order instead of each owning half the height with its own scrollbar.
+     */
+    .smm-compose-modal-body,
+    .smm-compose-modal-body.is-wisdom-hidden {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: none;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .smm-compose-col {
+        flex: 0 0 auto;
+        overflow: visible;
+    }
+
+    .smm-compose-col--editor {
+        overflow: visible;
+        border-right: none;
+        border-bottom: 1px solid rgb(0 0 0 / 0.1);
+    }
+
+    .smm-compose-col--preview {
+        overflow: visible;
+        border-right: none;
+        padding: 1.15rem 1rem 1.5rem;
+    }
+
+    .smm-compose-col--preview .smm-compose-preview-stack,
+    .smm-compose-col--preview .smm-compose-preview-panel {
+        max-width: 20rem;
+    }
+
+    .smm-planner-day-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        width: min(100%, 18rem);
+        box-shadow: -8px 0 32px rgb(0 0 0 / 0.12);
+    }
+
+    /* Only the actions stay pinned; content scrolls beneath, so signal elevation. */
+    .smm-compose-modal-foot {
+        padding: 0.85rem 1rem max(0.85rem, env(safe-area-inset-bottom));
+        box-shadow: 0 -6px 20px rgb(0 0 0 / 0.06);
+    }
+
+    /* Extra room on the right so the offset CTA shadows never clip. */
+    .smm-compose-foot-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.75rem;
+        width: 100%;
+        margin-left: 0;
+        padding-right: 4px;
+        align-items: stretch;
+    }
+
+    .smm-compose-draft-btn--desktop {
+        display: none;
+    }
+
+    .smm-compose-schedule-anchor {
+        min-width: 0;
+        width: 100%;
+    }
+
+    /* Secondary action takes the dashboard's white pill, sized for touch. */
+    .smm-compose-schedule-later-btn {
+        width: 100%;
+        min-width: 0;
+        min-height: 2.75rem;
+        height: auto;
+        padding: 0.5rem 0.9rem;
+        border: 2px solid var(--brand-black);
+        border-radius: 9999px;
+        background: var(--brand-white);
+        color: var(--brand-black);
+        box-shadow: 4px 4px 0 0 var(--brand-black);
+        font-size: 0.875rem;
+        touch-action: manipulation;
+        transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    .smm-compose-schedule-later-btn:hover {
+        background: var(--brand-surface);
+        border-color: var(--brand-black);
+    }
+
+    .smm-compose-schedule-later-btn:active {
+        background: var(--brand-surface);
+        box-shadow: 2px 2px 0 0 var(--brand-black);
+        transform: translate(2px, 2px);
+    }
+
+    .smm-compose-schedule-later-btn [data-smm-schedule-later-label] {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.875rem;
+    }
+
+    /*
+     * One pill button that opens the post actions upward — no split control.
+     * The blue pill styling comes from dashboard-cta.css so it matches every
+     * other primary CTA in the app.
+     */
+    .smm-compose-submit-split {
+        max-width: min(48vw, 12rem);
+        justify-self: end;
+    }
+
+    .smm-compose-submit-split .smm-compose-post-primary {
+        /* Override the shared CTA tokens instead of out-specifying dashboard-cta.css. */
+        --dash-cta-min-height: 2.75rem;
+        --dash-cta-padding-x: 1.05rem;
+        --dash-cta-gap: 0.4rem;
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        touch-action: manipulation;
+    }
+
+    .smm-compose-post-primary-chevron {
+        display: block;
+        transition: transform 0.15s ease;
+    }
+
+    .smm-compose-post-primary.is-direct-submit .smm-compose-post-primary-chevron {
+        display: none;
+    }
+
+    .smm-compose-post-primary[aria-expanded="true"] .smm-compose-post-primary-chevron {
+        transform: rotate(180deg);
+    }
+
+    .smm-compose-submit-menu {
+        position: absolute;
+        right: 0;
+        bottom: calc(100% + 0.6rem);
+        z-index: 50;
+        display: grid;
+        gap: 0.15rem;
+        min-width: 11.5rem;
+        padding: 0.35rem;
+        border: 2px solid var(--brand-black);
+        border-radius: 0.75rem;
+        background: var(--brand-white);
+        box-shadow: 4px 4px 0 0 var(--brand-black);
+    }
+
+    .smm-compose-submit-menu.is-hidden {
+        display: none;
+    }
+
+    .smm-schedule-modal {
+        left: 0;
+        right: auto;
+        width: min(21.5rem, calc(100vw - 2rem));
+        max-width: calc(100vw - 2rem);
+    }
+}
+
+.smm-empty-card--inline {
+    margin: 1.25rem;
+    max-width: 32rem;
+}
+
+.smm-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-bottom: 2rem;
+    min-width: 0;
+    max-width: 72rem;
+    background:
+        radial-gradient(circle at 0% 0%, rgb(204 255 0 / 0.08) 0%, transparent 42%),
+        radial-gradient(circle at 100% 20%, rgb(0 56 255 / 0.06) 0%, transparent 38%);
+}
+
+.smm-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-dark) 100%);
+    color: var(--brand-white);
+}
+
+.smm-hero-glow {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 85% 20%, rgb(204 255 0 / 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 10% 90%, rgb(255 255 255 / 0.1) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.smm-hero-inner {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.5rem 1.35rem;
+}
+
+.smm-hero-eyebrow {
+    margin: 0 0 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-lime);
+}
+
+.smm-hero-title {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.05;
+}
+
+.smm-hero-lead {
+    margin: 0.55rem 0 0;
+    max-width: 36rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: rgb(255 255 255 / 0.88);
+}
+
+.smm-hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.smm-stat {
+    min-width: 5.5rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.85rem;
+    background: rgb(255 255 255 / 0.1);
+    border: 1px solid rgb(255 255 255 / 0.16);
+}
+
+.smm-stat-value {
+    display: block;
+    font-size: 1.35rem;
+    line-height: 1;
+}
+
+.smm-stat-label {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.72rem;
+    color: rgb(255 255 255 / 0.78);
+}
+
+.smm-tabs-wrap {
+    min-width: 0;
+}
+
+.smm-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.35rem;
+    border-radius: 999px;
+    background: var(--brand-white);
+    border: 1px solid rgb(0 56 255 / 0.1);
+    width: fit-content;
+    max-width: 100%;
+}
+
+.smm-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: rgb(17 24 39 / 0.72);
+    font-family: var(--brand-font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.smm-tab:hover {
+    background: var(--brand-surface);
+}
+
+.smm-tab.is-active {
+    background: var(--brand-blue);
+    color: var(--brand-white);
+}
+
+.smm-panel[hidden] {
+    display: none !important;
+}
+
+.smm-compose-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+.smm-compose-main {
+    min-width: 0;
+}
+
+.smm-preview-wrap {
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .smm-compose-grid {
+        grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+    }
+
+    .smm-preview-wrap {
+        position: sticky;
+        top: 1rem;
+        align-self: start;
+    }
+}
+
+@media (max-width: 1023px) {
+    .smm-compose-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+    }
+}
+
+.smm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.smm-card {
+    padding: 1rem 1.05rem;
+    border-radius: 1rem;
+    background: var(--brand-white);
+    border: 1px solid rgb(0 56 255 / 0.1);
+    box-shadow: 0 8px 24px rgb(0 56 255 / 0.05);
+}
+
+.smm-card-head {
+    margin-bottom: 0.75rem;
+}
+
+.smm-card-title {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.smm-card-sub {
+    margin: 0.25rem 0 0;
+    font-size: 0.82rem;
+    color: rgb(17 24 39 / 0.62);
+}
+
+.smm-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgb(17 24 39 / 0.75);
+}
+
+.smm-input,
+.smm-textarea {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid rgb(0 56 255 / 0.14);
+    border-radius: 0.75rem;
+    background: var(--brand-surface);
+    font: inherit;
+    font-size: 0.88rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.smm-textarea {
+    resize: vertical;
+    min-height: 5rem;
+}
+
+.smm-textarea--sm {
+    min-height: 3.5rem;
+}
+
+.smm-input:focus,
+.smm-textarea:focus {
+    outline: none;
+    border-color: rgb(0 56 255 / 0.35);
+    box-shadow: 0 0 0 3px rgb(0 56 255 / 0.1);
+    background: var(--brand-white);
+}
+
+.smm-inline-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.65rem;
+}
+
+.smm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-family: var(--brand-font-heading);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.smm-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.smm-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.smm-btn--primary {
+    border-color: var(--brand-black);
+}
+
+.smm-btn--ghost {
+    background: var(--brand-surface);
+    color: var(--brand-blue);
+    border-color: rgb(0 56 255 / 0.14);
+}
+
+.smm-btn--danger {
+    background: var(--brand-white);
+    color: var(--brand-red);
+    border-color: rgb(255 59 48 / 0.25);
+}
+
+.smm-upload-wrap {
+    position: relative;
+}
+
+.smm-upload-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 9rem;
+    padding: 1rem;
+    border: 2px dashed rgb(0 56 255 / 0.18);
+    border-radius: 0.85rem;
+    background: var(--brand-surface);
+    color: rgb(17 24 39 / 0.62);
+    font-size: 0.82rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.smm-upload-dropzone:hover {
+    border-color: rgb(0 56 255 / 0.32);
+    background: rgb(0 56 255 / 0.04);
+}
+
+.smm-upload-hint {
+    font-size: 0.74rem;
+    color: rgb(17 24 39 / 0.48);
+}
+
+.smm-upload {
+    display: block;
+    cursor: pointer;
+}
+
+.smm-upload-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.smm-upload-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 9rem;
+    padding: 1rem;
+    border: 2px dashed rgb(0 56 255 / 0.18);
+    border-radius: 0.85rem;
+    background: var(--brand-surface);
+    color: rgb(17 24 39 / 0.62);
+    font-size: 0.82rem;
+    text-align: center;
+}
+
+.smm-upload-icon {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+    opacity: 0.88;
+}
+
+.smm-upload-preview {
+    display: block;
+    width: 100%;
+    max-height: 16rem;
+    object-fit: cover;
+    border-radius: 0.85rem;
+}
+
+.smm-media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+    gap: 0.55rem;
+    margin-top: 0.75rem;
+}
+
+.smm-media-item {
+    position: relative;
+    width: 5.75rem;
+    height: 5.75rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 0.55rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    background: var(--brand-surface);
+}
+
+.smm-media-item > img,
+.smm-media-item > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Must sit above the full-tile "Edit video" overlay or it swallows the click. */
+.smm-media-remove {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.15rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border: none;
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.82);
+    color: var(--brand-white);
+    font-size: 0.875rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.smm-media-remove:hover,
+.smm-media-remove:focus-visible {
+    background: var(--brand-red);
+    outline: none;
+}
+
+.smm-media-item:hover .smm-media-remove,
+.smm-media-item:focus-within .smm-media-remove {
+    opacity: 1;
+}
+
+.smm-media-badge {
+    position: absolute;
+    left: 0.2rem;
+    bottom: 0.2rem;
+    padding: 0.08rem 0.3rem;
+    border-radius: 999px;
+    background: rgb(0 0 0 / 0.62);
+    color: var(--brand-white);
+    font-size: 0.5625rem;
+    font-weight: 700;
+    line-height: 1.2;
+    pointer-events: none;
+}
+
+.smm-media-error-badge {
+    position: absolute;
+    right: 0.15rem;
+    bottom: 0.15rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.95rem;
+    height: 0.95rem;
+    border-radius: 999px;
+    background: var(--brand-red);
+    color: var(--brand-white);
+    pointer-events: none;
+}
+
+.smm-media-item.has-error {
+    border-color: rgb(255 59 48 / 0.45);
+}
+
+.smm-media-edit {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.35rem;
+    border: none;
+    border-radius: inherit;
+    background: rgb(0 0 0 / 0.52);
+    color: var(--brand-white);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.18s ease, background 0.18s ease;
+    z-index: 2;
+}
+
+.smm-media-edit-icon {
+    display: block;
+    width: 0.875rem;
+    height: 0.875rem;
+    max-width: 0.875rem;
+    max-height: 0.875rem;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.smm-media-item:hover .smm-media-edit,
+.smm-media-item:focus-within .smm-media-edit {
+    opacity: 1;
+}
+
+@media (hover: none) {
+    .smm-media-edit {
+        opacity: 0.92;
+    }
+
+    /* No hover on touch, so the remove button would never appear. */
+    .smm-media-remove {
+        opacity: 1;
+    }
+}
+
+.smm-media-edit:hover,
+.smm-media-edit:focus-visible {
+    background: rgb(0 56 255 / 0.72);
+    outline: none;
+}
+
+.smm-video-edit-chooser {
+    position: fixed;
+    inset: 0;
+    z-index: 13050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.smm-video-edit-chooser.is-hidden {
+    display: none;
+}
+
+.smm-video-edit-chooser-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.42);
+}
+
+.smm-video-edit-chooser-dialog {
+    position: relative;
+    width: min(100%, 26rem);
+    border-radius: 0.75rem;
+    background: var(--brand-white);
+    box-shadow: 0 24px 48px rgb(0 0 0 / 0.18);
+    overflow: hidden;
+}
+
+.smm-video-edit-chooser-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem 1rem 0.65rem;
+}
+
+.smm-video-edit-chooser-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: rgb(17 24 39 / 0.92);
+}
+
+.smm-video-edit-chooser-subtitle {
+    margin: 0.25rem 0 0;
+    font-size: 0.8125rem;
+    color: rgb(17 24 39 / 0.62);
+    line-height: 1.45;
+}
+
+.smm-video-edit-chooser-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--brand-surface);
+    color: var(--brand-blue);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.smm-video-edit-chooser-close:hover,
+.smm-video-edit-chooser-close:focus-visible {
+    background: rgb(0 56 255 / 0.1);
+    outline: none;
+}
+
+.smm-video-edit-chooser-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.35rem 1rem 1rem;
+}
+
+.smm-video-edit-chooser-action {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.85rem 0.9rem;
+    border: 1px solid rgb(0 0 0 / 0.1);
+    border-radius: 0.65rem;
+    background: var(--brand-white);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.smm-video-edit-chooser-action:hover,
+.smm-video-edit-chooser-action:focus-visible {
+    border-color: rgb(0 56 255 / 0.24);
+    box-shadow: 0 8px 20px rgb(0 56 255 / 0.08);
+    outline: none;
+}
+
+.smm-video-edit-chooser-action-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.55rem;
+    background: var(--brand-surface);
+    color: var(--brand-blue);
+    flex-shrink: 0;
+}
+
+.smm-video-edit-chooser-action-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.smm-video-edit-chooser-action-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: rgb(17 24 39 / 0.9);
+}
+
+.smm-video-edit-chooser-action-note {
+    font-size: 0.75rem;
+    color: rgb(17 24 39 / 0.58);
+    line-height: 1.4;
+}
+
+.smm-video-edit-chooser-action-badge {
+    flex-shrink: 0;
+    padding: 0.18rem 0.45rem;
+    border-radius: 999px;
+    background: rgb(255 59 48 / 0.12);
+    color: var(--brand-red);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.smm-video-edit-chooser-foot {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.75rem 1rem 1rem;
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-video-edit-chooser-cancel {
+    padding: 0.5rem 0.9rem;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.35rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.78);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.smm-video-edit-chooser-cancel:hover {
+    background: var(--brand-surface);
+}
+
+body.smm-video-edit-chooser-open {
+    overflow: hidden;
+}
+
+.smm-upload-actions {
+    margin-top: 0.65rem;
+}
+
+.smm-preview-carousel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem;
+    width: 100%;
+    min-height: 11rem;
+}
+
+.smm-preview-carousel img,
+.smm-preview-carousel video {
+    width: 100%;
+    height: 5.25rem;
+    object-fit: cover;
+    border-radius: 0.45rem;
+}
+
+.smm-upload-preview.is-hidden,
+.is-hidden {
+    display: none !important;
+}
+
+.smm-card--sparkle {
+    background:
+        linear-gradient(135deg, var(--brand-white) 0%, rgb(204 255 0 / 0.08) 100%);
+}
+
+.smm-card--destinations .smm-account--instagram .smm-account-box {
+    border-color: rgb(225 48 108 / 0.35);
+}
+
+.smm-card--destinations .smm-account--instagram .smm-account-input:checked + .smm-account-box {
+    background: linear-gradient(135deg, rgb(131 58 180 / 0.08), rgb(253 29 29 / 0.06));
+}
+
+.smm-account-icon {
+    display: inline-flex;
+    margin-bottom: 0.25rem;
+    color: var(--brand-blue);
+}
+
+.smm-account--instagram .smm-account-icon {
+    color: rgb(225 48 108);
+}
+
+.smm-account {
+    position: relative;
+    cursor: pointer;
+}
+
+.smm-account-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.smm-account-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.7rem 0.8rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgb(0 56 255 / 0.12);
+    background: var(--brand-surface);
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.smm-account-input:checked + .smm-account-box {
+    border-color: var(--brand-blue);
+    background: rgb(0 56 255 / 0.06);
+    box-shadow: inset 0 0 0 1px rgb(0 56 255 / 0.12);
+}
+
+.smm-account-platform {
+    font-size: 0.82rem;
+}
+
+.smm-account-id {
+    font-size: 0.72rem;
+    color: rgb(17 24 39 / 0.55);
+    word-break: break-all;
+}
+
+.smm-schedule-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.65rem;
+}
+
+.smm-schedule-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.smm-schedule-option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.smm-schedule-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.75rem;
+    border-radius: 0.8rem;
+    border: 1px solid rgb(0 56 255 / 0.12);
+    background: var(--brand-surface);
+}
+
+.smm-schedule-option input:checked + .smm-schedule-box {
+    border-color: var(--brand-blue);
+    background: rgb(0 56 255 / 0.06);
+}
+
+.smm-schedule-box strong {
+    font-size: 0.88rem;
+}
+
+.smm-schedule-box span {
+    font-size: 0.78rem;
+    color: rgb(17 24 39 / 0.6);
+}
+
+.smm-schedule-picker {
+    margin-top: 0.85rem;
+}
+
+.smm-form-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+}
+
+.smm-form-note {
+    margin: 0;
+    font-size: 0.82rem;
+    color: rgb(17 24 39 / 0.62);
+}
+
+.smm-form-note.is-error {
+    color: var(--brand-red);
+}
+
+.smm-form-note.is-success {
+    color: var(--brand-blue);
+}
+
+.smm-preview-phone {
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 2px solid var(--brand-black);
+    background: var(--brand-white);
+    box-shadow: 0 12px 32px rgb(0 56 255 / 0.12);
+}
+
+.smm-preview-head {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-size: 0.82rem;
+}
+
+.smm-preview-dot {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: var(--brand-lime);
+}
+
+.smm-preview-body {
+    padding: 0.85rem;
+}
+
+.smm-preview-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 11rem;
+    margin-bottom: 0.75rem;
+    border-radius: 0.75rem;
+    background: var(--brand-surface);
+    color: rgb(17 24 39 / 0.45);
+    font-size: 0.78rem;
+    overflow: hidden;
+}
+
+.smm-preview-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 11rem;
+    object-fit: cover;
+}
+
+.smm-preview-image.is-empty span {
+    padding: 1rem;
+    text-align: center;
+}
+
+.smm-preview-caption {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.smm-preview-tags {
+    margin: 0.45rem 0 0;
+    font-size: 0.75rem;
+    color: var(--brand-blue);
+    word-break: break-word;
+}
+
+
+.smm-posts-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 1.1rem 1.15rem;
+    border-radius: 0.85rem;
+    background: var(--brand-white);
+    border: 1px solid rgb(0 56 255 / 0.08);
+}
+
+.smm-toolbar-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgb(0 56 255 / 0.08);
+}
+
+.smm-toolbar-title {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.2;
+}
+
+.smm-toolbar-desc {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: rgb(17 24 39 / 0.58);
+    max-width: 40rem;
+}
+
+.smm-toolbar-controls {
+    display: grid;
+    grid-template-columns: minmax(160px, 1.1fr) minmax(200px, 1.2fr) minmax(160px, 1fr);
+    gap: 1rem;
+    align-items: end;
+}
+
+@media (max-width: 900px) {
+    .smm-toolbar-controls {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .smm-toolbar-field:first-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 540px) {
+    .smm-toolbar-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .smm-toolbar-field:first-child {
+        grid-column: auto;
+    }
+}
+
+.smm-toolbar-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+}
+
+.smm-toolbar-field-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgb(17 24 39 / 0.48);
+}
+
+.lb-dropdown.smm-toolbar-select .lb-dropdown-trigger {
+    width: 100%;
+    padding: 0.58rem 0.75rem;
+    border: 1px solid rgb(0 56 255 / 0.12);
+    border-radius: 0.55rem;
+    background: var(--brand-surface);
+    font-size: 0.8125rem;
+    color: rgb(17 24 39 / 0.88);
+}
+
+.lb-dropdown.smm-toolbar-select .lb-dropdown-trigger:hover:not(:disabled) {
+    border-color: rgb(0 56 255 / 0.22);
+}
+
+.lb-dropdown.smm-toolbar-select .lb-dropdown-trigger[aria-expanded="true"],
+.lb-dropdown.smm-toolbar-select .lb-dropdown-trigger:focus {
+    border-color: rgb(0 56 255 / 0.35);
+    box-shadow: 0 0 0 3px rgb(0 56 255 / 0.1);
+    background-color: var(--brand-white);
+}
+
+.lb-dropdown.smm-toolbar-select .lb-dropdown-menu {
+    font-size: 0.8125rem;
+}
+
+.smm-toolbar-field.is-disabled .lb-dropdown {
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.smm-toolbar-field.is-disabled {
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.smm-segment {
+    display: flex;
+    width: 100%;
+    padding: 0.2rem;
+    border-radius: 0.55rem;
+    background: var(--brand-surface);
+    border: 1px solid rgb(0 56 255 / 0.1);
+}
+
+.smm-segment-btn {
+    flex: 1;
+    min-width: 0;
+    padding: 0.48rem 0.55rem;
+    border: none;
+    border-radius: 0.4rem;
+    background: transparent;
+    font-family: var(--brand-font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgb(17 24 39 / 0.58);
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.smm-segment-btn:hover:not(.is-active) {
+    color: var(--brand-blue);
+}
+
+.smm-segment-btn.is-active {
+    background: var(--brand-white);
+    color: var(--brand-blue);
+    box-shadow: 0 1px 3px rgb(0 56 255 / 0.12);
+}
+
+.smm-segment-btn:focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 1px;
+}
+
+/* My Posts / Drafts filters — compact mobile toolbar */
+@media (max-width: 1023px) {
+    .smm-planner-view .smm-posts-toolbar {
+        margin: 0;
+        gap: 0.55rem;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid rgb(0 0 0 / 0.06);
+        background: var(--brand-surface);
+    }
+
+    .smm-planner-view .smm-toolbar-controls {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+
+    .smm-planner-view .smm-toolbar-controls:has(.smm-toolbar-field:only-child) {
+        grid-template-columns: 1fr;
+    }
+
+    .smm-planner-view .smm-toolbar-field:has(.smm-segment) {
+        grid-column: 1 / -1;
+        order: -1;
+    }
+
+    .smm-planner-view .smm-toolbar-field:has([data-smm-filter-account-select]) {
+        grid-column: 1;
+        order: 1;
+    }
+
+    .smm-planner-view .smm-toolbar-field[data-smm-status-wrap] {
+        grid-column: 2;
+        order: 2;
+    }
+
+    .smm-planner-view .smm-toolbar-controls:has(.smm-toolbar-field:only-child) .smm-toolbar-field {
+        grid-column: 1 / -1;
+    }
+
+    .smm-planner-view .smm-toolbar-field-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .smm-planner-view .smm-segment {
+        padding: 0.15rem;
+        border-radius: 0.65rem;
+        background: var(--brand-white);
+    }
+
+    .smm-planner-view .smm-segment-btn {
+        min-height: 2.125rem;
+        padding: 0.45rem 0.4rem;
+        font-size: 0.8125rem;
+    }
+
+    .smm-planner-view .lb-dropdown.smm-toolbar-select {
+        width: 100%;
+    }
+
+    .smm-planner-view .lb-dropdown.smm-toolbar-select .lb-dropdown-trigger {
+        width: 100%;
+        min-height: 2.125rem;
+        justify-content: space-between;
+        padding: 0.45rem 0.75rem;
+        border-radius: 0.65rem;
+        background: var(--brand-white);
+    }
+
+    .smm-planner-view .lb-dropdown.smm-toolbar-select .lb-dropdown-value {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: left;
+    }
+
+    .smm-planner-view .lb-dropdown.smm-toolbar-select .lb-dropdown-chevron {
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+}
+
+.smm-accounts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.55rem;
+}
+
+.smm-form-actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.smm-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem 1.125rem;
+    align-content: start;
+}
+
+.smm-empty-posts {
+    grid-column: 1 / -1;
+    padding: 2.5rem 1.25rem;
+    text-align: center;
+    border-radius: 1rem;
+    background: var(--brand-white);
+    border: 1px dashed rgb(0 56 255 / 0.18);
+}
+
+.smm-empty-posts p {
+    margin: 0.35rem 0 0;
+    color: rgb(17 24 39 / 0.62);
+}
+
+.smm-feed-warning {
+    grid-column: 1 / -1;
+    margin: 0 0 0.75rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 0.85rem;
+    background: rgb(255 59 48 / 0.08);
+    border: 1px solid rgb(255 59 48 / 0.18);
+    color: var(--brand-black);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+}
+
+/* My Posts — Facebook Business Suite style cards */
+.smm-post-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.smm-post-card-media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background: var(--brand-surface);
+}
+
+.smm-post-card-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.smm-post-card-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0.75rem;
+    background: var(--brand-surface);
+    color: rgb(17 24 39 / 0.5);
+    font-size: 0.78rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.smm-post-card-platform {
+    position: absolute;
+    bottom: 0.45rem;
+    left: 0.45rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.45));
+}
+
+.smm-post-card-platform svg,
+.smm-post-card-platform img {
+    display: block;
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+.smm-post-card-type {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.45rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-white);
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.45));
+}
+
+.smm-post-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.65rem 0.1rem 0;
+}
+
+.smm-post-card-caption {
+    margin: 0;
+    overflow: hidden;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--brand-black);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.smm-post-card-time {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-post-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+}
+
+.smm-post-card-actions .smm-btn {
+    flex: 1 1 auto;
+    min-height: 2rem;
+    padding: 0.35rem 0.55rem;
+    border-radius: 0.45rem;
+    font-size: 0.75rem;
+    box-shadow: none;
+    transform: none;
+}
+
+.smm-post-card-actions .smm-btn:hover:not(:disabled) {
+    transform: none;
+    box-shadow: none;
+}
+
+.smm-post-card-insights {
+    display: block;
+    width: 100%;
+    margin: 0.45rem 0 0;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid rgb(17 24 39 / 0.14);
+    background: transparent;
+    color: var(--brand-black);
+    font-family: var(--brand-font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.45rem;
+}
+
+.smm-post-card-insights:hover:not(:disabled) {
+    background: rgb(0 56 255 / 0.04);
+    border-color: rgb(0 56 255 / 0.22);
+    color: var(--brand-blue);
+}
+
+.smm-post-card-insights:disabled {
+    color: rgb(17 24 39 / 0.38);
+    border-color: rgb(17 24 39 / 0.1);
+    cursor: not-allowed;
+}
+
+.smm-insights-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1.25rem 1.25rem;
+}
+
+.smm-insights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.smm-insights-stat {
+    padding: 0.85rem 0.9rem;
+    border-radius: 0.75rem;
+    background: var(--brand-surface);
+    border: 1px solid rgb(0 56 255 / 0.1);
+}
+
+.smm-insights-stat-label {
+    margin: 0;
+    font-size: 0.75rem;
+    color: rgb(17 24 39 / 0.58);
+}
+
+.smm-insights-stat-value {
+    margin: 0.2rem 0 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-insights-loading,
+.smm-insights-error,
+.smm-insights-empty {
+    margin: 0;
+    padding: 1rem 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgb(17 24 39 / 0.65);
+    text-align: center;
+}
+
+.smm-insights-error {
+    color: var(--brand-red);
+}
+
+.smm-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.smm-modal.is-hidden {
+    display: none !important;
+}
+
+.smm-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.45);
+    cursor: pointer;
+}
+
+.smm-modal-dialog {
+    position: relative;
+    width: min(100%, 28rem);
+    padding: 1rem;
+    border-radius: 1.1rem;
+    background: var(--brand-white);
+    border: 2px solid var(--brand-black);
+    box-shadow: 0 16px 48px rgb(0 56 255 / 0.18);
+}
+
+.smm-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.smm-modal-head h2 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.smm-modal-close {
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-modal-note {
+    margin: 0.5rem 0 0;
+    font-size: 0.78rem;
+    color: rgb(17 24 39 / 0.58);
+}
+
+.smm-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+}
+
+.smm-post-thumb {
+    width: 88px;
+    height: 88px;
+    border-radius: 0.75rem;
+    background: var(--brand-surface);
+    object-fit: cover;
+}
+
+.smm-post-thumb--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+    color: rgb(17 24 39 / 0.45);
+    text-align: center;
+    padding: 0.35rem;
+}
+
+.smm-post-meta h3 {
+    margin: 0 0 0.25rem;
+    font-size: 0.88rem;
+    line-height: 1.35;
+}
+
+.smm-post-meta p {
+    margin: 0;
+    font-size: 0.78rem;
+    color: rgb(17 24 39 / 0.62);
+}
+
+.smm-status {
+    display: inline-flex;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.smm-status--scheduled { background: rgb(0 56 255 / 0.1); color: var(--brand-blue); }
+.smm-status--published { background: rgb(204 255 0 / 0.35); color: var(--brand-black); }
+.smm-status--failed { background: rgb(255 59 48 / 0.12); color: var(--brand-red); }
+.smm-status--draft,
+.smm-status--cancelled { background: var(--brand-surface); color: rgb(17 24 39 / 0.55); }
+
+.smm-post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.smm-planner-view .smm-posts-toolbar {
+    padding: 0.75rem 1.25rem;
+}
+
+@media (max-width: 1023px) {
+    .smm-planner-view .smm-posts-toolbar {
+        padding: 0.65rem 1rem;
+    }
+}
+
+.smm-planner-view .smm-posts-grid {
+    padding: 0.75rem 1.25rem 1.25rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+@media (max-width: 1279px) {
+    .smm-posts-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.125rem 1rem;
+    }
+}
+
+@media (max-width: 1023px) {
+    .smm-posts-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem 0.875rem;
+    }
+}
+
+.smm-planner-view .smm-compose-grid {
+    padding: 1rem 1.25rem 1.25rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.smm-calendar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.smm-empty-accounts {
+    padding: 0.5rem 0 1rem;
+}
+
+.smm-empty-card {
+    padding: 2rem 1.25rem;
+    border-radius: 1rem;
+    background: var(--brand-white);
+    border: 1px solid rgb(0 56 255 / 0.1);
+    text-align: center;
+}
+
+.smm-empty-card h2 {
+    margin: 0 0 0.5rem;
+}
+
+.smm-empty-card p {
+    margin: 0 0 1rem;
+    color: rgb(17 24 39 / 0.65);
+}
+
+.smm-calendar-day {
+    padding: 0.85rem;
+    border-radius: 0.85rem;
+    background: var(--brand-white);
+    border: 1px solid rgb(0 56 255 / 0.1);
+}
+
+.smm-calendar-day h3 {
+    margin: 0 0 0.55rem;
+    font-size: 0.88rem;
+}
+
+.smm-calendar-item {
+    padding: 0.55rem 0;
+    border-top: 1px solid rgb(0 56 255 / 0.08);
+    font-size: 0.8rem;
+}
+
+.smm-calendar-item:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .smm-btn:hover:not(:disabled) {
+        transform: none;
+    }
+
+    .smm-post-card-insights {
+        transition: none;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .smm-page {
+        gap: 0.875rem;
+        overflow-x: clip;
+    }
+
+    .smm-hero {
+        border-radius: 1rem;
+    }
+
+    .smm-hero-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.85rem;
+        padding: 1rem;
+    }
+
+    .smm-hero-title {
+        font-size: 1.35rem;
+    }
+
+    .smm-hero-lead {
+        margin-top: 0.35rem;
+        font-size: 0.75rem;
+        line-height: 1.45;
+    }
+
+    .smm-hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.4rem;
+        width: 100%;
+    }
+
+    .smm-stat {
+        min-width: 0;
+        padding: 0.55rem 0.4rem;
+        text-align: center;
+        border-radius: 0.75rem;
+    }
+
+    .smm-stat-value {
+        font-size: 1.05rem;
+    }
+
+    .smm-stat-label {
+        font-size: 0.5625rem;
+        letter-spacing: 0.02em;
+    }
+
+    .smm-tabs-wrap {
+        margin: 0 -0.05rem;
+    }
+
+    .smm-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        max-width: none;
+        gap: 0.35rem;
+        padding: 0.45rem;
+        border-radius: 1rem;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+    }
+
+    .smm-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .smm-tab {
+        scroll-snap-align: start;
+        padding: 0.45rem 0.85rem;
+        font-size: 0.75rem;
+    }
+
+    .smm-tab:hover {
+        background: transparent;
+    }
+
+    .smm-tab.is-active:hover {
+        background: var(--brand-blue);
+    }
+
+    .smm-form {
+        gap: 0.75rem;
+    }
+
+    .smm-card {
+        padding: 0.9rem;
+        border-radius: 0.95rem;
+    }
+
+    .smm-card-title {
+        font-size: 0.9375rem;
+    }
+
+    .smm-card-sub {
+        font-size: 0.75rem;
+    }
+
+    .smm-inline-actions {
+        flex-direction: column;
+    }
+
+    .smm-inline-actions .smm-btn {
+        width: 100%;
+    }
+
+    .smm-upload-dropzone {
+        min-height: 7rem;
+        padding: 0.85rem;
+        font-size: 0.75rem;
+    }
+
+    .smm-upload-icon {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+
+    .smm-accounts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.45rem;
+    }
+
+    .smm-account-box {
+        padding: 0.6rem 0.65rem;
+    }
+
+    .smm-account-platform {
+        font-size: 0.75rem;
+    }
+
+    .smm-schedule-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.4rem;
+    }
+
+    .smm-schedule-box {
+        padding: 0.6rem 0.5rem;
+        text-align: center;
+    }
+
+    .smm-schedule-box strong {
+        font-size: 0.75rem;
+    }
+
+    .smm-form-actions {
+        position: sticky;
+        bottom: 0;
+        z-index: 3;
+        margin: 0 -0.05rem;
+        padding: 0.75rem 0 max(0.75rem, env(safe-area-inset-bottom));
+        background: linear-gradient(180deg, rgb(248 249 250 / 0.92) 0%, var(--brand-surface) 100%);
+        backdrop-filter: blur(8px);
+    }
+
+    .smm-form-actions-row .smm-btn--primary {
+        width: 100%;
+    }
+
+    .smm-preview-phone {
+        border-radius: 1rem;
+        box-shadow: 0 8px 24px rgb(0 56 255 / 0.08);
+    }
+
+    .smm-preview-head {
+        padding: 0.55rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .smm-preview-body {
+        padding: 0.75rem;
+    }
+
+    .smm-preview-image {
+        min-height: 7.5rem;
+        margin-bottom: 0.55rem;
+    }
+
+    .smm-preview-image img {
+        min-height: 7.5rem;
+    }
+
+    .smm-preview-caption {
+        font-size: 0.75rem;
+    }
+
+    .smm-posts-toolbar {
+        padding: 0.9rem;
+        border-radius: 0.95rem;
+    }
+
+    .smm-toolbar-title {
+        font-size: 0.9375rem;
+    }
+
+    .smm-posts-grid {
+        justify-content: stretch;
+    }
+
+    .smm-btn:hover:not(:disabled) {
+        transform: none;
+    }
+
+    .smm-modal-dialog {
+        width: 100%;
+        max-height: calc(100dvh - 2rem);
+        overflow-y: auto;
+    }
+
+    .smm-planner {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .smm-planner-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: var(--smm-border);
+        max-height: none;
+    }
+
+    .smm-planner-page-head {
+        padding: 0.85rem 1rem 0.65rem;
+    }
+
+    .smm-planner-toolbar {
+        padding: 0.55rem 1rem;
+    }
+
+    .smm-planner-calendar-wrap {
+        padding: 0 0.75rem 1rem;
+    }
+}
+
+/* Video editor modal (compose error fixes) */
+.smm-video-editor-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+}
+
+.smm-video-editor-modal.is-hidden {
+    display: none;
+}
+
+.smm-video-editor-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgb(17 24 39 / 0.62);
+}
+
+.smm-video-editor-modal-dialog {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 68rem);
+    height: min(92vh, 44rem);
+    border-radius: 0.5rem;
+    background: var(--brand-white);
+    box-shadow: 0 24px 64px rgb(0 0 0 / 0.24);
+    overflow: hidden;
+}
+
+.smm-video-editor-modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-shrink: 0;
+    min-height: 3.25rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid rgb(0 0 0 / 0.1);
+}
+
+.smm-video-editor-modal-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.smm-video-editor-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-video-editor-modal-close:hover {
+    background: var(--brand-blue-dark);
+}
+
+.smm-video-editor-modal-close:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .smm-video-editor-workspace.is-saving .smm-video-editor-stage,
+    .smm-video-editor-workspace.is-saving .smm-video-editor-panel,
+    .smm-video-editor-save-progress-fill {
+        transition: none;
+    }
+}
+
+.smm-video-editor-loading,
+.smm-video-editor-error {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 2rem;
+    text-align: center;
+    background: rgb(17 24 39 / 0.94);
+    z-index: 2;
+}
+
+.smm-video-editor-loading-title,
+.smm-video-editor-error-title {
+    margin: 0.35rem 0 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--brand-white);
+}
+
+.smm-video-editor-loading-copy,
+.smm-video-editor-error-copy {
+    margin: 0;
+    font-size: 0.875rem;
+    color: rgb(255 255 255 / 0.72);
+}
+
+.smm-video-editor-loading-spinner {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 3px solid rgb(0 56 255 / 0.18);
+    border-top-color: var(--brand-blue);
+    border-radius: 999px;
+    animation: smm-video-editor-spin 0.8s linear infinite;
+}
+
+@keyframes smm-video-editor-spin {
+    to { transform: rotate(360deg); }
+}
+
+.smm-video-editor-modal-body {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    background: var(--brand-black);
+}
+
+.smm-video-editor-workspace {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.smm-video-editor-workspace.is-saving .smm-video-editor-stage,
+.smm-video-editor-workspace.is-saving .smm-video-editor-panel {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+    transition: filter 0.22s ease;
+}
+
+.smm-video-editor-stage {
+    position: relative;
+    flex: 1;
+    min-height: 14rem;
+    overflow: hidden;
+    background: var(--brand-black);
+}
+
+.smm-video-editor-preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.smm-video-editor-crop-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.smm-video-editor-crop-window {
+    position: absolute;
+    border: 2px solid var(--brand-white);
+    box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.55);
+    pointer-events: auto;
+    touch-action: none;
+}
+
+.smm-video-editor-crop-window.is-draggable {
+    cursor: grab;
+}
+
+.smm-video-editor-crop-window.is-draggable.is-dragging {
+    cursor: grabbing;
+}
+
+.smm-video-editor-crop-grid {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to right, rgb(255 255 255 / 0.28) 1px, transparent 1px) calc(33.33% - 0.5px) 0 / 33.33% 100% no-repeat,
+        linear-gradient(to right, rgb(255 255 255 / 0.28) 1px, transparent 1px) calc(66.66% - 0.5px) 0 / 33.33% 100% no-repeat,
+        linear-gradient(to bottom, rgb(255 255 255 / 0.28) 1px, transparent 1px) 0 calc(33.33% - 0.5px) / 100% 33.33% no-repeat,
+        linear-gradient(to bottom, rgb(255 255 255 / 0.28) 1px, transparent 1px) 0 calc(66.66% - 0.5px) / 100% 33.33% no-repeat;
+    pointer-events: none;
+}
+
+.smm-video-editor-crop-window::before,
+.smm-video-editor-crop-window::after {
+    content: "";
+    position: absolute;
+    width: 0.85rem;
+    height: 0.85rem;
+    border: 2px solid var(--brand-white);
+    pointer-events: none;
+}
+
+.smm-video-editor-crop-window::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.smm-video-editor-crop-window::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+}
+
+.smm-video-editor-crop-shade {
+    display: none;
+}
+
+.smm-video-editor-panel {
+    flex-shrink: 0;
+    padding: 0.9rem 1.15rem 1rem;
+    background: var(--brand-white);
+    border-top: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.smm-video-editor-panel--trim,
+.smm-video-editor-panel--crop {
+    display: flex;
+    flex-direction: column;
+        gap: 0.65rem;
+    }
+
+.smm-video-editor-play-fab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 6px 18px rgb(0 56 255 / 0.28);
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.smm-video-editor-play-fab:hover {
+    background: var(--brand-blue-dark);
+}
+
+.smm-video-editor-play-fab:focus-visible {
+    outline: 2px solid rgb(0 56 255 / 0.35);
+    outline-offset: 2px;
+}
+
+.smm-video-editor-trim-toolbar,
+.smm-video-editor-crop-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.smm-video-editor-trim-timeline,
+.smm-video-editor-crop-playback {
+    flex: 1;
+    min-width: 0;
+}
+
+.smm-video-editor-trim-times {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.45rem;
+}
+
+.smm-video-editor-trim-time,
+.smm-video-editor-trim-duration {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: rgb(17 24 39 / 0.62);
+}
+
+.smm-video-editor-trim-duration {
+    font-weight: 700;
+    color: var(--brand-blue);
+}
+
+.smm-video-editor-trim-track-wrap {
+    padding: 0.15rem 0;
+}
+
+.smm-video-editor-trim-track {
+    position: relative;
+    height: 3.25rem;
+    border-radius: 0.45rem;
+    background: rgb(17 24 39 / 0.08);
+    overflow: hidden;
+}
+
+.smm-video-editor-trim-filmstrip {
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgb(17 24 39 / 0.06) 0,
+            rgb(17 24 39 / 0.06) 0.55rem,
+            rgb(17 24 39 / 0.12) 0.55rem,
+            rgb(17 24 39 / 0.12) 1.1rem
+        );
+    opacity: 0.65;
+}
+
+.smm-video-editor-trim-mask {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: rgb(17 24 39 / 0.58);
+    pointer-events: none;
+}
+
+.smm-video-editor-trim-mask--left {
+    left: 0;
+}
+
+.smm-video-editor-trim-mask--right {
+    right: 0;
+}
+
+.smm-video-editor-trim-selection {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-top: 2px solid var(--brand-lime);
+    border-bottom: 2px solid var(--brand-lime);
+    background: rgb(204 255 0 / 0.12);
+    pointer-events: none;
+}
+
+.smm-video-editor-trim-playhead {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--brand-white);
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.35);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.smm-video-editor-trim-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.7rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: var(--brand-lime);
+    transform: translateX(-50%);
+    cursor: ew-resize;
+    box-shadow: 0 0 0 2px var(--brand-white), 0 4px 12px rgb(0 0 0 / 0.22);
+    z-index: 3;
+}
+
+.smm-video-editor-trim-handle--start {
+    border-radius: 0.35rem 0 0 0.35rem;
+}
+
+.smm-video-editor-trim-handle--end {
+    border-radius: 0 0.35rem 0.35rem 0;
+}
+
+.smm-video-editor-crop-ratios {
+    flex: 1;
+    min-width: 0;
+}
+
+.smm-video-editor-crop-ratios-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.smm-video-editor-crop-playback {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65rem;
+}
+
+.smm-video-editor-crop-time {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgb(17 24 39 / 0.62);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.smm-video-editor-crop-hint {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: rgb(17 24 39 / 0.58);
+}
+
+.smm-video-editor-crop-ratio-btn {
+    min-width: 3.25rem;
+    padding: 0.42rem 0.7rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 999px;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.72);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.smm-video-editor-crop-ratio-btn:hover {
+    border-color: rgb(0 56 255 / 0.22);
+    color: var(--brand-blue);
+}
+
+.smm-video-editor-crop-ratio-btn.is-active {
+    border-color: var(--brand-blue);
+    background: rgb(0 56 255 / 0.08);
+    color: var(--brand-blue);
+}
+
+.smm-video-editor-crop-ratio-btn:focus-visible {
+    outline: 2px solid rgb(0 56 255 / 0.35);
+    outline-offset: 2px;
+}
+
+.smm-video-editor-play-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid rgb(0 0 0 / 0.12);
+    border-radius: 0.35rem;
+    background: var(--brand-surface);
+    color: rgb(17 24 39 / 0.78);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.smm-video-editor-play-btn:hover {
+    border-color: rgb(0 56 255 / 0.18);
+    color: var(--brand-blue);
+}
+
+.smm-video-editor-play-btn:focus-visible {
+    outline: 2px solid rgb(0 56 255 / 0.35);
+    outline-offset: 2px;
+}
+
+.smm-video-editor-play-btn.is-playing {
+    border-color: rgb(0 56 255 / 0.22);
+    color: var(--brand-blue);
+}
+
+.smm-video-editor-modal-foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    flex-shrink: 0;
+    padding: 0.85rem 1rem;
+    border-top: 1px solid rgb(0 0 0 / 0.1);
+    background: var(--brand-white);
+}
+
+.smm-video-editor-foot-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    margin-left: auto;
+}
+
+.smm-video-editor-cancel {
+    padding: 0.55rem 1rem;
+    border: 1px solid rgb(0 0 0 / 0.14);
+    border-radius: 0.35rem;
+    background: var(--brand-white);
+    color: rgb(17 24 39 / 0.78);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.smm-video-editor-cancel:hover {
+    background: var(--brand-surface);
+}
+
+.smm-video-editor-cancel:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.smm-video-editor-save-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    flex: 0 0 auto;
+    min-width: 0;
+}
+
+.smm-video-editor-save-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 8.5rem;
+    flex-shrink: 0;
+}
+
+.smm-video-editor-save-progress-track {
+    flex: 1;
+    min-width: 5.5rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: var(--brand-surface);
+    border: 1px solid rgb(0 0 0 / 0.08);
+    overflow: hidden;
+}
+
+.smm-video-editor-save-progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: inherit;
+    background: var(--brand-blue);
+    transition: width 0.18s ease;
+}
+
+.smm-video-editor-save-progress-label {
+    flex-shrink: 0;
+    min-width: 2.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgb(17 24 39 / 0.62);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.smm-video-editor-save {
+    padding: 0.55rem 1.15rem;
+    border: none;
+    border-radius: 0.35rem;
+    background: var(--brand-blue);
+    color: var(--brand-white);
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.smm-video-editor-save:hover:not(:disabled) {
+    background: var(--brand-blue-dark);
+}
+
+.smm-video-editor-save:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+body.smm-video-editor-open {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .smm-video-editor-modal {
+        padding: 0.75rem;
+    }
+
+    .smm-video-editor-modal-dialog {
+        width: 100%;
+        height: min(94vh, 44rem);
+    }
+}
+
+@media (max-width: 639px) {
+    .smm-planner-view .smm-posts-grid {
+        padding-inline: 1rem;
+    }
+
+    .smm-posts-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.875rem 0.75rem;
+    }
+
+    .smm-post-card-body {
+        padding-top: 0.5rem;
+    }
+
+    .smm-post-card-caption {
+        font-size: 0.8125rem;
+    }
+
+    .smm-post-card-time {
+        font-size: 0.75rem;
+    }
+
+    .smm-post-card-actions .smm-btn {
+        min-height: 1.85rem;
+        font-size: 0.6875rem;
+    }
+
+    .smm-post-card-insights {
+        font-size: 0.8125rem;
+    }
+
+    .smm-empty-posts,
+    .smm-feed-warning {
+        margin-inline: 0;
+    }
+}
+
+/* ── TikTok compose: settings block + post preview ───────────────────────── */
+
+.smm-compose-account-avatar--tiktok {
+    background: rgb(0 0 0 / 0.08);
+}
+
+.smm-compose-account-pill--tiktok {
+    background: rgb(0 0 0 / 0.05);
+}
+
+.smm-compose-tiktok-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.15rem 1rem 1.25rem;
+    border-top: 1px solid rgb(0 56 255 / 0.08);
+}
+
+.smm-compose-tiktok-privacy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 18rem;
+}
+
+.smm-compose-tiktok-privacy-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: rgb(17 24 39 / 0.82);
+}
+
+.lb-dropdown.tiktok-privacy-select .lb-dropdown-trigger {
+    border: 1px solid rgb(0 56 255 / 0.14);
+    border-radius: 0.55rem;
+    background: var(--brand-surface);
+    font-size: 0.8125rem;
+}
+
+.smm-compose-tiktok-toggles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1rem 1.5rem;
+}
+
+.smm-compose-tiktok-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 1.75rem;
+    cursor: pointer;
+}
+
+.smm-compose-tiktok-toggle.is-locked {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.smm-compose-tiktok-toggle-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.smm-compose-tiktok-toggle-track {
+    position: relative;
+    flex-shrink: 0;
+    width: 2.1rem;
+    height: 1.15rem;
+    border-radius: 999px;
+    background: rgb(17 24 39 / 0.22);
+    transition: background 0.15s ease;
+}
+
+.smm-compose-tiktok-toggle-knob {
+    position: absolute;
+    top: 0.15rem;
+    left: 0.15rem;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 999px;
+    background: var(--brand-white);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+    transition: transform 0.15s ease;
+}
+
+.smm-compose-tiktok-toggle-input:checked + .smm-compose-tiktok-toggle-track {
+    background: var(--brand-black);
+}
+
+.smm-compose-tiktok-toggle-input:checked + .smm-compose-tiktok-toggle-track .smm-compose-tiktok-toggle-knob {
+    transform: translateX(0.95rem);
+}
+
+.smm-compose-tiktok-toggle-input:focus-visible + .smm-compose-tiktok-toggle-track {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+}
+
+.smm-compose-tiktok-toggle-label {
+    font-size: 0.8125rem;
+    color: rgb(17 24 39 / 0.86);
+}
+
+.smm-compose-tiktok-music-note {
+    padding-top: 1rem;
+    border-top: 1px solid rgb(0 56 255 / 0.07);
+    font-size: 0.75rem;
+    line-height: 1.55;
+    color: rgb(17 24 39 / 0.56);
+}
+
+.smm-compose-tiktok-music-note a {
+    color: var(--brand-blue);
+    text-decoration: underline;
+}
+
+.smm-compose-preview-phone--tiktok {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: auto;
+    background: var(--brand-black);
+    border-color: rgb(0 0 0 / 0.35);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+.smm-compose-preview-phone--tiktok::before {
+    display: none;
+}
+
+.smm-compose-preview-phone--tiktok .smm-compose-preview-phone-screen {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    background: var(--brand-black);
+}
+
+.smm-compose-preview-tiktok-chrome {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    padding: 0.35rem 0.55rem 0;
+    pointer-events: none;
+    color: var(--brand-white);
+}
+
+/*
+ * The shared phone rule lifts the status bar out of flow, which let the tab row
+ * ride up under the clock. Keep it in flow inside the TikTok chrome instead.
+ * Needs four classes to outweigh that rule's :not() selector.
+ */
+.smm-compose-preview-phone--tiktok
+.smm-compose-preview-phone-screen
+.smm-compose-preview-tiktok-chrome
+.smm-compose-preview-phone-status {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+}
+
+.smm-compose-preview-tiktok-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    padding: 1rem 0 0.35rem;
+}
+
+.smm-compose-preview-tiktok-tab {
+    position: relative;
+    font-size: 0.75rem;
+    color: rgb(255 255 255 / 0.62);
+}
+
+.smm-compose-preview-tiktok-tab.is-active {
+    color: var(--brand-white);
+    font-weight: 600;
+}
+
+.smm-compose-preview-tiktok-tab.is-active::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -0.3rem;
+    width: 1.5rem;
+    height: 0.1rem;
+    border-radius: 999px;
+    background: var(--brand-white);
+    transform: translateX(-50%);
+}
+
+.smm-compose-preview-tiktok-search {
+    position: absolute;
+    right: 0.65rem;
+    display: inline-flex;
+    color: var(--brand-white);
+}
+
+.smm-compose-preview-media--tiktok {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    min-height: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: var(--brand-black);
+}
+
+.smm-compose-preview-media--tiktok.is-playback-ready {
+    cursor: pointer;
+}
+
+.smm-compose-preview-media--tiktok video,
+.smm-compose-preview-media--tiktok img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.smm-compose-preview-media--tiktok.is-native-aspect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.smm-compose-preview-media--tiktok.is-empty span {
+    color: rgb(255 255 255 / 0.6);
+    font-size: 0.75rem;
+}
+
+.smm-compose-preview-tiktok-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.75rem 0.6rem 0.85rem;
+    background: linear-gradient(transparent 55%, rgb(0 0 0 / 0.55));
+    pointer-events: none;
+}
+
+.smm-compose-preview-tiktok-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+    max-width: 72%;
+    color: var(--brand-white);
+}
+
+.smm-compose-preview-tiktok-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.smm-compose-preview-tiktok-caption {
+    font-size: 0.6875rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.smm-compose-preview-tiktok-audio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.6875rem;
+    color: rgb(255 255 255 / 0.9);
+}
+
+.smm-compose-preview-tiktok-rail {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--brand-white);
+}
+
+/*
+ * No overflow clipping here — the follow badge hangs past the bottom edge.
+ * The photo is rounded on the image itself instead.
+ */
+.smm-compose-preview-tiktok-avatar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.65rem;
+    border: 1px solid var(--brand-white);
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.16);
+}
+
+.smm-compose-preview-tiktok-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    object-fit: cover;
+}
+
+.smm-compose-preview-tiktok-avatar::after {
+    content: "+";
+    position: absolute;
+    bottom: -0.3rem;
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 999px;
+    background: var(--brand-red);
+    color: var(--brand-white);
+    font-size: 0.6rem;
+    line-height: 1;
+    transform: translateX(-50%);
+}
+
+.smm-compose-preview-tiktok-initial {
+    font-size: 0.75rem;
+    color: var(--brand-white);
+}
+
+.smm-compose-preview-tiktok-action {
+    display: inline-flex;
+    color: var(--brand-white);
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
+}
+
+.smm-compose-preview-tiktok-disc {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.22);
+    color: var(--brand-white);
+}
+
+/* Sizing comes from the width/height attributes so the box never shifts on load. */
+.smm-compose-preview-tiktok-note {
+    display: block;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.smm-compose-preview-phone--tiktok .smm-compose-preview-story-playback {
+    border-radius: 0 0 0.75rem 0.75rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Publishing overlay — dims the page while media uploads and the post lands.
+   --------------------------------------------------------------------------- */
+
+.smm-publish-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 13000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgb(17 24 39 / 0.62);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    animation: smm-publish-overlay-in 0.18s ease-out;
+}
+
+.smm-publish-overlay.is-hidden {
+    display: none;
+}
+
+@keyframes smm-publish-overlay-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.smm-publish-overlay-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(100%, 21rem);
+    padding: 1.75rem 1.5rem 1.5rem;
+    border-radius: 0.75rem;
+    background: var(--brand-white);
+    box-shadow: 0 24px 64px rgb(0 0 0 / 0.28);
+    text-align: center;
+}
+
+.smm-publish-overlay-spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    border: 3px solid rgb(0 56 255 / 0.16);
+    border-top-color: var(--brand-blue);
+    animation: smm-publish-spin 0.8s linear infinite;
+}
+
+@keyframes smm-publish-spin {
+    to { transform: rotate(360deg); }
+}
+
+.smm-publish-overlay-title {
+    margin: 1rem 0 0;
+    font-size: 1rem;
+    line-height: 1.3;
+    color: var(--brand-black);
+}
+
+.smm-publish-overlay-copy {
+    margin: 0.4rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: rgb(17 24 39 / 0.62);
+}
+
+.smm-publish-overlay-track {
+    width: 100%;
+    height: 0.4rem;
+    margin-top: 1.15rem;
+    border-radius: 999px;
+    background: var(--brand-surface);
+    border: 1px solid rgb(0 0 0 / 0.08);
+    overflow: hidden;
+}
+
+.smm-publish-overlay-fill {
+    display: block;
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--brand-blue);
+    transition: width 0.25s ease-out;
+}
+
+/* Server-side work has no byte count, so the bar sweeps instead of stalling. */
+.smm-publish-overlay-track.is-indeterminate .smm-publish-overlay-fill {
+    width: 40% !important;
+    animation: smm-publish-sweep 1.1s ease-in-out infinite;
+}
+
+@keyframes smm-publish-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+}
+
+.smm-publish-overlay-pct {
+    margin: 0.55rem 0 0;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: rgb(17 24 39 / 0.55);
+}
+
+.smm-publish-overlay-pct.is-hidden {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .smm-publish-overlay,
+    .smm-publish-overlay-spinner,
+    .smm-publish-overlay-track.is-indeterminate .smm-publish-overlay-fill {
+        animation: none;
+    }
+}
+
+/* Anchors styled as buttons (e.g. "Manage on TikTok" on read-only network posts). */
+.smm-btn--link {
+    text-decoration: none;
+}

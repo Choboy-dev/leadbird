@@ -1,0 +1,77 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Bootstrap for webhooks and background jobs (no HTTP session).
+ */
+require_once dirname(__DIR__) . '/lib/helpers.php';
+require_once dirname(__DIR__) . '/lib/Security.php';
+require_once dirname(__DIR__) . '/lib/OfferingImageService.php';
+require_once dirname(__DIR__) . '/lib/OfferingTypeRegistry.php';
+require_once dirname(__DIR__) . '/lib/OfferingInputParser.php';
+require_once dirname(__DIR__) . '/lib/Uuid.php';
+require_once dirname(__DIR__) . '/lib/Database.php';
+require_once dirname(__DIR__) . '/lib/repositories/BaseRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/BusinessRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/BusinessSettingsRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/ProductRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/OfferingRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/ConnectedAccountRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/CustomerRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/ConversationRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/ConversationFollowupRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/InboxLabelRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/MessageRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/OrderRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/OwnerAlertRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/HandoffRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/UserRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/SubscriptionRepository.php';
+require_once dirname(__DIR__) . '/lib/RepositoryFactory.php';
+require_once dirname(__DIR__) . '/lib/PlanService.php';
+require_once dirname(__DIR__) . '/lib/PlanLimits.php';
+require_once dirname(__DIR__) . '/lib/PlanAccess.php';
+require_once dirname(__DIR__) . '/lib/SubscriptionService.php';
+require_once dirname(__DIR__) . '/lib/OnboardingService.php';
+require_once dirname(__DIR__) . '/lib/repositories/TokenBalanceRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/TokenLedgerRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/TokenTopupRepository.php';
+require_once dirname(__DIR__) . '/lib/TokenCosts.php';
+require_once dirname(__DIR__) . '/lib/TokenService.php';
+require_once dirname(__DIR__) . '/lib/repositories/AutomationQueueRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/BusinessKnowledgeRepository.php';
+require_once dirname(__DIR__) . '/lib/BusinessKnowledgeSyncService.php';
+require_once dirname(__DIR__) . '/lib/BusinessKnowledgeRetrievalService.php';
+require_once dirname(__DIR__) . '/lib/KnowledgeEmbeddingService.php';
+require_once dirname(__DIR__) . '/lib/KnowledgeImageMatchService.php';
+require_once dirname(__DIR__) . '/lib/repositories/KnowledgeLinkRepository.php';
+require_once dirname(__DIR__) . '/lib/KnowledgeLinkService.php';
+require_once dirname(__DIR__) . '/lib/ConversationLearningService.php';
+require_once dirname(__DIR__) . '/lib/GoogleCalendarService.php';
+require_once dirname(__DIR__) . '/lib/ConsultationBookingService.php';
+require_once dirname(__DIR__) . '/lib/repositories/BusinessGoogleCalendarRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/ConsultationAppointmentRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/ConversationBookingStateRepository.php';
+require_once dirname(__DIR__) . '/lib/InboundMessageService.php';
+require_once dirname(__DIR__) . '/lib/AutomationQueue.php';
+require_once dirname(__DIR__) . '/lib/repositories/OpenAiUsageRepository.php';
+require_once dirname(__DIR__) . '/lib/OpenAiBudgetService.php';
+require_once dirname(__DIR__) . '/lib/SalesAutomationService.php';
+require_once dirname(__DIR__) . '/includes/openai-client.php';
+require_once dirname(__DIR__) . '/includes/openai.php';
+require_once dirname(__DIR__) . '/includes/meta.php';
+require_once dirname(__DIR__) . '/config/money.php';
+require_once dirname(__DIR__) . '/includes/money.php';
+require_once dirname(__DIR__) . '/includes/dashboard/helpers.php';
+require_once dirname(__DIR__) . '/lib/repositories/ScheduledPostRepository.php';
+require_once dirname(__DIR__) . '/lib/SocialMediaImageService.php';
+require_once dirname(__DIR__) . '/lib/MetaPublishService.php';
+require_once dirname(__DIR__) . '/lib/SocialMediaService.php';
+require_once dirname(__DIR__) . '/lib/InboxLabelService.php';
+require_once dirname(__DIR__) . '/lib/FlutterwaveService.php';
+require_once dirname(__DIR__) . '/includes/whatsapp.php';
+require_once dirname(__DIR__) . '/lib/repositories/BusinessMetaConnectionRepository.php';
+require_once dirname(__DIR__) . '/lib/repositories/MetaDeletionRequestRepository.php';
+require_once dirname(__DIR__) . '/lib/MetaConnectService.php';
+require_once dirname(__DIR__) . '/lib/MetaDataDeletionService.php';

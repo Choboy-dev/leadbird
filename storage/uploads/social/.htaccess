@@ -1,0 +1,5 @@
+Options -Indexes
+
+<FilesMatch "\.(?i:jpe?g|png|webp|mp4|mov)$">
+    Require all granted
+</FilesMatch>
