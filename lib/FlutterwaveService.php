@@ -272,6 +272,19 @@ final class FlutterwaveService
     }
 
     /**
+     * @return array<string, mixed>
+     */
+    public function fetchTransfer(string $transferId): array
+    {
+        $secretKey = $this->secretKey();
+        if ($secretKey === '') {
+            throw new RuntimeException('FLUTTERWAVE_SECRET_KEY is not configured.');
+        }
+
+        return $this->request('GET', self::API_BASE . '/transfers/' . rawurlencode($transferId), null, $secretKey);
+    }
+
+    /**
      * Wallet-to-wallet fund into a PSA (when supported). Falls back to logging for ops.
      *
      * @return array<string, mixed>

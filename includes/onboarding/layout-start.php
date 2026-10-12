@@ -16,6 +16,8 @@ $logoutUrl = e(app_route('auth/logout'));
 $stepMeta = OnboardingService::STEPS[$onboardingStep] ?? OnboardingService::STEPS[OnboardingService::STEP_PROFILE];
 $stepLabel = (string) $stepMeta['label'];
 $totalSteps = count(OnboardingService::STEPS);
+// Wizard steps in the new flow use the look of the new welcome and channel screens.
+$obwSkin = !OnboardingService::legacyWizardEnabled() && empty($hideOnboardingProgress);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,13 +74,28 @@ $totalSteps = count(OnboardingService::STEPS);
         };
     </script>
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/onboarding.css?v=22">
-    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dropdown.css?v=6">
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dropdown.css?v=7">
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/modal.css?v=3">
     <?php foreach ($extraStylesheets ?? [] as $stylesheet): ?>
         <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/<?= e($stylesheet) ?>">
     <?php endforeach; ?>
+    <?php if ($obwSkin): ?>
+        <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/onboarding-welcome.css?v=6">
+    <?php endif; ?>
 </head>
-<body class="onboarding-page font-sans antialiased<?= isset($onboardingBodyClass) && $onboardingBodyClass !== '' ? ' ' . e($onboardingBodyClass) : '' ?>">
+<body class="onboarding-page font-sans antialiased<?= $obwSkin ? ' obw-page obw-skin' : '' ?><?= isset($onboardingBodyClass) && $onboardingBodyClass !== '' ? ' ' . e($onboardingBodyClass) : '' ?>">
+<?php if ($obwSkin): ?>
+<div class="onboarding-shell min-h-screen relative">
+    <header class="obw-top">
+        <?php $logoSize = 'sm'; require __DIR__ . '/../brand-logo.php'; ?>
+        <a class="obw-signout" href="<?= $logoutUrl ?>">Sign out</a>
+        <div class="obw-progress" role="progressbar" aria-label="Setup progress" aria-valuemin="1" aria-valuemax="<?= (int) $totalSteps ?>" aria-valuenow="<?= (int) $onboardingStep ?>">
+            <span style="width: <?= round(100 * $onboardingStep / $totalSteps) ?>%"></span>
+        </div>
+    </header>
+
+    <main class="obw-skin-main">
+<?php else: ?>
 <div class="onboarding-shell min-h-screen bg-brand-blue relative overflow-hidden">
     <div class="onboarding-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
 
@@ -96,7 +113,8 @@ $totalSteps = count(OnboardingService::STEPS);
     </header>
 
     <main class="relative z-10 px-6 pt-[50px] pb-16 max-w-3xl mx-auto w-full">
-        <?php if (empty($hideOnboardingProgress)): ?>
+<?php endif; ?>
+        <?php if (empty($hideOnboardingProgress) && !$obwSkin): ?>
         <nav class="onboarding-progress" aria-label="Onboarding progress">
             <ol class="onboarding-progress-list">
                 <?php foreach (OnboardingService::STEPS as $num => $step): ?>

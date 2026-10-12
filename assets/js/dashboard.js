@@ -97,6 +97,10 @@
         if (flatLink) {
             flatLink.classList.add('is-active');
             flatLink.setAttribute('aria-current', 'page');
+            const flatGroup = flatLink.closest('[data-dashboard-nav-group]');
+            if (flatGroup) {
+                openNavGroup(flatGroup);
+            }
         }
     }
 

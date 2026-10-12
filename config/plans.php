@@ -59,6 +59,7 @@ function plans_catalog(): array
                 'Moves ready buyers over to WhatsApp',
                 'Writes your social media posts for you',
                 'Schedules posts and publishes them with one click',
+                'Bulk WhatsApp Messaging to up to 5,000 contacts',
             ],
             'popular' => true,
             'color' => 'amber',

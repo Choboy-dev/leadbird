@@ -116,6 +116,79 @@ function whatsapp_send_video_message(array $connectedAccount, string $recipientP
 }
 
 /**
+ * A customer's answers from a WhatsApp Flows form, one "Question: answer" line each.
+ * Choice answers come back as IDs like "0_Next_week", made from the option text when the template was built.
+ */
+function whatsapp_form_reply_text(string $responseJson): string
+{
+    $answers = json_decode($responseJson, true);
+    if (!is_array($answers)) {
+        return '';
+    }
+
+    $readable = static function (mixed $value): string {
+        $value = trim(is_scalar($value) ? (string) $value : '');
+
+        return preg_match('/^\d+_([A-Za-z0-9_]+)$/', $value, $match) === 1 ? str_replace('_', ' ', $match[1]) : $value;
+    };
+    $lines = [];
+    foreach ($answers as $key => $value) {
+        if ($key === 'flow_token') {
+            continue;
+        }
+        $answer = is_array($value) ? implode(', ', array_map($readable, $value)) : $readable($value);
+        if ($answer !== '') {
+            $lines[] = ucfirst(str_replace('_', ' ', (string) $key)) . ': ' . $answer;
+        }
+    }
+
+    return $lines === [] ? '' : "Form reply\n" . implode("\n", $lines);
+}
+
+/**
+ * @param array<string, mixed> $connectedAccount
+ * @param list<array{id: string, name: string, description?: string}> $items
+ */
+function whatsapp_send_list_message(array $connectedAccount, string $recipientPhone, string $body, string $button, array $items): bool
+{
+    $token = (string) ($connectedAccount['access_token'] ?? app_config()['whatsapp']['system_user_token'] ?? '');
+    $phoneNumberId = (string) ($connectedAccount['platform_account_id'] ?? '');
+
+    if ($token === '' || $phoneNumberId === '' || $body === '' || $button === '' || $items === []) {
+        return false;
+    }
+
+    $rows = [];
+    foreach ($items as $item) {
+        $row = ['id' => (string) $item['id'], 'title' => (string) $item['name']];
+        $description = trim((string) ($item['description'] ?? ''));
+        if ($description !== '') {
+            $row['description'] = $description;
+        }
+        $rows[] = $row;
+    }
+
+    $version = (string) (app_config()['meta']['graph_version'] ?? 'v21.0');
+    $url = 'https://graph.facebook.com/' . $version . '/' . rawurlencode($phoneNumberId) . '/messages';
+
+    $payload = [
+        'messaging_product' => 'whatsapp',
+        'to' => preg_replace('/\D+/', '', $recipientPhone),
+        'type' => 'interactive',
+        'interactive' => [
+            'type' => 'list',
+            'body' => ['text' => $body],
+            'action' => [
+                'button' => $button,
+                'sections' => [['rows' => $rows]],
+            ],
+        ],
+    ];
+
+    return meta_graph_post($url, $token, $payload);
+}
+
+/**
  * @param array<string, mixed> $settings
  */
 function whatsapp_send_owner_alert(array $settings, string $alertMessage): bool
@@ -199,6 +272,16 @@ function whatsapp_parse_inbound_events(array $payload): array
                 }
 
                 $text = trim((string) ($message['text']['body'] ?? ''));
+                if ($text === '' && ($message['type'] ?? '') === 'interactive') {
+                    $reply = $message['interactive']['list_reply'] ?? $message['interactive']['button_reply'] ?? null;
+                    $text = is_array($reply) ? trim((string) ($reply['title'] ?? '')) : '';
+                }
+                if ($text === '' && ($message['type'] ?? '') === 'button') {
+                    $text = trim((string) ($message['button']['text'] ?? ''));
+                }
+                if ($text === '' && ($message['interactive']['type'] ?? '') === 'nfm_reply') {
+                    $text = whatsapp_form_reply_text((string) ($message['interactive']['nfm_reply']['response_json'] ?? ''));
+                }
                 $from = (string) ($message['from'] ?? '');
                 $type = (string) ($message['type'] ?? 'text');
                 $mediaId = null;
@@ -250,6 +333,12 @@ function whatsapp_fetch_media_url(string $mediaId, string $accessToken): ?string
  */
 function whatsapp_process_inbound_payload(array $payload): int
 {
+    try {
+        (new WhatsAppBroadcastService())->handleWebhook($payload);
+    } catch (Throwable $e) {
+        error_log('[WhatsApp] broadcast webhook: ' . $e->getMessage());
+    }
+
     $service = new InboundMessageService();
     $enqueued = 0;
 

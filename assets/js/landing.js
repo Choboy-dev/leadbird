@@ -70,58 +70,6 @@
         productsTrigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
     });
 
-    const featureCards = document.querySelectorAll('[data-feature-card]');
-    const maxTilt = 14;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const resetFeatureCard = (card) => {
-        card.style.setProperty('--rx', '0deg');
-        card.style.setProperty('--ry', '0deg');
-        card.classList.remove('is-active');
-    };
-
-    featureCards.forEach((card) => {
-        if (prefersReducedMotion) {
-            return;
-        }
-
-        card.addEventListener('mousemove', (event) => {
-            const rect = card.getBoundingClientRect();
-            const x = event.clientX - rect.left;
-            const y = event.clientY - rect.top;
-            const px = x / rect.width - 0.5;
-            const py = y / rect.height - 0.5;
-            const rotateY = px * maxTilt * 2;
-            const rotateX = -py * maxTilt * 2;
-
-            card.style.setProperty('--rx', `${rotateX}deg`);
-            card.style.setProperty('--ry', `${rotateY}deg`);
-
-            const shine = card.querySelector('.landing-feature-card-shine');
-            if (shine) {
-                shine.style.setProperty('--mx', `${(x / rect.width) * 100}%`);
-                shine.style.setProperty('--my', `${(y / rect.height) * 100}%`);
-            }
-
-            card.classList.add('is-active');
-        });
-
-        card.addEventListener('mouseleave', () => {
-            resetFeatureCard(card);
-        });
-
-        card.addEventListener('blur', () => {
-            resetFeatureCard(card);
-        });
-
-        card.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                card.classList.toggle('is-active');
-            }
-        });
-    });
-
     document.querySelectorAll('[data-nav-dropdown-trigger]').forEach((trigger) => {
         trigger.addEventListener('click', (event) => {
             if (window.matchMedia('(min-width: 768px)').matches) {

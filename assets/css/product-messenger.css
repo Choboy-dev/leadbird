@@ -1,0 +1,17 @@
+/* Messenger product page (/channels/messenger). Builds on product-instagram.css. */
+
+.ig.ms {
+    --ig-purple: var(--brand-messenger-purple);
+    --ig-purple-bg: color-mix(in srgb, var(--brand-messenger-purple) 10%, var(--brand-white));
+    --ig-purple-soft: color-mix(in srgb, var(--brand-messenger-purple) 5%, var(--brand-white));
+    --ig-purple-line: color-mix(in srgb, var(--brand-messenger-blue) 34%, var(--brand-white));
+    --ig-gradient: linear-gradient(45deg, var(--brand-messenger-blue), var(--brand-messenger-purple), var(--brand-messenger-pink));
+}
+
+.ms .igp-top b { display: flex; flex-direction: column; line-height: 1.25; }
+.ms .igp-top b small { color: var(--s-muted); font-size: 9.5px; font-weight: 400; }
+.ms .igp-m.in { background: var(--s-cream); }
+.ms .igp-m.out { background: linear-gradient(135deg, var(--brand-messenger-blue), var(--brand-messenger-purple)); color: var(--brand-white); }
+.ms .igp-btn { background: var(--brand-white); color: var(--brand-messenger-blue); box-shadow: inset 0 0 0 1px var(--ig-purple-line); }
+.ms .igp-bar i { background: var(--brand-messenger-blue); }
+.ms .igi-m.out { background: color-mix(in srgb, var(--brand-messenger-blue) 14%, var(--brand-white)); }

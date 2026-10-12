@@ -248,6 +248,14 @@ final class ConnectedAccountRepository extends BaseRepository
         return $this->findById($id) ?? throw new RuntimeException('Failed to create connected account');
     }
 
+    public function setWabaId(string $id, string $wabaId): void
+    {
+        $this->execute(
+            'UPDATE connected_accounts SET waba_id = :waba_id WHERE id = :id',
+            ['id' => $id, 'waba_id' => $wabaId]
+        );
+    }
+
     public function update(string $id, array $data): void
     {
         $existing = $this->findById($id);

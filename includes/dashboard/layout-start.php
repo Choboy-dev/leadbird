@@ -93,9 +93,9 @@ $sidebarPlanLabel = is_array($plan ?? null) ? (string) ($plan['name'] ?? 'Active
             },
         };
     </script>
-    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dashboard.css?v=36">
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dashboard.css?v=40">
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dashboard-cta.css?v=7">
-    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dropdown.css?v=6">
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dropdown.css?v=7">
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/modal.css?v=3">
     <?php foreach ($extraStylesheets ?? [] as $stylesheet): ?>
         <?php if ($stylesheet !== 'dashboard.css'): ?>
@@ -137,6 +137,10 @@ $sidebarPlanLabel = is_array($plan ?? null) ? (string) ($plan['name'] ?? 'Active
                 $itemKeys = is_array($group['items'] ?? null) ? $group['items'] : [];
                 $groupIsActive = dashboard_nav_group_is_active($itemKeys, $dashboardNav);
                 $panelId = 'dashboard-nav-group-' . $groupId;
+                $groupIsPlain = $itemKeys !== [] && array_filter(
+                    $itemKeys,
+                    static fn (string $key): bool => (string) ($allNavItems[$key]['icon'] ?? '') !== ''
+                ) === [];
 
                 if ($groupLabel === ''):
                     foreach ($itemKeys as $key):
@@ -225,7 +229,14 @@ $sidebarPlanLabel = is_array($plan ?? null) ? (string) ($plan['name'] ?? 'Active
     <div class="dashboard-main flex-1 flex flex-col min-w-0">
         <header class="dashboard-topbar<?= $dashboardHideTopbar ? ' dashboard-topbar--hidden' : '' ?>">
             <div class="dashboard-topbar-inner">
-                <h1 class="dashboard-topbar-title"><?= e($pageHeading) ?></h1>
+                <?php if (!empty($pageBackUrl)): ?>
+                    <div class="dashboard-topbar-start">
+                        <a class="dashboard-topbar-back" href="<?= e($pageBackUrl) ?>" aria-label="Back"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+                        <h1 class="dashboard-topbar-title"><?= e($pageHeading) ?></h1>
+                    </div>
+                <?php else: ?>
+                    <h1 class="dashboard-topbar-title"><?= e($pageHeading) ?></h1>
+                <?php endif; ?>
                 <?php if (!empty($business['business_name'])): ?>
                     <div class="dashboard-topbar-switcher">
                         <?php

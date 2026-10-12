@@ -2,7 +2,7 @@
     </main>
 </div>
 <script src="<?= e($appUrl) ?>/assets/js/modal.js?v=2"></script>
-<script src="<?= e($appUrl) ?>/assets/js/dropdown.js?v=6"></script>
+<script src="<?= e($appUrl) ?>/assets/js/dropdown.js?v=7"></script>
 <script src="<?= e($appUrl) ?>/assets/js/onboarding.js?v=2"></script>
 <?php require __DIR__ . '/../session-idle.php'; ?>
 <?php foreach ($extraScripts ?? [] as $script): ?>

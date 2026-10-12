@@ -88,29 +88,18 @@ final class CommissionService
     }
 
     /**
-     * @return array{released: int, funded: int, failed: int}
+     * Make commissions past their hold period available to withdraw.
+     *
+     * @return array{released: int}
      */
-    public function releaseHoldsAndFund(): array
+    public function releaseHolds(): array
     {
         $released = 0;
-        $funded = 0;
-        $failed = 0;
-        $wallet = new WalletService();
-
         foreach (RepositoryFactory::affiliateCommissions()->listReadyForRelease() as $row) {
             RepositoryFactory::affiliateCommissions()->markAvailable((string) $row['id']);
             $released++;
-
-            try {
-                if ($wallet->fundAffiliateCommission($row)) {
-                    $funded++;
-                }
-            } catch (Throwable $e) {
-                $failed++;
-                error_log('[Commission] fund failed ' . ($row['id'] ?? '') . ': ' . $e->getMessage());
-            }
         }
 
-        return ['released' => $released, 'funded' => $funded, 'failed' => $failed];
+        return ['released' => $released];
     }
 }

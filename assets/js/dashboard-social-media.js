@@ -4337,8 +4337,8 @@
                 mediaEl.innerHTML = reelMediaHtml;
                 applyPreviewAspectMode(mediaEl, platform, key, isVideo);
                 tiktokPlayback.updatePreviewState(true, isVideo, durationSeconds);
-                return;
-            }
+            return;
+        }
             if (key === 'facebook') {
                 mediaEl.innerHTML = buildPostMediaHtml(url, isVideo);
                 applyPreviewAspectMode(mediaEl, platform, key, isVideo);
@@ -5771,7 +5771,7 @@
 
         return list.filter(function (post) {
             return !isPublishedTikTokRecord(post);
-        });
+            });
     }
 
     function filteredQueuePosts() {

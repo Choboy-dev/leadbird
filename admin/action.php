@@ -103,6 +103,43 @@ try {
             $redirectTo = app_route('admin/feature-flags');
             break;
 
+        case 'approve_payout':
+            $payoutId = trim((string) ($_POST['payout_id'] ?? ''));
+            $outcome = (new PayoutService())->approve($payoutId, $adminUserId);
+            (new AdminAuditService())->log($adminUserId, 'approve_affiliate_payout', 'affiliate_payout', $payoutId, [
+                'ok' => $outcome['ok'],
+            ]);
+            if (!$outcome['ok']) {
+                throw new RuntimeException((string) ($outcome['error'] ?? 'Could not send this payout.'));
+            }
+            flash_set('success', 'Payout sent to Flutterwave. It will show as paid once the bank confirms.');
+            $redirectTo = app_route('admin/affiliates');
+            break;
+
+        case 'reject_payout':
+            $payoutId = trim((string) ($_POST['payout_id'] ?? ''));
+            $reason = mb_substr(trim((string) ($_POST['reason'] ?? '')), 0, 255);
+            $outcome = (new PayoutService())->reject($payoutId, $adminUserId, $reason);
+            if (!$outcome['ok']) {
+                throw new RuntimeException((string) ($outcome['error'] ?? 'Could not decline this payout.'));
+            }
+            (new AdminAuditService())->log($adminUserId, 'reject_affiliate_payout', 'affiliate_payout', $payoutId, [
+                'reason' => $reason,
+            ]);
+            flash_set('success', 'Payout declined. The money is back in the partner\'s balance.');
+            $redirectTo = app_route('admin/affiliates');
+            break;
+
+        case 'clawback_commission':
+            $commissionId = trim((string) ($_POST['commission_id'] ?? ''));
+            if (!RepositoryFactory::affiliateCommissions()->clawback($commissionId)) {
+                throw new RuntimeException('This commission can no longer be cancelled.');
+            }
+            (new AdminAuditService())->log($adminUserId, 'clawback_affiliate_commission', 'affiliate_commission', $commissionId);
+            flash_set('success', 'Commission cancelled.');
+            $redirectTo = app_route('admin/affiliates');
+            break;
+
         case 'impersonate':
             $userId = trim((string) ($_POST['user_id'] ?? ''));
             $adminService->startImpersonation($adminUserId, $userId);

@@ -99,8 +99,8 @@ function admin_status_class(string $status): string
 
     return match ($status) {
         'active', 'completed', 'paid', 'successful', 'available' => 'admin-badge admin-badge--success',
-        'pending', 'processing', 'open' => 'admin-badge admin-badge--warning',
-        'failed', 'cancelled', 'canceled', 'suspended', 'danger' => 'admin-badge admin-badge--danger',
+        'pending', 'pending_review', 'processing', 'open' => 'admin-badge admin-badge--warning',
+        'failed', 'cancelled', 'canceled', 'suspended', 'danger', 'rejected', 'clawed_back' => 'admin-badge admin-badge--danger',
         default => 'admin-badge',
     };
 }

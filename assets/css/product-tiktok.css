@@ -1,0 +1,140 @@
+/* TikTok product page (/channels/tiktok). Builds on product-instagram.css. */
+
+.ig.tt {
+    --ig-purple: var(--brand-tiktok-red);
+    --ig-purple-bg: color-mix(in srgb, var(--brand-tiktok-red) 10%, var(--brand-white));
+    --ig-purple-soft: color-mix(in srgb, var(--brand-tiktok-cyan) 9%, var(--brand-white));
+    --ig-purple-line: color-mix(in srgb, var(--brand-black) 22%, var(--brand-white));
+    --ig-gradient: linear-gradient(45deg, var(--brand-tiktok-cyan), var(--brand-black) 50%, var(--brand-tiktok-red));
+}
+
+/* TikTok video phone */
+.ttv { position: relative; overflow: hidden; border: 3px solid var(--s-ink); border-radius: 24px; background: var(--brand-black); color: var(--brand-white); box-shadow: var(--ig-shadow); font-size: 11px; }
+.ttv-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ttv::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 0.35), transparent 22%, transparent 50%, rgb(0 0 0 / 0.75)); }
+.ttv-top { position: absolute; z-index: 2; top: 12px; left: 0; right: 0; display: flex; justify-content: center; gap: 12px; font-size: 11.5px; }
+.ttv-top span { opacity: 0.7; }
+.ttv-top b { border-bottom: 2px solid var(--brand-white); padding-bottom: 2px; }
+.ttv-rail { position: absolute; z-index: 2; right: 8px; bottom: 96px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.ttv-rail span { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 9.5px; font-weight: 700; }
+.ttv-rail svg { width: 24px; height: 24px; fill: var(--brand-white); filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.4)); }
+.ttv-ava { display: block; flex: none; width: 34px; height: 34px; overflow: hidden; border: 2px solid var(--brand-white); border-radius: 50%; background: var(--brand-white); }
+.ttv-ava img { width: 100%; height: 100%; object-fit: cover; }
+.ttv-cap { position: absolute; z-index: 2; left: 12px; right: 52px; bottom: 14px; display: flex; flex-direction: column; align-items: flex-start; gap: 5px; line-height: 1.4; }
+.ttv-cap p { margin: 0; }
+.ttv-cap small { opacity: 0.85; font-size: 9.5px; }
+.ttv-pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 6px; background: var(--brand-white); color: var(--s-ink); font-weight: 700; font-size: 10px; }
+.ttv-pill svg { width: 13px; height: 13px; }
+.ig-hv .ttv { position: absolute; right: 0; top: 0; width: 230px; height: 410px; }
+.tt-ph-r.ttv { position: absolute; z-index: 2; right: 0; top: 30px; width: 230px; height: 370px; }
+
+/* WhatsApp chat phone */
+.igp.tt-wa { --ig-purple: var(--brand-whatsapp); --ig-purple-bg: color-mix(in srgb, var(--brand-whatsapp) 16%, var(--brand-white)); --ig-purple-line: color-mix(in srgb, var(--brand-whatsapp) 40%, var(--brand-white)); }
+.igp.tt-wa .igp-ava { background: var(--brand-whatsapp); }
+
+/* Shared card frame */
+.ttc, .ttq, .tte, .tts, .tti, .ttk, .ttp { border: 2px solid var(--ig-purple-line); border-radius: 12px; background: var(--brand-white); box-shadow: var(--ig-shadow); font-size: 11px; text-align: left; }
+.ttc .igr-bar small, .tti .igr-bar small { color: var(--s-muted); }
+.ttc-go { margin-left: auto; padding: 4px 12px; border-radius: 6px; background: var(--brand-blue); color: var(--brand-white); font-size: 10.5px; }
+
+/* Composer */
+.ig-vis.tt-plan { min-height: 470px; }
+.ig-vis.center > .tte, .ig-vis.center > .tts, .ig-vis.center > .tti { align-self: center; }
+.ttc { position: absolute; right: 0; top: 0; width: 74%; }
+.ttc-body { display: grid; grid-template-columns: 92px 1fr; gap: 12px; padding: 12px; }
+.ttc-media { position: relative; height: 150px; overflow: hidden; border-radius: 8px; }
+.ttc-media img { width: 100%; height: 100%; object-fit: cover; }
+.ttc-media span { position: absolute; left: 6px; bottom: 6px; padding: 1px 6px; border-radius: 4px; background: rgb(0 0 0 / 0.65); color: var(--brand-white); font-size: 9.5px; font-weight: 700; }
+.ttc-text { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.ttc-text small, .ttc-row small { color: var(--s-muted); font-size: 10px; }
+.ttc-text p { margin: 0; padding: 8px 10px; border: 1px solid var(--ig-line); border-radius: 8px; line-height: 1.5; }
+.ttc-ai { padding: 3px 9px; border-radius: 14px; background: var(--s-blue-bg); color: var(--brand-blue); font-weight: 700; }
+.ttc-row { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-top: 1px solid var(--ig-line); white-space: nowrap; }
+.ttc-row small { width: 44px; }
+.ttc-ch { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border: 1px solid var(--ig-line); border-radius: 14px; color: var(--s-muted); }
+.ttc-ch svg { width: 12px; height: 12px; }
+.ttc-ch.on { border-color: var(--s-ink); background: var(--s-green-bg); color: var(--s-ink); font-weight: 700; }
+.ttc-when { padding: 3px 9px; border-radius: 6px; background: var(--s-cream); font-weight: 600; }
+.ttq { position: absolute; left: 0; bottom: 0; z-index: 2; width: 46%; padding: 10px; }
+.ttq-i { display: flex; align-items: center; gap: 8px; padding: 7px 0; border-bottom: 1px solid var(--ig-line); white-space: nowrap; }
+.ttq-i:last-child { border-bottom: 0; }
+.ttq-i svg { flex: none; width: 16px; height: 16px; }
+.ttq-i span { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.ttq-i small { color: var(--s-muted); font-size: 9.5px; }
+.ttq-i em { padding: 1px 7px; border-radius: 4px; background: var(--s-blue-bg); color: var(--brand-blue); font-style: normal; font-size: 9px; font-weight: 700; }
+.ttq-i em.done { background: var(--s-green-bg); color: var(--s-ink); }
+.ttq-i em.draft { background: var(--s-cream); color: var(--s-muted); }
+
+/* Video editor */
+.tte { width: 320px; max-width: 100%; overflow: hidden; }
+.tte-stage { position: relative; height: 230px; overflow: hidden; background: var(--brand-black); }
+.tte-stage img { width: 100%; height: 100%; object-fit: cover; }
+.tte-crop { position: absolute; left: 50%; top: 50%; height: 90%; aspect-ratio: 9 / 16; transform: translate(-50%, -50%); border: 2px solid var(--brand-white); border-radius: 4px; box-shadow: 0 0 0 999px rgb(0 0 0 / 0.5); }
+.tte-ratios { display: flex; gap: 6px; padding: 10px 12px 4px; }
+.tte-ratios em { padding: 3px 10px; border-radius: 14px; background: var(--s-cream); font-style: normal; font-weight: 700; }
+.tte-ratios em.on { background: var(--s-ink); color: var(--brand-white); }
+.tte-trim { position: relative; height: 36px; margin: 8px 12px 0; overflow: hidden; border-radius: 6px; background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--brand-tiktok-red) 30%, var(--brand-white)) 0 22px, color-mix(in srgb, var(--brand-tiktok-cyan) 40%, var(--brand-white)) 22px 44px); }
+.tte-sel { position: absolute; top: -2px; bottom: -2px; left: 12%; right: 22%; border: 3px solid var(--brand-lime); border-radius: 6px; box-shadow: 0 0 0 999px rgb(255 255 255 / 0.55); }
+.tte-sel i { position: absolute; top: 0; bottom: 0; width: 8px; background: var(--brand-lime); }
+.tte-sel i:first-child { left: -3px; }
+.tte-sel i:last-child { right: -3px; }
+.tte-time { display: block; padding: 8px 12px 12px; color: var(--s-muted); font-size: 10px; }
+
+/* TikTok settings */
+.tts { width: 300px; max-width: 100%; overflow: hidden; }
+.tts .igr-brand svg { width: 16px; height: 16px; }
+.tts-body { display: flex; flex-direction: column; gap: 10px; padding: 14px; font-size: 12px; }
+.tts-body small { color: var(--s-muted); font-size: 10.5px; }
+.tts-pick { display: flex; justify-content: space-between; padding: 8px 10px; border: 1px solid var(--ig-line); border-radius: 8px; font-weight: 700; }
+.tts-pick i { font-style: normal; color: var(--s-muted); }
+.tts-t { display: flex; align-items: center; justify-content: space-between; padding: 4px 0; }
+.tts-t i { position: relative; width: 32px; height: 18px; border-radius: 10px; background: rgb(0 0 0 / 0.15); }
+.tts-t i::after { content: ""; position: absolute; left: 2px; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--brand-white); box-shadow: 0 1px 2px rgb(0 0 0 / 0.2); }
+.tts-t.on i { background: var(--brand-blue); }
+.tts-t.on i::after { left: 16px; }
+.tts-body p { margin: 4px 0 0; padding: 7px 9px; border-radius: 6px; background: var(--s-green-bg); font-size: 10.5px; font-weight: 600; }
+
+/* Insights */
+.tti { width: 420px; max-width: 100%; overflow: hidden; }
+.tti-head, .tti-row { display: grid; grid-template-columns: 1fr 52px 48px 48px; align-items: center; gap: 6px; padding: 8px 12px; text-align: right; }
+.tti-head small { color: var(--s-muted); font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.tti-row { border-top: 1px solid var(--ig-line); }
+.tti-row > b { font-size: 12px; }
+.tti-v { display: flex; align-items: center; gap: 8px; min-width: 0; text-align: left; }
+.tti-v img { flex: none; width: 34px; height: 46px; border-radius: 5px; object-fit: cover; }
+.tti-v b { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; line-height: 1.3; }
+.tti-v b i { display: block; width: var(--w); height: 5px; border-radius: 3px; background: var(--ig-gradient); }
+
+/* Profile with link in bio */
+.ttp { position: absolute; left: 0; top: 0; width: 56%; padding: 14px; border-radius: 22px; text-align: center; }
+.ttp-head { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; }
+.ttp-head .ttv-ava { width: 56px; height: 56px; border-color: var(--s-ink); }
+.ttp-stats { display: flex; justify-content: space-around; margin: 10px 0 8px; color: var(--s-muted); font-size: 9.5px; }
+.ttp-stats b { display: block; color: var(--s-ink); font-size: 12px; }
+.ttp p { margin: 0 0 6px; font-size: 10.5px; }
+.ttp-link { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; }
+.ttp-link svg { width: 12px; height: 12px; }
+.ttp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 10px; }
+.ttp-grid img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.tt-tool { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 12px 22px; border: 2px solid var(--brand-black); border-radius: 999px; background: var(--brand-white); font-family: var(--brand-font-heading); font-size: 13px; text-transform: uppercase; letter-spacing: 0.03em; box-shadow: 4px 4px 0 0 var(--cta-shadow-color); transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+.tt-tool:hover { background: var(--brand-surface); box-shadow: 6px 6px 0 0 var(--cta-shadow-color); transform: translate(-2px, -2px); }
+.tt-tool svg { width: 18px; height: 18px; }
+
+/* Planner */
+.ttk { overflow: hidden; }
+.ttk-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; padding: 10px; }
+.ttk-grid small { padding-bottom: 2px; color: var(--s-muted); font-size: 9.5px; font-weight: 700; text-align: center; }
+.ttk-grid span { position: relative; height: 40px; padding: 3px 5px; border: 1px solid var(--ig-line); border-radius: 6px; font-size: 9.5px; }
+.ttk-grid span.on { border: 2px solid var(--brand-blue); background: var(--s-blue-bg); font-weight: 700; }
+.ttk-grid svg { position: absolute; right: 4px; bottom: 4px; width: 13px; height: 13px; }
+
+/* TikTok DMs (coming soon) */
+.tt-soon-wrap { display: flex; justify-content: center; margin-bottom: 14px; }
+.tt-soon { padding: 6px 16px; border: 2px solid var(--brand-black); border-radius: 999px; background: var(--brand-lime); font-family: var(--brand-font-heading); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+.tt-dm .ig-lead { margin-top: 14px !important; }
+.tt-dm .ig-vis.center > .igi { align-self: center; width: 100%; max-width: 460px; }
+.tt-dm .igi-main { height: 350px; }
+
+@media (max-width: 991px) {
+    .tt-tool { display: flex; justify-content: center; }
+}

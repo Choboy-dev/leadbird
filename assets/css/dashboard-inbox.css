@@ -1848,6 +1848,127 @@
     margin-top: 1rem;
 }
 
+
+.inbox-list-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2rem;
+    padding: 0.35rem 0.75rem;
+    border: var(--inbox-border-strong);
+    border-radius: 999px;
+    background: var(--brand-white);
+    color: var(--brand-blue);
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.inbox-list-btn:hover {
+    border-color: rgb(0 56 255 / 0.35);
+    background: rgb(0 56 255 / 0.05);
+}
+
+.inbox-list-btn:focus-visible {
+    outline: 2px solid var(--brand-blue);
+    outline-offset: 2px;
+}
+
+.inbox-list-dialog {
+    width: min(100%, 28rem);
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+}
+
+.inbox-list-note {
+    margin: 0 0 0.85rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--inbox-radius);
+    background: rgb(255 59 48 / 0.08);
+    color: var(--brand-black);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+}
+
+.inbox-list-empty p {
+    margin: 0 0 0.85rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--inbox-muted);
+}
+
+.inbox-list-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.inbox-list-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.7rem 0.8rem;
+    border: var(--inbox-border-strong);
+    border-radius: 0.6rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.inbox-list-option:hover {
+    border-color: rgb(0 56 255 / 0.3);
+}
+
+.inbox-list-option:has(input:checked) {
+    border-color: var(--brand-blue);
+    background: rgb(0 56 255 / 0.04);
+}
+
+.inbox-list-option input {
+    margin: 0.2rem 0 0;
+    accent-color: var(--brand-blue);
+}
+
+.inbox-list-option-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.inbox-list-option-body strong {
+    font-size: 0.875rem;
+    overflow-wrap: anywhere;
+}
+
+.inbox-list-option-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--inbox-muted);
+}
+
+.inbox-list-option-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--brand-blue);
+}
+
+.inbox-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
 @media (max-width: 640px) {
     .inbox-compose-send span {
         position: absolute;

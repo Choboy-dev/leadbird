@@ -284,7 +284,7 @@ html:has(.dashboard-page) {
 }
 
 .dashboard-nav-icon {
-    width: 1.35rem;
+    width: 1.6875rem;
     text-align: center;
     flex-shrink: 0;
     font-size: 1.125rem;
@@ -464,6 +464,33 @@ html:has(.dashboard-page) {
     min-height: var(--dashboard-topbar-height);
     padding: var(--dashboard-topbar-padding-y) var(--dashboard-topbar-padding-x);
     box-sizing: border-box;
+}
+
+.dashboard-topbar-start {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.dashboard-topbar-back {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.5rem;
+    color: var(--brand-blue);
+    transition: background-color 0.2s ease;
+}
+
+.dashboard-topbar-back:hover {
+    background: rgb(0 56 255 / 0.08);
+}
+
+.dashboard-topbar-back:focus-visible {
+    outline: 3px solid var(--brand-blue);
+    outline-offset: 2px;
 }
 
 .dashboard-topbar-inner .dashboard-menu-btn {
@@ -797,6 +824,28 @@ html:has(.dashboard-page) {
     }
 
     .dashboard-shell--nav-collapsed .dashboard-nav-group-panel[hidden] {
+        display: flex !important;
+    }
+
+    .dashboard-shell--nav-collapsed .dashboard-nav-group--plain .dashboard-nav-group-toggle {
+        display: flex;
+        justify-content: center;
+        padding: 0.6rem;
+    }
+
+    .dashboard-shell--nav-collapsed .dashboard-nav-group--plain .dashboard-nav-group-panel,
+    .dashboard-shell--nav-collapsed .dashboard-nav-group--plain .dashboard-nav-group-panel[hidden] {
+        display: none !important;
+    }
+
+    .dashboard-shell--nav-collapsed:not(.is-nav-hover-dismissed) .dashboard-sidebar:hover .dashboard-nav-group--plain .dashboard-nav-group-toggle,
+    .dashboard-shell--nav-collapsed:not(.is-nav-hover-dismissed) .dashboard-sidebar:focus-within .dashboard-nav-group--plain .dashboard-nav-group-toggle {
+        justify-content: flex-start;
+        padding: 0.65rem 0.875rem;
+    }
+
+    .dashboard-shell--nav-collapsed:not(.is-nav-hover-dismissed) .dashboard-sidebar:hover .dashboard-nav-group--plain .dashboard-nav-group-panel:not([hidden]),
+    .dashboard-shell--nav-collapsed:not(.is-nav-hover-dismissed) .dashboard-sidebar:focus-within .dashboard-nav-group--plain .dashboard-nav-group-panel:not([hidden]) {
         display: flex !important;
     }
 

@@ -1141,6 +1141,84 @@
         });
     }
 
+    var listModal = document.querySelector('[data-inbox-list-modal]');
+    var listOpenBtn = compose ? compose.querySelector('[data-inbox-list-open]') : null;
+    if (listModal && listOpenBtn) {
+        var listForm = listModal.querySelector('[data-inbox-list-form]');
+        var listSendBtn = listModal.querySelector('[data-inbox-list-send]');
+
+        var closeListModal = function () {
+            listModal.hidden = true;
+            listOpenBtn.focus();
+        };
+
+        listOpenBtn.addEventListener('click', function () {
+            listModal.hidden = false;
+            var first = listModal.querySelector('input:checked') || listModal.querySelector('.inbox-label-modal-close');
+            if (first) {
+                first.focus();
+            }
+        });
+
+        listModal.querySelectorAll('[data-inbox-list-close]').forEach(function (btn) {
+            btn.addEventListener('click', closeListModal);
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !listModal.hidden) {
+                closeListModal();
+            }
+        });
+
+        if (listForm && listSendBtn) {
+            listForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                var picked = listForm.querySelector('input[name="inbox-list"]:checked');
+                if (!picked || listSendBtn.disabled) {
+                    return;
+                }
+
+                listSendBtn.disabled = true;
+                listSendBtn.textContent = 'Sending…';
+
+                fetch(appUrl + '/inbox/send-list', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({
+                        conversation_id: conversationId,
+                        template_id: picked.value,
+                    }),
+                })
+                    .then(function (response) {
+                        return response.json().then(function (data) {
+                            return { ok: response.ok, data: data };
+                        });
+                    })
+                    .then(function (result) {
+                        if (!result.ok || !result.data.ok) {
+                            throw new Error(result.data.message || 'Could not send the list.');
+                        }
+                        var stored = (result.data.data && result.data.data.message) || {};
+                        appendOwnerMessage(String(stored.message_text || ''), stored);
+                        closeListModal();
+                    })
+                    .catch(function (error) {
+                        listModal.hidden = true;
+                        window.LeadBirdModal.alert({
+                            title: 'The list wasn’t sent',
+                            message: error.message || 'Could not send the list.',
+                            tone: 'error',
+                        });
+                    })
+                    .finally(function () {
+                        listSendBtn.disabled = false;
+                        listSendBtn.textContent = 'Send list';
+                    });
+            });
+        }
+    }
+
     // Live inbox sync — pull new customer/AI messages without full page refresh.
     (function startInboxSync() {
         var rows = rail ? rail.querySelectorAll('[data-created-at]') : [];

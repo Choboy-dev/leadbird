@@ -586,7 +586,7 @@ final class MetaConnectService
         $ownerUserId = is_array($businessRow) ? (string) ($businessRow['user_id'] ?? '') : '';
         $planSlug = (new OnboardingService())->getActivePlanSlug($ownerUserId) ?? 'starter';
 
-        RepositoryFactory::connectedAccounts()->connectAccount(
+        $connected = RepositoryFactory::connectedAccounts()->connectAccount(
             $businessId,
             $platform,
             [
@@ -612,6 +612,7 @@ final class MetaConnectService
 
             $wabaId = (string) ($option['waba_id'] ?? '');
             if ($wabaId !== '') {
+                RepositoryFactory::connectedAccounts()->setWabaId((string) $connected['id'], $wabaId);
                 $subscribed = meta_subscribe_waba_webhooks($wabaId, $userAccessToken);
                 if (!$subscribed) {
                     error_log('[MetaConnect] WABA webhook subscribe failed waba=' . $wabaId . ' business=' . $businessId);
@@ -852,15 +853,94 @@ final class MetaConnectService
         }
     }
 
-    private function exchangeCodeForToken(string $code): string
+    /**
+     * Connects the number a seller set up in Meta's Embedded Signup popup.
+     *
+     * @return array{phone: string, name: string}
+     */
+    public function completeEmbeddedSignup(
+        string $businessId,
+        string $code,
+        string $wabaId,
+        string $phoneNumberId,
+        bool $keepsBusinessApp
+    ): array {
+        $this->assertConfigured();
+        if (!ctype_digit($wabaId) || !ctype_digit($phoneNumberId) || trim($code) === '') {
+            throw new RuntimeException('Meta did not send back your WhatsApp details. Please try again.');
+        }
+
+        // Codes from the JavaScript SDK popup are exchanged without a redirect_uri.
+        $token = $this->exchangeCodeForToken($code, false);
+
+        $phone = null;
+        $phones = meta_graph_get($wabaId . '/phone_numbers', $token, [
+            'fields' => 'id,display_phone_number,verified_name',
+            'limit' => 50,
+        ]);
+        foreach ($phones['data'] ?? [] as $row) {
+            if (is_array($row) && (string) ($row['id'] ?? '') === $phoneNumberId) {
+                $phone = $row;
+                break;
+            }
+        }
+        if ($phone === null) {
+            throw new RuntimeException('We could not find that number in your WhatsApp Business account. Please try again.');
+        }
+
+        // Business app numbers are already registered and keep working on the phone.
+        if (!$keepsBusinessApp) {
+            $this->registerWhatsAppNumber($phoneNumberId, $token);
+        }
+
+        $display = trim((string) ($phone['display_phone_number'] ?? ''));
+        $name = trim((string) ($phone['verified_name'] ?? ''));
+
+        $this->finalizeConnection($businessId, 'whatsapp', [
+            'label' => $name !== '' ? $name . ' · ' . $display : $display,
+            'platform_account_id' => $phoneNumberId,
+            'waba_id' => $wabaId,
+            'access_token' => $token,
+        ], $token);
+
+        return ['phone' => $display, 'name' => $name];
+    }
+
+    private function registerWhatsAppNumber(string $phoneNumberId, string $token): void
+    {
+        $result = meta_graph_post_json($phoneNumberId . '/register', $token, [
+            'messaging_product' => 'whatsapp',
+            'pin' => (string) random_int(100000, 999999),
+        ]);
+        if (!empty($result['success'])) {
+            return;
+        }
+
+        // 133005 = a two-step PIN is already set, so the number is already registered.
+        $errorCode = (int) ($result['error']['code'] ?? 0);
+        if ($errorCode === 133005) {
+            return;
+        }
+
+        error_log('[MetaConnect] Register failed phone=' . $phoneNumberId . ' body=' . json_encode($result));
+        $detail = trim((string) ($result['error']['error_user_msg'] ?? $result['error']['message'] ?? ''));
+        throw new RuntimeException(
+            'Meta could not switch on your number for messaging' . ($detail !== '' ? ': ' . $detail : '.')
+        );
+    }
+
+    private function exchangeCodeForToken(string $code, bool $withRedirect = true): string
     {
         $config = app_config()['meta'];
-        $query = http_build_query([
+        $params = [
             'client_id' => $config['app_id'] ?? '',
             'client_secret' => $config['app_secret'] ?? '',
-            'redirect_uri' => $config['redirect_uri'] ?? '',
             'code' => $code,
-        ]);
+        ];
+        if ($withRedirect) {
+            $params['redirect_uri'] = $config['redirect_uri'] ?? '';
+        }
+        $query = http_build_query($params);
 
         $ch = curl_init('https://graph.facebook.com/' . meta_graph_version() . '/oauth/access_token?' . $query);
         if ($ch === false) {

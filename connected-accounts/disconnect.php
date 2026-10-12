@@ -33,4 +33,4 @@ if ($platform === TikTokConnectService::PLATFORM) {
 }
 
 flash_set('success', dash_platform_label($platform) . ' disconnected.');
-redirect(app_route('connected-accounts'));
+redirect(safe_return_url((string) ($_POST['return_to'] ?? ''), app_route('connected-accounts')));

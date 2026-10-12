@@ -79,44 +79,75 @@ final class AffiliateCommissionRepository extends BaseRepository
         );
     }
 
-    public function markFunded(string $id): void
+    /**
+     * Reserve every available commission for a payout request so it cannot be withdrawn twice.
+     */
+    public function reserveAvailableForPayout(string $affiliateId, string $payoutId): void
     {
-        // Money moved into the affiliate PSA; still withdrawable until bank payout.
         $this->execute(
             'UPDATE affiliate_commissions
-             SET status = \'available\', funded_at = NOW(), updated_at = NOW()
-             WHERE id = :id AND status IN (\'available\', \'funding\')',
-            ['id' => $id]
+             SET status = \'withdrawing\', payout_id = :payout_id, updated_at = NOW()
+             WHERE affiliate_id = :affiliate_id AND status = \'available\'',
+            ['affiliate_id' => $affiliateId, 'payout_id' => $payoutId]
         );
     }
 
-    public function markPaidOut(string $id): void
+    /** @return list<array<string, mixed>> */
+    public function listByPayoutId(string $payoutId): array
+    {
+        return $this->fetchAll(
+            'SELECT * FROM affiliate_commissions WHERE payout_id = :payout_id',
+            ['payout_id' => $payoutId]
+        );
+    }
+
+    public function markPayoutPaid(string $payoutId): void
     {
         $this->execute(
             'UPDATE affiliate_commissions
              SET status = \'paid_out\', updated_at = NOW()
-             WHERE id = :id AND status = \'available\'',
-            ['id' => $id]
+             WHERE payout_id = :payout_id AND status = \'withdrawing\'',
+            ['payout_id' => $payoutId]
         );
     }
 
-    public function markFunding(string $id): void
-    {
-        $this->execute(
-            'UPDATE affiliate_commissions SET status = \'funding\', updated_at = NOW()
-             WHERE id = :id AND status = \'available\'',
-            ['id' => $id]
-        );
-    }
-
-    public function clawback(string $id): void
+    /**
+     * Return reserved commissions to the partner's balance after a rejected or failed payout.
+     */
+    public function releasePayout(string $payoutId): void
     {
         $this->execute(
             'UPDATE affiliate_commissions
-             SET status = \'clawed_back\', clawed_back_at = NOW(), updated_at = NOW()
-             WHERE id = :id AND status IN (\'pending\', \'available\')',
-            ['id' => $id]
+             SET status = \'available\', payout_id = NULL, updated_at = NOW()
+             WHERE payout_id = :payout_id AND status = \'withdrawing\'',
+            ['payout_id' => $payoutId]
         );
+    }
+
+    /** @return list<array<string, mixed>> */
+    public function listOpenForAdmin(int $limit = 50): array
+    {
+        return $this->fetchAll(
+            'SELECT ac.*, a.name AS affiliate_name, a.code AS affiliate_code, u.email AS referred_email
+             FROM affiliate_commissions ac
+             INNER JOIN affiliates a ON a.id = ac.affiliate_id
+             LEFT JOIN users u ON u.id = ac.referred_user_id
+             WHERE ac.status IN (\'pending\', \'available\')
+             ORDER BY ac.created_at DESC
+             LIMIT ' . max(1, min(100, $limit))
+        );
+    }
+
+    public function clawback(string $id): bool
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE affiliate_commissions
+             SET status = \'clawed_back\', clawed_back_at = NOW(), updated_at = NOW()
+             WHERE id = :id AND status IN (\'pending\', \'available\')'
+        );
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->rowCount() === 1;
     }
 
     public function sumByStatus(string $affiliateId, string $status): float

@@ -146,6 +146,7 @@ return [
         'enable_ig_publish' => filter_var(env('META_ENABLE_IG_PUBLISH', '0'), FILTER_VALIDATE_BOOL),
         'login_config_id' => trim((string) (env('META_FB_LOGIN_CONFIG_ID', '') ?? '')),
         'login_config_id_whatsapp' => trim((string) (env('META_FB_LOGIN_CONFIG_ID_WHATSAPP', '') ?? '')),
+        'embedded_signup_config_id' => trim((string) (env('META_EMBEDDED_SIGNUP_CONFIG_ID', '') ?? '')),
         'login_config_id_instagram' => trim((string) (env('META_FB_LOGIN_CONFIG_ID_INSTAGRAM', '') ?? '')),
         'login_config_id_facebook' => trim((string) (env('META_FB_LOGIN_CONFIG_ID_FACEBOOK', '') ?? '')),
         'use_bundled_login_config' => filter_var(env('META_USE_BUNDLED_LOGIN_CONFIG', '0'), FILTER_VALIDATE_BOOL),
@@ -160,6 +161,10 @@ return [
     ],
     'whatsapp' => [
         'system_user_token' => env('WHATSAPP_SYSTEM_USER_TOKEN', env('META_SYSTEM_USER_TOKEN', '') ?? '') ?? '',
+    ],
+    'onboarding' => [
+        // Off: new businesses skip the 6-step wizard and land on the dashboard.
+        'legacy_wizard' => filter_var(env('ONBOARDING_LEGACY_WIZARD', '0'), FILTER_VALIDATE_BOOL),
     ],
     'tiktok' => [
         'enabled' => filter_var(env('TIKTOK_ENABLED', '0'), FILTER_VALIDATE_BOOL),

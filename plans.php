@@ -7,10 +7,10 @@ require_once __DIR__ . '/config/plans.php';
 
 $appUrl = app_config()['app_url'];
 $brandName = app_config()['brand_name'];
-$pageTitle = 'Pricing — ' . $brandName;
-$metaDescription = 'Lead Bird plans and prices. See what each plan gives you, compare them side by side, and read answers to common questions.';
+$pageTitle = 'Pricing: Plans for every stage of growth — ' . $brandName;
+$metaDescription = 'Lead Bird pricing: no setup fees, simple plans for every size of shop, and two months free when you pay yearly.';
 $metaUrl = app_route('plans');
-$extraStylesheets = ['contact.css', 'plans.css?v=5'];
+$extraStylesheets = ['pricing-page.css?v=3'];
 $activeNav = 'pricing';
 
 $plans = plans_list();

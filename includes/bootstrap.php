@@ -99,7 +99,6 @@ require_once dirname(__DIR__) . '/lib/repositories/AffiliateCommissionRepository
 require_once dirname(__DIR__) . '/lib/repositories/AffiliatePayoutRepository.php';
 require_once dirname(__DIR__) . '/lib/AffiliateService.php';
 require_once dirname(__DIR__) . '/lib/CommissionService.php';
-require_once dirname(__DIR__) . '/lib/WalletService.php';
 require_once dirname(__DIR__) . '/lib/PayoutService.php';
 require_once dirname(__DIR__) . '/lib/PaymentSetupService.php';
 require_once dirname(__DIR__) . '/lib/OfferingImageService.php';
@@ -129,4 +128,8 @@ require_once dirname(__DIR__) . '/lib/repositories/WalletDisputeRepository.php';
 require_once dirname(__DIR__) . '/lib/AdminAuth.php';
 require_once dirname(__DIR__) . '/lib/AdminAuditService.php';
 require_once dirname(__DIR__) . '/lib/AdminService.php';
+require_once dirname(__DIR__) . '/lib/repositories/BroadcastRepository.php';
+require_once dirname(__DIR__) . '/lib/WhatsAppBroadcastService.php';
+require_once dirname(__DIR__) . '/lib/WhatsAppStarterTemplates.php';
+require_once dirname(__DIR__) . '/lib/WhatsAppTemplateLibrary.php';
 require_once dirname(__DIR__) . '/includes/brand-ai-icon.php';

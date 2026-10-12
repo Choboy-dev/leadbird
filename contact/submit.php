@@ -31,6 +31,23 @@ if (!is_valid_email($email)) {
     redirect(app_route('contact'));
 }
 
+$formAge = time() - (int) ($_SESSION['contact_form_at'] ?? 0);
+$fullName = $firstName . ' ' . $lastName;
+$isSpam = trim((string) ($_POST['company_site'] ?? '')) !== ''
+    || $formAge < 3
+    || $formAge > 86400
+    // Bot names like "LarrypafPA" / "AndrewcogCX", or jumbled names with digits.
+    || preg_match('/\b[A-Z][a-z]{4,}[A-Z]{2}\b/', $fullName) === 1
+    || preg_match('/\d/', $fullName) === 1
+    || preg_match_all('#https?://|www\.#i', $subject . ' ' . $message) > 2;
+
+if ($isSpam) {
+    error_log('Contact form: blocked likely spam from ' . client_ip());
+    flash_set('success', 'Thanks for reaching out. We will get back to you shortly.');
+    redirect(app_route('contact'));
+}
+unset($_SESSION['contact_form_at']);
+
 try {
     (new ResendClient())->sendContactMessage([
         'first_name' => $firstName,

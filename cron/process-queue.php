@@ -21,6 +21,12 @@ if ($expected === '' || !hash_equals($expected, $token)) {
 
 $processed = (new AutomationQueue())->processBatch(20);
 
+try {
+    (new WhatsAppBroadcastService())->processQueue(5);
+} catch (Throwable $e) {
+    error_log('[Broadcast] queue: ' . $e->getMessage());
+}
+
 $line = '[' . date('c') . '] processed=' . $processed . PHP_EOL;
 @file_put_contents(dirname(__DIR__) . '/logs/automation-queue.log', $line, FILE_APPEND | LOCK_EX);
 

@@ -6,6 +6,9 @@ require_once dirname(__DIR__) . '/includes/bootstrap.php';
 
 $code = strtoupper(trim((string) ($_GET['code'] ?? '')));
 $affiliate = $code !== '' ? RepositoryFactory::affiliates()->findByCode($code) : null;
+if ($affiliate !== null && (string) ($affiliate['id'] ?? '') !== (string) ($_SESSION['affiliate_id'] ?? '')) {
+    $affiliate = null;
+}
 $appUrl = app_config()['app_url'];
 $pageTitle = 'Your partner link — Lead Bird';
 $link = $affiliate ? (new AffiliateService())->referralUrl((string) $affiliate['code']) : app_route('affiliates');
@@ -14,7 +17,7 @@ require dirname(__DIR__) . '/includes/home/layout-start.php';
 ?>
 <main class="bg-brand-surface min-h-screen font-sans">
     <div class="max-w-xl mx-auto px-4 py-14">
-        <p class="text-brand-lime font-heading">YOU ARE IN</p>
+        <p class="text-brand-lime font-heading"><?= $affiliate ? 'YOU ARE IN' : 'PARTNERS' ?></p>
         <h1 class="font-heading text-3xl text-brand-blue mt-2">Your referral link</h1>
         <?php if ($affiliate): ?>
             <div class="mt-6 rounded-2xl bg-brand-white border border-black/5 p-6">

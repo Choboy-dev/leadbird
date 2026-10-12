@@ -93,6 +93,104 @@ final class InboxReplyService
     }
 
     /**
+     * @return list<array{id: string, name: string, body: string, button: string, items: list<array{id: string, name: string, description: string}>}>
+     */
+    public function listPickers(string $businessId): array
+    {
+        $pickers = [];
+        foreach (RepositoryFactory::broadcasts()->listListPickers($businessId) as $row) {
+            $spec = json_decode((string) ($row['draft_spec'] ?? ''), true);
+            $items = [];
+            foreach (is_array($spec['list_items'] ?? null) ? $spec['list_items'] : [] as $item) {
+                if (is_array($item) && trim((string) ($item['name'] ?? '')) !== '' && trim((string) ($item['id'] ?? '')) !== '') {
+                    $items[] = [
+                        'id' => (string) $item['id'],
+                        'name' => (string) $item['name'],
+                        'description' => (string) ($item['description'] ?? ''),
+                    ];
+                }
+            }
+            $button = trim((string) ($spec['list_button'] ?? ''));
+            $body = trim((string) ($row['body'] ?? ''));
+            if ($items === [] || $button === '' || $body === '') {
+                continue;
+            }
+            $pickers[] = [
+                'id' => (string) $row['id'],
+                'name' => (string) $row['name'],
+                'body' => $body,
+                'button' => $button,
+                'items' => $items,
+            ];
+        }
+
+        return $pickers;
+    }
+
+    /**
+     * @return array{ok: bool, message?: string, data?: array<string, mixed>}
+     */
+    public function sendListPicker(string $businessId, string $conversationId, string $templateId): array
+    {
+        $conversation = RepositoryFactory::conversations()->findById($conversationId);
+        if ($conversation === null || (string) ($conversation['business_id'] ?? '') !== $businessId) {
+            return ['ok' => false, 'message' => 'Conversation not found.'];
+        }
+        if ((string) ($conversation['platform'] ?? '') !== 'whatsapp') {
+            return ['ok' => false, 'message' => 'Lists can only be sent on WhatsApp.'];
+        }
+        if (!RepositoryFactory::messages()->customerWroteWithin24Hours($conversationId)) {
+            return ['ok' => false, 'message' => 'This customer last wrote more than 24 hours ago. WhatsApp only allows lists within 24 hours of their last message.'];
+        }
+
+        $picker = null;
+        foreach ($this->listPickers($businessId) as $row) {
+            if ($row['id'] === $templateId) {
+                $picker = $row;
+                break;
+            }
+        }
+        if ($picker === null) {
+            return ['ok' => false, 'message' => 'That list was not found. It may have been deleted.'];
+        }
+
+        $customerId = trim((string) ($conversation['customer_id'] ?? ''));
+        $customer = $customerId !== '' ? RepositoryFactory::customers()->findById($customerId) : null;
+        $recipientId = trim((string) ($customer['platform_user_id'] ?? ''));
+        if ($recipientId === '') {
+            $recipientId = trim((string) ($customer['phone'] ?? ''));
+        }
+        if ($recipientId === '') {
+            return ['ok' => false, 'message' => 'We cannot reach this customer on WhatsApp.'];
+        }
+
+        $account = RepositoryFactory::connectedAccounts()->findActiveByPlatform($businessId, 'whatsapp');
+        if ($account === null) {
+            return ['ok' => false, 'message' => 'Connect WhatsApp in Connected Accounts first.'];
+        }
+
+        if (!whatsapp_send_list_message($account, $recipientId, $picker['body'], $picker['button'], $picker['items'])) {
+            return ['ok' => false, 'message' => 'Could not send the list. Reconnect WhatsApp in Connected Accounts and try again.'];
+        }
+
+        $text = $picker['body'] . "\n\n" . $picker['button'] . ':';
+        foreach ($picker['items'] as $item) {
+            $text .= "\n- " . $item['name'];
+        }
+
+        $stored = RepositoryFactory::messages()->create([
+            'business_id' => $businessId,
+            'customer_id' => $customerId,
+            'conversation_id' => $conversationId,
+            'platform' => 'whatsapp',
+            'sender_type' => 'owner',
+            'message_text' => $text,
+        ]);
+
+        return ['ok' => true, 'data' => ['message' => $stored]];
+    }
+
+    /**
      * @return array{ok: bool, message?: string, ai_auto_reply?: bool}
      */
     public function setAiAutoReply(string $businessId, string $conversationId, bool $enabled): array

@@ -17,10 +17,13 @@ declare(strict_types=1);
 /** @var int $rewardHoldDays */
 /** @var string|null $nextAvailableAt */
 /** @var bool $hasBank */
+/** @var float $withdrawingUsd */
+/** @var string $referReturn */
 /** @var string|false|null $success */
 /** @var string|false|null $error */
 
 $fmt = static fn (float $n): string => dash_format_money($n);
+$returnField = '<input type="hidden" name="return" value="' . e($referReturn) . '">';
 $affiliatesUrl = e(app_route('affiliates'));
 $helpUrl = e(app_route('help'));
 $saveBankUrl = e(app_route('refer/save-bank'));
@@ -297,27 +300,14 @@ $minWithdraw = AffiliateService::MIN_WITHDRAW_USD;
 
         <form method="post" action="<?= $withdrawUrl ?>" class="ref-form ref-form--withdraw">
             <?= csrf_field() ?>
-            <label class="ref-form-label" for="ref-withdraw-amount">Amount (USD)</label>
-            <input
-                id="ref-withdraw-amount"
-                name="amount"
-                type="number"
-                class="ref-input"
-                min="<?= $minWithdraw ?>"
-                step="0.01"
-                required
-                value="<?= $canClaim ? number_format($withdrawable, 2, '.', '') : '' ?>"
-            >
+            <?= $returnField ?>
+            <p class="ref-muted">You will withdraw your full available balance of <?= e($fmt($withdrawable)) ?>. We check every withdrawal, then send it to your bank in naira.</p>
             <button
                 type="submit"
                 class="ref-btn ref-btn--primary"
-                <?= $canClaim ? '' : 'disabled' ?>
-                data-lb-confirm="We will send this amount to your saved bank account."
-                data-lb-confirm-title="Withdraw now?"
-                data-lb-confirm-label="Withdraw"
+                <?= $canClaim && $hasBank ? '' : 'disabled' ?>
+                data-lb-confirm="We will check your request, then send <?= e($fmt($withdrawable)) ?> to your saved bank account in naira."
+                data-lb-confirm-title="Withdraw your balance?"
+                data-lb-confirm-label="Request withdrawal"
             >
-                Withdraw to bank
-            </button>
-        </form>
-    </div>
-</div>
+                Withdraw <?= e($fmt($withdrawable)) ?>

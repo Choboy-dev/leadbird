@@ -9,7 +9,7 @@ require_once __DIR__ . '/includes/dashboard/helpers.php';
 $pageTitle = 'Billing — ' . $brandName;
 $dashboardNav = 'billing';
 $pageHeading = 'Billing';
-$extraStylesheets = ['dashboard-billing.css?v=20'];
+$extraStylesheets = ['dashboard-billing.css?v=21'];
 
 $userEmail = trim((string) ($user['email'] ?? ''));
 $userDisplayName = trim((string) ($user['name'] ?? ''));

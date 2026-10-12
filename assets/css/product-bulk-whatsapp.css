@@ -1,0 +1,51 @@
+/* Bulk WhatsApp product page (/features/bulk-whatsapp), on top of product-whatsapp.css */
+
+.bw-ph-foot { display: block; margin-top: 4px; font-size: 8px; color: var(--s-muted); }
+
+/* Hero dashboard */
+.bw-dash-body { padding-bottom: 18px; }
+.bw-hv-name { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+.bw-hv-name b { font-size: 12px; }
+.bw-hv-name small { color: var(--s-muted); }
+.bw-hv-bar { height: 7px; margin-bottom: 12px; border-radius: 999px; background: var(--api-soft); overflow: hidden; }
+.bw-hv-bar i { display: block; height: 100%; border-radius: inherit; background: var(--brand-lime); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12); }
+.bw-hv-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.bw-hv-stats span, .bw-tiles span { display: flex; flex-direction: column; gap: 2px; padding: 8px; border: 1px solid var(--api-line); border-radius: 6px; color: var(--s-muted); font-size: 10px; }
+.bw-hv-stats b, .bw-tiles b { color: var(--s-ink); font-family: var(--brand-font-heading); font-size: 16px; }
+.bw .api-hv .api-dash { top: 110px; }
+
+/* Template builder */
+.bw-tpl .api-win, .bw-contacts .api-win { width: 57%; }
+.bw-contacts .api-rcpt.bw-row { gap: 6px; font-size: 9.5px; }
+.bw-tpl .ph { right: 0; top: 10px; }
+.bw-brief { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.bw-brief em { padding: 1px 8px; border: 1px solid var(--brand-blue); border-radius: 999px; color: var(--brand-blue); font-style: normal; font-weight: 700; }
+.api-form label .bw-body { min-height: 54px; color: var(--s-ink); line-height: 1.45; }
+.bw-body mark { padding: 0 3px; border-radius: 3px; background: var(--brand-lime); color: var(--s-ink); }
+.bw-approved { align-self: flex-start; margin-top: 4px; padding: 3px 10px; border-radius: 999px; background: var(--s-green-bg); font-weight: 700; }
+
+/* Contacts */
+.bw-contacts .ph { right: 0; top: 0; }
+.api-rcpt.bw-row { grid-template-columns: 1fr 1.2fr auto; }
+.bw-tag { padding: 1px 7px; border-radius: 999px; background: var(--s-green-bg); font-size: 9px; font-weight: 700; }
+.bw-tag.off { background: var(--api-soft); color: var(--s-muted); }
+
+/* Tracking */
+.bw-track .api-win { left: 6%; top: 10px; width: 80%; }
+.bw-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 6px 0 4px; }
+.bw-tiles .bad b { color: var(--brand-red); }
+.bw-history { display: flex; flex-direction: column; }
+.bw-history div { display: flex; justify-content: space-between; align-items: center; padding: 7px 4px; border-bottom: 1px solid var(--api-soft); }
+.bw-history em { padding: 1px 8px; border-radius: 999px; font-style: normal; font-size: 9px; font-weight: 700; }
+.bw-history em.ok { background: var(--s-green-bg); }
+.bw-history em.wait { background: var(--s-blue-bg); color: var(--brand-blue); }
+.bw-track .bw-pause { left: auto; right: 2%; bottom: 58px; width: 46%; border-left-color: var(--brand-red); }
+
+/* Replies */
+.bw-replies .ph { left: 44%; top: 0; }
+
+.bw .api-vis, .bw .api-hv { text-align: left; }
+
+@media (max-width: 991px) {
+    .bw .api-hv .api-dash { top: 92px; }
+}

@@ -9,6 +9,10 @@ function onboarding_has_back_button(int $currentStep): bool
 
 function onboarding_back_url(int $currentStep): string
 {
+    if ($currentStep === OnboardingService::STEP_OFFERINGS && !OnboardingService::legacyWizardEnabled()) {
+        return app_route('onboarding/your-channels');
+    }
+
     $prev = max(OnboardingService::STEP_CHANNELS, $currentStep - 1);
     $meta = OnboardingService::STEPS[$prev] ?? OnboardingService::STEPS[OnboardingService::STEP_CHANNELS];
 

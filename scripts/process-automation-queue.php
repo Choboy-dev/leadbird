@@ -18,6 +18,12 @@ if (PHP_SAPI === 'cli' && isset($argv[1]) && is_numeric($argv[1])) {
 
 $processed = (new AutomationQueue())->processBatch($limit);
 
+try {
+    (new WhatsAppBroadcastService())->processQueue(5);
+} catch (Throwable $e) {
+    error_log('[Broadcast] queue: ' . $e->getMessage());
+}
+
 if (PHP_SAPI === 'cli') {
     echo '[' . date('c') . '] processed=' . $processed . PHP_EOL;
 } else {

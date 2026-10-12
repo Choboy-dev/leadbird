@@ -105,6 +105,19 @@ final class MessageRepository extends BaseRepository
         );
     }
 
+    public function customerWroteWithin24Hours(string $conversationId): bool
+    {
+        $row = $this->fetchOne(
+            "SELECT 1 AS recent FROM messages
+             WHERE conversation_id = :conversation_id AND sender_type = 'customer'
+               AND created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
+             LIMIT 1",
+            ['conversation_id' => $conversationId]
+        );
+
+        return $row !== null;
+    }
+
     public function findLastForCustomer(string $businessId, string $customerId): ?array
     {
         return $this->fetchOne(

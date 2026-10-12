@@ -85,6 +85,11 @@ $helpHomeUrl = $user !== null ? help_home_url() : app_route('help');
                         <?php endif; ?>
 
                         <form class="hc-contact-form" method="post" action="<?= $submitUrl ?>" novalidate>
+                            <?= csrf_field() ?>
+                            <div style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+                                <label for="contact-company-site">Leave this field empty</label>
+                                <input type="text" id="contact-company-site" name="company_site" tabindex="-1" autocomplete="off">
+                            </div>
                             <div class="hc-contact-row">
                                 <div class="hc-contact-field">
                                     <label class="hc-contact-label" for="firstname">First name</label>

@@ -208,4 +208,9 @@ final class RepositoryFactory
     {
         return new WalletDisputeRepository(self::db());
     }
+
+    public static function broadcasts(): BroadcastRepository
+    {
+        return new BroadcastRepository(self::db());
+    }
 }

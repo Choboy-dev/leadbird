@@ -58,6 +58,65 @@ final class AffiliatePayoutRepository extends BaseRepository
         );
     }
 
+    public function findByReference(string $reference): ?array
+    {
+        return $this->fetchOne(
+            'SELECT * FROM affiliate_payouts WHERE flw_reference = :reference LIMIT 1',
+            ['reference' => $reference]
+        );
+    }
+
+    public function setAmounts(string $id, float $amountNgn, float $amountUsd): void
+    {
+        $this->execute(
+            'UPDATE affiliate_payouts SET amount = :amount, amount_usd = :amount_usd, updated_at = NOW() WHERE id = :id',
+            ['id' => $id, 'amount' => $amountNgn, 'amount_usd' => $amountUsd]
+        );
+    }
+
+    /**
+     * Move a payout from one status to another only if it is still in the expected status.
+     */
+    public function transition(string $id, string $from, string $to, ?string $reviewedBy = null, ?string $failure = null): bool
+    {
+        $stmt = $this->db->prepare(
+            'UPDATE affiliate_payouts SET
+                status = :to,
+                failure_reason = COALESCE(:failure_reason, failure_reason),
+                reviewed_by = COALESCE(:reviewed_by, reviewed_by),
+                reviewed_at = IF(:reviewed_by_set IS NULL, reviewed_at, NOW()),
+                updated_at = NOW()
+             WHERE id = :id AND status = :from'
+        );
+        $stmt->execute([
+            'id' => $id,
+            'from' => $from,
+            'to' => $to,
+            'failure_reason' => $failure,
+            'reviewed_by' => $reviewedBy,
+            'reviewed_by_set' => $reviewedBy,
+        ]);
+
+        return $stmt->rowCount() === 1;
+    }
+
+    public function delete(string $id): void
+    {
+        $this->execute('DELETE FROM affiliate_payouts WHERE id = :id', ['id' => $id]);
+    }
+
+    /** @return list<array<string, mixed>> */
+    public function listForAdmin(int $limit = 50): array
+    {
+        return $this->fetchAll(
+            'SELECT p.*, a.name AS affiliate_name, a.email AS affiliate_email, a.code AS affiliate_code
+             FROM affiliate_payouts p
+             INNER JOIN affiliates a ON a.id = p.affiliate_id
+             ORDER BY FIELD(p.status, \'processing\', \'pending_review\') DESC, p.created_at DESC
+             LIMIT ' . max(1, min(100, $limit))
+        );
+    }
+
     /** @return list<array<string, mixed>> */
     public function listByAffiliateId(string $affiliateId, int $limit = 30): array
     {

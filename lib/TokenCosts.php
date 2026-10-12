@@ -15,6 +15,8 @@ final class TokenCosts
     public const DASHBOARD_ASSISTANT = 2;
     public const KNOWLEDGE_AI_REFRESH = 5;
     public const SOCIAL_PUBLISH = 1;
+    public const BROADCAST_RECIPIENT = 1;
+    public const BROADCAST_DRAFT = 1;
 
     public static function depletedMessage(): string
     {

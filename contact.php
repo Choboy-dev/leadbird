@@ -12,6 +12,7 @@ $extraStylesheets = ['dashboard-help.css?v=7'];
 $activeNav = 'contact';
 $error = flash_get('error');
 $success = flash_get('success');
+$_SESSION['contact_form_at'] = time();
 
 require __DIR__ . '/includes/home/layout-start.php';
 require __DIR__ . '/includes/home/marketing-header.php';

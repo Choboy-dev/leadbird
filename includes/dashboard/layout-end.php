@@ -6,8 +6,8 @@
     <?php require $dashboardPortalPartial; ?>
 <?php endif; ?>
 <script src="<?= e($appUrl) ?>/assets/js/modal.js?v=2"></script>
-<script src="<?= e($appUrl) ?>/assets/js/dropdown.js?v=6"></script>
-<script src="<?= e($appUrl) ?>/assets/js/dashboard.js?v=11"></script>
+<script src="<?= e($appUrl) ?>/assets/js/dropdown.js?v=7"></script>
+<script src="<?= e($appUrl) ?>/assets/js/dashboard.js?v=12"></script>
 <?php require __DIR__ . '/../session-idle.php'; ?>
 <?php foreach ($extraScripts ?? [] as $script): ?>
     <script src="<?= e($appUrl) ?>/assets/js/<?= e($script) ?>"></script>

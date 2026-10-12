@@ -1,6 +1,21 @@
+# Security headers
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+    Header always unset X-Powered-By
+    Header unset X-Powered-By
+</IfModule>
+
 # Deny access to sensitive app internals (document root = app root).
 <IfModule mod_authz_core.c>
-    <FilesMatch "^(config\.php|\.env.*|composer\.(json|lock)|README\.md)$">
+    <FilesMatch "^(config\.php|\.env.*|composer\.(json|lock)|README\.md|error_log|php_errorlog|deploy\.json|\.user\.ini)$">
+        Require all denied
+    </FilesMatch>
+    <FilesMatch "(\.(log|sql|bak|old|swp|tar|gz|zip)|~)$|^\._">
         Require all denied
     </FilesMatch>
 </IfModule>
@@ -34,7 +49,8 @@
     # Static assets and uploads — serve as-is
     RewriteRule ^(assets|storage)/ - [L]
 
-    # Redirect visible .php URLs to extensionless (preserve query string; skip POST)
+    # Static assets and uploads — serve as-is, never execute scripts
+    RewriteRule ^(assets|storage)/.*\.(php[0-9]?|phtml|phar|pl|py|cgi|sh|shtml)$ - [F,L,NC]
     RewriteCond %{REQUEST_METHOD} !POST
     RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
     RewriteRule ^ %1 [R=301,L,NE,QSA]

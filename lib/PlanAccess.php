@@ -22,6 +22,7 @@ final class PlanAccess
         'help' => ['starter', 'vendor', 'shop', 'enterprise'],
         'channel_performance' => ['vendor', 'shop', 'enterprise'],
         'social_media' => ['vendor', 'shop', 'enterprise'],
+        'broadcasts' => ['vendor', 'shop', 'enterprise'],
         'owner_whatsapp_alerts' => ['vendor', 'shop', 'enterprise'],
         'ai_negotiation' => ['vendor', 'shop', 'enterprise'],
         'proactive_followups' => ['shop', 'enterprise'],
@@ -66,6 +67,11 @@ final class PlanAccess
         'social_media' => [
             'title' => 'Planner',
             'description' => 'Create posts with AI, schedule content, and publish to Instagram and Facebook from one place.',
+            'min_plan' => 'Vendor',
+        ],
+        'broadcasts' => [
+            'title' => 'Bulk WhatsApp Messaging',
+            'description' => 'Send bulk WhatsApp messages to all your opted-in customers, then let Hannah answer the replies.',
             'min_plan' => 'Vendor',
         ],
         'billing_history' => [

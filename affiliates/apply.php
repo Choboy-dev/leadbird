@@ -10,12 +10,11 @@ $metaTitle = 'Apply to Lead Bird Partners — Get your referral link';
 $metaDescription = 'Create your Lead Bird partner account in under a minute. Share your link and earn 10% on first plan payments.';
 $error = flash_get('error');
 $success = flash_get('success');
-$extraStylesheets = ['contact.css', 'affiliates.css?v=3'];
+$extraStylesheets = ['contact.css', 'affiliates.css?v=4'];
 $activeNav = null;
 
 $nameValue = trim((string) ($_POST['name'] ?? ''));
 $emailValue = trim((string) ($_POST['email'] ?? ''));
-$phoneValue = trim((string) ($_POST['phone'] ?? ''));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_csrf();
@@ -117,7 +116,7 @@ require dirname(__DIR__) . '/includes/home/layout-start.php';
                         <div class="partners-apply-field">
                             <label class="partners-apply-label" for="phone">
                                 Phone <span class="partners-apply-hint">(for wallet payouts)</span>
-                            </label>
+                        <a href="<?= e(app_route('partners/dashboard')) ?>">Sign in</a>
                             <input
                                 id="phone"
                                 name="phone"

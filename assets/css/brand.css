@@ -35,6 +35,15 @@
     --brand-tiktok-icon-bg: #f8fafc;
     --brand-tiktok-icon: #0f172a;
 
+    /* TikTok accent stops */
+    --brand-tiktok-cyan: #25f4ee;
+    --brand-tiktok-red: #fe2c55;
+
+    /* Messenger gradient stops */
+    --brand-messenger-blue: #0695ff;
+    --brand-messenger-purple: #a334fa;
+    --brand-messenger-pink: #ff6968;
+
     /* Effects */
     --brand-grid-line: rgb(255 255 255 / 0.082);
     --brand-lime-shadow: rgb(204 255 0 / 0.35);
@@ -137,8 +146,8 @@ h6,
 }
 
 .dashboard-nav-icon .brand-favicon-icon {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1.5625rem;
+    height: 1.5625rem;
 }
 
 /* AI Salesgirl — Lead Bird icon */
@@ -188,8 +197,8 @@ h6,
 }
 
 .dashboard-nav-icon .brand-ai-icon {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1.5625rem;
+    height: 1.5625rem;
 }
 
 .brand-nav-icon {
@@ -198,8 +207,8 @@ h6,
 }
 
 .brand-nav-icon--sidebar {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1.5625rem;
+    height: 1.5625rem;
 }
 
 .brand-section-icon {

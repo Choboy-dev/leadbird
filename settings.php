@@ -9,7 +9,7 @@ require_once __DIR__ . '/includes/dashboard/helpers.php';
 $pageTitle = 'Settings — ' . $brandName;
 $dashboardNav = 'settings';
 $pageHeading = 'Settings';
-$extraStylesheets = ['dashboard-billing.css?v=17', 'dashboard-settings.css?v=11'];
+$extraStylesheets = ['dashboard-billing.css?v=21', 'dashboard-settings.css?v=11'];
 $extraScripts = [
     'dashboard-billing.js?v=12',
     'onboarding-payment.js?v=2',

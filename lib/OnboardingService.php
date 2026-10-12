@@ -25,6 +25,64 @@ final class OnboardingService
         self::STEP_ALERTS => ['slug' => 'alerts', 'label' => 'Owner Alerts', 'path' => '/onboarding/alerts'],
     ];
 
+    public const INDUSTRIES = [
+        'fashion-beauty' => 'Fashion & beauty',
+        'food' => 'Food & restaurant',
+        'retail' => 'Retail & e-commerce',
+        'services' => 'Services & bookings',
+        'health' => 'Health & wellness',
+        'education' => 'Schools & training',
+        'events-travel' => 'Events & travel',
+        'electronics' => 'Electronics & gadgets',
+        'real-estate' => 'Real estate',
+        'agency' => 'Agency & marketing',
+        'community' => 'Church & non-profit',
+        'other' => 'Others',
+    ];
+
+    public const OWNER_ROLES = [
+        'owner' => 'Business owner or founder',
+        'manager' => 'Manager',
+        'sales' => 'Sales or customer care',
+        'marketing' => 'Marketing or social media',
+        'agency' => 'Agency or freelancer',
+        'other' => 'Something else',
+    ];
+
+    public const TEAM_SIZES = [
+        '1' => 'Just me',
+        '2-5' => '2 – 5',
+        '6-20' => '6 – 20',
+        '21-50' => '21 – 50',
+        '50+' => 'More than 50',
+    ];
+
+    public static function legacyWizardEnabled(): bool
+    {
+        return (bool) (app_config()['onboarding']['legacy_wizard'] ?? false);
+    }
+
+    /**
+     * Where the new onboarding flow resumes: welcome, then connect a channel, then the
+     * old wizard from Offers & Services. Users with no business in progress and at least
+     * one finished business go to $fallbackRoute instead.
+     */
+    public function welcomeUrl(string $userId, string $fallbackRoute = 'dashboard'): string
+    {
+        $ctx = new BusinessContext();
+        if ($ctx->getOnboardingBusiness($userId) === null && $ctx->hasAnyCompleteBusiness($userId)) {
+            return app_route($fallbackRoute);
+        }
+
+        $business = $ctx->ensureOnboardingBusiness($userId);
+        $step = $this->getCurrentStepForBusiness((string) $business['id']);
+        if ($step >= self::STEP_OFFERINGS) {
+            return $this->stepUrl($step);
+        }
+
+        return app_route(($business['industry'] ?? null) === null ? 'onboarding/welcome' : 'onboarding/your-channels');
+    }
+
     public function getBusinessForUser(string $userId): ?array
     {
         $ctx = new BusinessContext();
@@ -98,6 +156,10 @@ final class OnboardingService
     {
         $ctx = new BusinessContext();
         $inProgress = $ctx->getOnboardingBusiness($userId);
+        if (!self::legacyWizardEnabled() && ($inProgress !== null || !$ctx->hasAnyCompleteBusiness($userId))) {
+            return $this->welcomeUrl($userId);
+        }
+
         if ($inProgress !== null) {
             return $this->stepUrl($this->getCurrentStepForBusiness((string) $inProgress['id']));
         }

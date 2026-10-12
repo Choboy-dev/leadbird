@@ -30,6 +30,13 @@ if (!is_array($payload)) {
 }
 
 try {
+    if ((string) ($payload['event'] ?? '') === 'transfer.completed') {
+        (new PayoutService())->handleTransferWebhook($payload);
+        http_response_code(200);
+        echo 'OK';
+        exit;
+    }
+
     $handled = (new SubscriptionService())->handleWebhook($payload);
     if (!$handled) {
         // Acknowledge unknown charge events so Flutterwave stops retrying.

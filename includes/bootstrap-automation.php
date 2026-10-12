@@ -75,3 +75,5 @@ require_once dirname(__DIR__) . '/lib/repositories/BusinessMetaConnectionReposit
 require_once dirname(__DIR__) . '/lib/repositories/MetaDeletionRequestRepository.php';
 require_once dirname(__DIR__) . '/lib/MetaConnectService.php';
 require_once dirname(__DIR__) . '/lib/MetaDataDeletionService.php';
+require_once dirname(__DIR__) . '/lib/repositories/BroadcastRepository.php';
+require_once dirname(__DIR__) . '/lib/WhatsAppBroadcastService.php';

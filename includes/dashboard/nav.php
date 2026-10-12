@@ -7,12 +7,7 @@ declare(strict_types=1);
  */
 function dashboard_ai_assistant_label(?array $businessSettings = null): string
 {
-    $aiName = trim((string) ($businessSettings['ai_name'] ?? ''));
-    if ($aiName === '') {
-        $aiName = 'Salesgirl';
-    }
-
-    return 'Ask ' . $aiName;
+    return 'Ask Hannah';
 }
 
 /**
@@ -34,7 +29,9 @@ function dashboard_nav_items(?array $businessSettings = null): array
             'feature' => 'ai_salesgirl',
         ],
         'social_media' => ['label' => 'Planner', 'url' => app_route('social-media'), 'icon' => 'social_media', 'feature' => 'social_media'],
-        'refer' => ['label' => 'Refer & Earn', 'url' => app_route('refer'), 'icon' => 'billing', 'feature' => 'refer_earn'],
+        'wa_senders' => ['label' => 'Senders', 'url' => app_route('broadcasts/senders'), 'icon' => '', 'feature' => 'broadcasts'],
+        'wa_templates' => ['label' => 'Templates', 'url' => app_route('broadcasts/templates'), 'icon' => '', 'feature' => 'broadcasts'],
+        'refer' => ['label' => 'Refer & Earn', 'url' => app_route('refer'), 'icon' => 'refer', 'feature' => 'refer_earn'],
         'connected_accounts' => ['label' => 'Social Accounts', 'url' => app_route('connected-accounts'), 'icon' => 'connected_accounts', 'feature' => 'connected_accounts'],
         'billing' => ['label' => 'Billing', 'url' => app_route('billing'), 'icon' => 'billing', 'feature' => 'billing'],
         'settings' => ['label' => 'Settings', 'url' => app_route('settings'), 'icon' => 'settings', 'feature' => 'settings'],
@@ -52,7 +49,17 @@ function dashboard_nav_groups(): array
     return [
         [
             'id' => 'primary',
-            'items' => ['overview', 'inbox', 'ai_salesgirl', 'social_media', 'customers', 'my_business', 'businesses'],
+            'items' => ['overview', 'inbox', 'ai_salesgirl', 'social_media'],
+        ],
+        [
+            'id' => 'bulk_whatsapp',
+            'label' => 'Bulk WhatsApp',
+            'icon' => 'broadcasts',
+            'items' => ['wa_senders', 'wa_templates'],
+        ],
+        [
+            'id' => 'primary_more',
+            'items' => ['customers', 'my_business', 'businesses'],
         ],
         [
             'id' => 'refer',
@@ -274,14 +281,16 @@ function dashboard_render_nav_link(string $key, array $item, string $dashboardNa
         data-nav-key="<?= e($key) ?>"
         <?= $isActive ? 'aria-current="page"' : '' ?>
     >
+        <?php if ((string) ($item['icon'] ?? '') !== ''): ?>
         <span class="dashboard-nav-icon" aria-hidden="true">
-        <?php $navIconHtml = brand_dashboard_nav_icon_html((string) ($item['icon'] ?? '')); ?>
+        <?php $navIconHtml = brand_dashboard_nav_icon_html((string) $item['icon']); ?>
         <?php if ($navIconHtml !== null): ?>
             <?= $navIconHtml ?>
         <?php else: ?>
-            <?= e((string) ($item['icon'] ?? '')) ?>
+            <?= e((string) $item['icon']) ?>
         <?php endif; ?>
         </span>
+        <?php endif; ?>
         <span class="dashboard-nav-text"><?= e($item['label']) ?></span>
         <?php if (!$allowed): ?>
             <span class="dashboard-nav-lock" aria-label="Upgrade required">🔒</span>

@@ -190,6 +190,7 @@ final class SiteAssistantService
             '- Sends your payment account number, wallet, or link automatically.',
             '- Can help collect payment proof and share your payment instructions.',
             '- Works day and night on connected channels.',
+            '- Bulk WhatsApp Messaging (Vendor and Shop plans): send a Meta-approved message to every customer who opted in, from your own WhatsApp Business number. Vendor allows up to 5,000 contacts, Shop up to 50,000. Hannah answers the replies. Anyone who replies STOP is removed. More at ' . app_route('features/bulk-whatsapp'),
             '- You choose her name, tone, and greeting on the AI Salesgirl page after signup.',
             '- Dashboard includes: Inbox (read all chats), Customers, Offers & Catalog, AI Salesgirl settings, Connected Accounts, Billing, Settings, Help, and My Businesses (switch or add brands).',
             '',

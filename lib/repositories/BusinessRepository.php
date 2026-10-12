@@ -124,6 +124,25 @@ final class BusinessRepository extends BaseRepository
         );
     }
 
+    /**
+     * @param array{business_name: string, industry: string, website: ?string, owner_role: string, team_size: string} $data
+     */
+    public function updateWelcomeProfile(string $id, array $data): void
+    {
+        $this->execute(
+            'UPDATE businesses SET business_name = :business_name, industry = :industry, website = :website,
+             owner_role = :owner_role, team_size = :team_size, updated_at = NOW() WHERE id = :id',
+            [
+                'id' => $id,
+                'business_name' => $data['business_name'],
+                'industry' => $data['industry'],
+                'website' => $data['website'],
+                'owner_role' => $data['owner_role'],
+                'team_size' => $data['team_size'],
+            ]
+        );
+    }
+
     public function updateSubscription(string $id, string $planSlug, string $status, ?string $expiresAt): void
     {
         $this->execute(

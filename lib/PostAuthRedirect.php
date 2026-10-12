@@ -12,7 +12,10 @@ final class PostAuthRedirect
         $appUrl = app_config()['app_url'];
 
         if (!(new SubscriptionService())->hasActiveSubscription($userId)) {
-            return app_route('pricing');
+            $user = RepositoryFactory::users()->findById($userId);
+            $partner = (new AffiliateService())->findForUser($userId, (string) ($user['email'] ?? ''));
+
+            return app_route($partner !== null ? 'partners/dashboard' : 'pricing');
         }
 
         return (new OnboardingService())->redirectUrlForUser($userId);

@@ -57,7 +57,7 @@ $pageTitle = 'App Review sign in — ' . $brandName;
     <meta name="robots" content="noindex, nofollow">
     <title><?= e($pageTitle) ?></title>
     <?php require dirname(__DIR__) . '/includes/brand-fonts.php'; ?>
-    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/brand.css?v=18">
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/brand.css?v=22">
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/review-login.css?v=1">
 </head>
 <body class="font-sans review-login-page">

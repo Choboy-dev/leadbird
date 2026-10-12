@@ -124,16 +124,17 @@ function brand_offers_icon_html(string $extraClass = '', int $size = 20, string 
 function brand_dashboard_nav_icon_urls(): array
 {
     return [
-        'overview' => 'https://cdn-icons-png.flaticon.com/512/2172/2172225.png',
-        'inbox' => 'https://cdn-icons-png.flaticon.com/512/10732/10732926.png',
+        'overview' => rtrim((string) app_config()['app_url'], '/') . '/assets/images/icons/dashboard-admin.png?v=2',
+        'inbox' => rtrim((string) app_config()['app_url'], '/') . '/assets/images/icons/inbox-chat.png?v=2',
         'orders' => 'https://cdn-icons-png.flaticon.com/512/2331/2331966.png',
         'customers' => 'https://cdn-icons-png.flaticon.com/512/9070/9070578.png',
         'my_business' => 'https://cdn-icons-png.flaticon.com/512/1810/1810755.png',
         'offers' => brand_offers_icon_url(),
         'analytics' => 'https://cdn-icons-png.flaticon.com/512/6104/6104564.png',
         'social_media' => 'https://cdn-icons-png.flaticon.com/512/5968/5968776.png',
-        'connected_accounts' => 'https://cdn-icons-png.flaticon.com/512/535/535156.png',
+        'broadcasts' => rtrim((string) app_config()['app_url'], '/') . '/assets/images/icons/bulk-whatsapp.png',        'connected_accounts' => 'https://cdn-icons-png.flaticon.com/512/535/535156.png',
         'billing' => 'https://cdn-icons-png.flaticon.com/512/9361/9361196.png',
+        'refer' => rtrim((string) app_config()['app_url'], '/') . '/assets/images/icons/refer-earn.png',
         'settings' => 'https://cdn-icons-png.flaticon.com/512/8187/8187143.png',
         'help' => 'https://cdn-icons-png.flaticon.com/512/5726/5726532.png',
     ];

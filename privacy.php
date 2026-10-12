@@ -8,7 +8,7 @@ $appUrl = app_config()['app_url'];
 $pageTitle = 'Privacy Policy — ' . app_config()['brand_name'];
 $metaDescription = 'Lead Bird privacy policy — how we collect, use, and protect your data when you use our AI salesgirl platform.';
 $metaUrl = app_route('privacy');
-$extraStylesheets = ['contact.css', 'legal.css'];
+$extraStylesheets = ['contact.css', 'legal.css', 'privacy-policy.css?v=3'];
 $activeNav = null;
 
 require __DIR__ . '/includes/home/layout-start.php';

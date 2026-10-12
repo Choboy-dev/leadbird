@@ -711,11 +711,11 @@ function meta_humanize_insights_error(string $message, string $platform = 'insta
 /**
  * @return array<string, mixed>
  */
-function meta_graph_delete(string $path, string $accessToken): array
+function meta_graph_delete(string $path, string $accessToken, array $query = []): array
 {
     $version = meta_graph_version();
     $path = ltrim($path, '/');
-    $url = 'https://graph.facebook.com/' . $version . '/' . $path . '?' . http_build_query(['access_token' => $accessToken]);
+    $url = 'https://graph.facebook.com/' . $version . '/' . $path . '?' . http_build_query($query + ['access_token' => $accessToken]);
 
     $ch = curl_init($url);
     if ($ch === false) {

@@ -191,7 +191,29 @@ final class AffiliateService
     }
 
     /**
-     * @return array{clicks: int, signups: int, conversions: int, pending: float, available: float, paid: float}
+     * Find the partner record for a signed-in user without creating one. Emails are verified at
+     * sign-in, so a partner who applied before having an account is linked by email.
+     */
+    public function findForUser(string $userId, string $email): ?array
+    {
+        $existing = RepositoryFactory::affiliates()->findByUserId($userId);
+        if ($existing !== null) {
+            return $existing;
+        }
+
+        $email = normalize_email($email);
+        $byEmail = $email !== '' ? RepositoryFactory::affiliates()->findByEmail($email) : null;
+        if ($byEmail === null || !empty($byEmail['user_id'])) {
+            return null;
+        }
+
+        RepositoryFactory::affiliates()->linkUser((string) $byEmail['id'], $userId);
+
+        return RepositoryFactory::affiliates()->findById((string) $byEmail['id']);
+    }
+
+    /**
+     * @return array{clicks: int, signups: int, conversions: int, pending: float, available: float, withdrawing: float, paid: float}
      */
     public function dashboardStats(string $affiliateId): array
     {
@@ -203,8 +225,8 @@ final class AffiliateService
             'signups' => $repo->countSignups($affiliateId),
             'conversions' => $commissions->countPaidConversions($affiliateId),
             'pending' => $this->sumCommissionsUsd($affiliateId, 'pending'),
-            'available' => $this->sumCommissionsUsd($affiliateId, 'available')
-                + $this->sumCommissionsUsd($affiliateId, 'funding'),
+            'available' => $this->sumCommissionsUsd($affiliateId, 'available'),
+            'withdrawing' => $this->sumCommissionsUsd($affiliateId, 'withdrawing'),
             'paid' => $this->sumCommissionsUsd($affiliateId, 'paid_out'),
         ];
     }

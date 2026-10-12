@@ -62,10 +62,10 @@ $sidebarUserInitials = function_exists('dash_initials_for_name')
             },
         };
     </script>
-    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/brand.css?v=18">
-    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dashboard.css?v=36">
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/brand.css?v=22">
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dashboard.css?v=40">
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dashboard-cta.css?v=7">
-    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dropdown.css?v=6">
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/dropdown.css?v=7">
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/modal.css?v=3">
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/admin-dashboard.css?v=6">
     <?php foreach ($extraStylesheets ?? [] as $stylesheet): ?>

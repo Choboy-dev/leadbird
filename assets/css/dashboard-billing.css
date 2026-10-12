@@ -4,6 +4,7 @@
     --bill-muted: rgb(55 65 81 / 0.72);
     --bill-border: 1px solid rgb(0 56 255 / 0.1);
     --bill-radius: 0.75rem;
+    width: 100%;
     max-width: 42rem;
     margin: 0 auto;
     display: flex;

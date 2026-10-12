@@ -5,13 +5,14 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/require_dashboard.php';
 require_once __DIR__ . '/includes/dashboard/bootstrap.php';
 require_once __DIR__ . '/includes/dashboard/helpers.php';
+require_once __DIR__ . '/lib/InboxReplyService.php';
 
 $pageTitle = 'Inbox — ' . $brandName;
 $dashboardNav = 'inbox';
 $pageHeading = 'Inbox';
 $dashboardNavCollapsed = true;
 $dashboardHideTopbar = true;
-$extraStylesheets = ['dashboard-inbox.css?v=29'];
+$extraStylesheets = ['dashboard-inbox.css?v=30'];
 
 $formatTimestamp = static function (?string $value, bool $includeDate = true): string {
     return app_format_datetime($value, 'M j, g:ia', $includeDate);
@@ -380,6 +381,9 @@ require __DIR__ . '/includes/dashboard/layout-start.php';
                     $ownerDisplayName = 'You';
                 }
                 $aiAutoReply = (string) ($selectedConversation['status'] ?? 'open') !== 'human';
+                $isWhatsAppThread = $selectedPlatform === 'whatsapp' && $businessId !== null;
+                $listPickers = $isWhatsAppThread ? (new InboxReplyService())->listPickers($businessId) : [];
+                $listWindowOpen = $isWhatsAppThread && RepositoryFactory::messages()->customerWroteWithin24Hours($selectedConversationId);
                 ?>
                 <section class="inbox-chat-panel" id="selected-thread">
                     <header class="inbox-chat-topbar">
@@ -499,6 +503,15 @@ require __DIR__ . '/includes/dashboard/layout-start.php';
                                     AI is paused for this chat. Your replies go straight to the customer.
                                 <?php endif; ?>
                             </p>
+                            <?php if ($isWhatsAppThread): ?>
+                                <button type="button" class="inbox-list-btn" data-inbox-list-open aria-haspopup="dialog">
+                                    <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+                                        <path d="M6 4.5h7.5M6 8h7.5M6 11.5h7.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        <circle cx="3" cy="4.5" r="0.9" fill="currentColor"/><circle cx="3" cy="8" r="0.9" fill="currentColor"/><circle cx="3" cy="11.5" r="0.9" fill="currentColor"/>
+                                    </svg>
+                                    Send a list
+                                </button>
+                            <?php endif; ?>
                         </div>
 
                         <form class="inbox-compose-form" data-inbox-compose-form novalidate>
@@ -667,6 +680,57 @@ require __DIR__ . '/includes/dashboard/layout-start.php';
     </div>
 </div>
 
+<?php if (!empty($isWhatsAppThread)): ?>
+<div class="inbox-label-modal inbox-list-modal" data-inbox-list-modal hidden>
+    <button type="button" class="inbox-label-modal-backdrop" data-inbox-list-close aria-label="Close"></button>
+    <div class="inbox-label-modal-dialog inbox-list-dialog" role="dialog" aria-modal="true" aria-labelledby="inbox-list-modal-title">
+        <div class="inbox-label-modal-head">
+            <h2 id="inbox-list-modal-title" class="inbox-label-modal-title">Send a list</h2>
+            <button type="button" class="inbox-label-modal-close" data-inbox-list-close aria-label="Close">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <?php if (!$listWindowOpen): ?>
+            <p class="inbox-list-note">This customer last wrote more than 24 hours ago. WhatsApp only lets you send a list within 24 hours of their last message.</p>
+        <?php endif; ?>
+        <?php if ($listPickers === []): ?>
+            <div class="inbox-list-empty">
+                <p>You have no saved lists yet. Create a template with the List Picker content type, then send it from here.</p>
+                <a class="inbox-btn inbox-btn--primary" href="<?= e(app_route('broadcasts/template')) ?>">Create a list</a>
+            </div>
+        <?php else: ?>
+            <form data-inbox-list-form novalidate>
+                <fieldset class="inbox-list-options">
+                    <legend class="sr-only">Choose a list</legend>
+                    <?php foreach ($listPickers as $index => $picker): ?>
+                        <label class="inbox-list-option">
+                            <input type="radio" name="inbox-list" value="<?= e($picker['id']) ?>"<?= $index === 0 ? ' checked' : '' ?>>
+                            <span class="inbox-list-option-body">
+                                <strong><?= e($picker['name']) ?></strong>
+                                <span class="inbox-list-option-text"><?= e($picker['body']) ?></span>
+                                <span class="inbox-list-option-meta">
+                                    <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+                                        <path d="M6 4.5h7.5M6 8h7.5M6 11.5h7.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                        <circle cx="3" cy="4.5" r="0.9" fill="currentColor"/><circle cx="3" cy="8" r="0.9" fill="currentColor"/><circle cx="3" cy="11.5" r="0.9" fill="currentColor"/>
+                                    </svg>
+                                    <?= e($picker['button']) ?> · <?= count($picker['items']) ?> <?= count($picker['items']) === 1 ? 'option' : 'options' ?>
+                                </span>
+                            </span>
+                        </label>
+                    <?php endforeach; ?>
+                </fieldset>
+                <div class="inbox-label-modal-actions">
+                    <button type="button" class="inbox-btn inbox-btn--ghost" data-inbox-list-close>Cancel</button>
+                    <button type="submit" class="inbox-btn inbox-btn--primary" data-inbox-list-send<?= $listWindowOpen ? '' : ' disabled' ?>>Send list</button>
+                </div>
+            </form>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+
 <div
     class="inbox-thread-menu"
     data-inbox-thread-menu
@@ -710,5 +774,5 @@ require __DIR__ . '/includes/dashboard/layout-start.php';
 </div>
 
 <script src="<?= e($appUrl) ?>/assets/js/chat-message-format.js?v=1"></script>
-<script src="<?= e($appUrl) ?>/assets/js/dashboard-inbox.js?v=18"></script>
+<script src="<?= e($appUrl) ?>/assets/js/dashboard-inbox.js?v=19"></script>
 <?php require __DIR__ . '/includes/dashboard/layout-end.php'; ?>

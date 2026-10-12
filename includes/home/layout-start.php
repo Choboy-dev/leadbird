@@ -54,10 +54,11 @@ declare(strict_types=1);
             },
         };
     </script>
-    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/landing.css?v=8">
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/landing.css?v=37">
     <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/pricing-carousel.css?v=4">
     <?php foreach ($extraStylesheets ?? [] as $stylesheet): ?>
         <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/<?= e($stylesheet) ?>">
     <?php endforeach; ?>
+    <link rel="stylesheet" href="<?= e($appUrl) ?>/assets/css/site-header.css?v=3">
 </head>
 <body class="font-sans antialiased">
